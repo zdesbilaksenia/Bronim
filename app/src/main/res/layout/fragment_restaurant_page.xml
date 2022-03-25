@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+            android:id="@+id/fragment_restaurant_page__image"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/restaurant_placeholder"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/restaurant_photo" />
+
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@+id/fragment_restaurant_page__image"
+            app:layout_constraintStart_toStartOf="@+id/fragment_restaurant_page__image"
+            android:src="@drawable/ic_arrow_left"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"
+            tools:ignore="ContentDescription" />
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@+id/fragment_restaurant_page__image"
+            app:layout_constraintEnd_toEndOf="@+id/fragment_restaurant_page__image"
+            android:src="@drawable/ic_fav"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            tools:ignore="ContentDescription" />
+    <TextView
+            android:id="@+id/fragment_restaurant_page__name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_restaurant_page__image"
+            android:textColor="@color/default_dark"
+            android:textSize="28sp"
+            android:text="Sempre"
+            android:textFontWeight="500"
+            android:paddingHorizontal="18dp"
+            android:paddingTop="10dp" />
+    <TextView
+            android:id="@+id/fragment_restaurant_page__address"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_restaurant_page__name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textColor="@color/default_dark"
+            android:textSize="12sp"
+            android:text="ул. Большая Дмитровка, 22, Москва (с1)"
+            android:paddingHorizontal="18dp" />
+    <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_restaurant_page__address"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textColor="@color/default_dark"
+            android:textSize="16sp"
+            android:text="Ресторан SEMPRE — зелёный уголок в центре столицы с европейской кухней в авторской интерпретации и дизайнерским эко-интерьером, не имеющим аналогов в Москве и мире.\n\nДизайн интерьера SEMPRE — творение бельгийского дизайнера Гюста Семпре. Таинственный сад, вдохновленный зеленью северной флоры, стирает границы города и природы. Лианы, свисающие с потолка, лесной мох на стенах, колоритная мебель из массива натурального дерева, посуда и столовые приборы ручной работы. Самобытность каждой детали и отсутствие стереотипного деления пространства — свобода, как в джунглях."
+            android:paddingHorizontal="18dp"
+            android:layout_marginTop="10dp" />
+    <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginHorizontal="18dp"
+            android:text="@string/to_book"
+            android:elevation="4dp"
+            style="@style/turquoise_btn" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

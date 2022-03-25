@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Bronim</string>
+    <string name="restaurant_photo">restaurant_photo</string>
+    <string name="to_book">ЗАБРОНИРОВАТЬ</string>
 </resources>
