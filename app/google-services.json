@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1019302261773",
+    "project_id": "bronim-8ed8e",
+    "storage_bucket": "bronim-8ed8e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1019302261773:android:6bd13479e7ebcd034b5144",
+        "android_client_info": {
+          "package_name": "com.yo.bronim"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1019302261773-7ruc7h9h4eo7bdr2d3neh0i7nvjc4ncc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBelFw7uHwANihHX9lNQCexgVI4GQrYS7U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1019302261773-7ruc7h9h4eo7bdr2d3neh0i7nvjc4ncc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
