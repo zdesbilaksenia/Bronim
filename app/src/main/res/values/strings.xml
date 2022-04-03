@@ -9,4 +9,11 @@
     <string name="avatar_content_description">Avatar</string>
     <string name="personal_info_text_view_text">Личная информация</string>
     <string name="notifications_text_view_text">Уведомления</string>
+    <string name="home_greeting">Добрый день,</string>
+    <string name="home">home</string>
+    <string name="map">map</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="reservations_list">reservations list</string>
+    <string name="favourites">favourites</string>
 </resources>
