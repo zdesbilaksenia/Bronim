@@ -11,4 +11,11 @@
     <string name="login">Войти</string>
     <string name="register">Зарегистрироваться</string>
     <string name="create_account">Создать аккаунт</string>
+    <string name="home_greeting">Добрый день,</string>
+    <string name="home">home</string>
+    <string name="map">map</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="reservations_list">reservations list</string>
+    <string name="favourites">favourites</string>
 </resources>
