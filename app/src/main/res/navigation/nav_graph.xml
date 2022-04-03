@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/nav_graph"
+        app:startDestination="@id/navigation_home_fragment">
+
+    <fragment
+            android:id="@id/navigation_home_fragment"
+            android:name="com.yo.bronim.HomeFragment"
+            android:label="fragment_home"
+            tools:layout="@layout/fragment_home" />
+    <fragment
+            android:id="@id/navigation_map_fragment"
+            android:name="com.yo.bronim.MapFragment"
+            android:label="fragment_map"
+            tools:layout="@layout/fragment_map" />
+    <fragment
+            android:id="@id/navigation_reservation_list_fragment"
+            android:name="com.yo.bronim.ReservationsListFragment"
+            android:label="fragment_reservations_list"
+            tools:layout="@layout/fragment_reservations_list" />
+    <fragment
+            android:id="@id/navigation_favourites_fragment"
+            android:name="com.yo.bronim.FavouritesFragment"
+            android:label="fragment_favourites"
+            tools:layout="@layout/fragment_favourites" />
+</navigation>
