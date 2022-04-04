@@ -7,6 +7,10 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="default_dark">#505050</color>
+    <color name="text_dark">#505050</color>
     <color name="turquoise">#44AACB</color>
+    <color name="gray_200">#808080</color>
+    <color name="main_dark_color">#505050</color>
+    <color name="home_search_view_color">#33A4A4A4</color>
+>>>>>>> 687460f6a5aa1ebf9b529d0f72230ef55604eff7
 </resources>
