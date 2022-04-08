@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Bronim</string>
+    <string name="restaurant_photo">restaurant_photo</string>
+    <string name="to_book">ЗАБРОНИРОВАТЬ</string>
     <string name="name_hint">Имя</string>
     <string name="surname_hint">Фамилия</string>
     <string name="date_of_birth_hint">Дата рождения</string>
