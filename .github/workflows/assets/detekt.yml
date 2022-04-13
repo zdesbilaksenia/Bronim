@@ -211,7 +211,7 @@ exceptions:
      - NullPointerException
      - IndexOutOfBoundsException
      - RuntimeException
-     - Throwable
+#     - Throwable
     allowedExceptionNameRegex: '_|(ignore|expected).*'
   TooGenericExceptionThrown:
     active: true
@@ -598,7 +598,7 @@ style:
   ReturnCount:
     active: true
     max: 2
-    excludedFunctions: 'equals'
+    excludedFunctions: 'equals, isValid'
     excludeLabeled: false
     excludeReturnFromLambda: true
     excludeGuardClauses: false

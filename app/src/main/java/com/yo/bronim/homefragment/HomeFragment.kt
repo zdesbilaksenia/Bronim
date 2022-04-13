@@ -1,6 +1,5 @@
 package com.yo.bronim.homefragment
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -30,7 +29,7 @@ class HomeFragment : Fragment() {
 
         val profileImageView = view.findViewById<ImageView>(R.id.home__profile_image)
         profileImageView.setOnClickListener {
-            val intent = Intent(activity, RegistrationActivity::class.java)
+            val intent = RegistrationActivity.newInstance(context)
             startActivity(intent)
         }
 

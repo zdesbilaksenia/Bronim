@@ -1,5 +1,4 @@
-package com.yo.bronim.registrationfragment;
-
+package com.yo.bronim.registrationfragment
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,12 +10,12 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.google.firebase.auth.*
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.yo.bronim.MainActivity
 import com.yo.bronim.R
 import com.yo.bronim.models.UserRegistration
 import com.yo.bronim.states.RegistrationPageState
-import com.yo.bronim.states.RegistrationPageState.*
 import com.yo.bronim.viewmodels.RegistrationPageViewModel
 
 class RegistrationFragment : Fragment() {
@@ -49,22 +48,24 @@ class RegistrationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        buttonRegister?.setOnClickListener{
+        buttonRegister?.setOnClickListener {
             register()
         }
 
         registrationPageViewModel.registrationState.observe(viewLifecycleOwner) { state ->
-            when(state) {
-                is Pending -> showLoader(true)
-                is Success -> {
+            when (state) {
+                is RegistrationPageState.Pending -> showLoader(true)
+                is RegistrationPageState.Success -> {
                     showLoader(false)
                     val intent = Intent(activity, MainActivity::class.java)
                     startActivity(intent)
                 }
-                is Error -> {
+                is RegistrationPageState.Error -> {
                     showLoader(false)
                     val text = when (state.error) {
-                        is FirebaseAuthWeakPasswordException -> getString(R.string.errorWeakPassword)
+                        is FirebaseAuthWeakPasswordException -> getString(
+                            R.string.errorWeakPassword
+                        )
                         is FirebaseAuthUserCollisionException -> getString(R.string.errorUserExists)
                         else -> "Try again later"
                     }
@@ -84,43 +85,54 @@ class RegistrationFragment : Fragment() {
         val password = editTextPassword?.text.toString().trim()
         val passwordRepeated = editTextPasswordRepeated?.text.toString().trim()
 
+        if (!isValid(name, email, password, passwordRepeated))
+            return
+
+        val user = UserRegistration(null, name, email, password)
+        registrationPageViewModel.register(user)
+    }
+
+    private fun isValid(
+        name: String,
+        email: String,
+        password: String,
+        passwordRepeated: String
+    ): Boolean {
         if (name.isEmpty()) {
             editTextName?.error = "Name is required!"
             editTextName?.requestFocus()
-            return
+            return false
         }
 
         if (email.isEmpty()) {
             editTextEmail?.error = "Email is required!"
             editTextEmail?.requestFocus()
-            return
+            return false
         }
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-             editTextEmail?.error = "Please enter valid email!"
-             editTextEmail?.requestFocus()
-             return
+            editTextEmail?.error = "Please enter valid email!"
+            editTextEmail?.requestFocus()
+            return false
         }
 
         if (password.isEmpty()) {
             editTextPassword?.error = "Password is required!"
             editTextPassword?.requestFocus()
-            return
+            return false
         }
-        if (password.length < 6) {
+        if (password.length < resources.getInteger(R.integer.minPasswordCharNum)) {
             editTextPassword?.error = "Min password length is 6 chars!"
             editTextPassword?.requestFocus()
-            return
+            return false
         }
 
         if (password != passwordRepeated) {
             editTextPassword?.error = "Passwords should match!"
             editTextPasswordRepeated?.error = "Passwords should match!"
             editTextPassword?.requestFocus()
-            return
+            return false
         }
-
-        val user = UserRegistration(null, name, email, password)
-        registrationPageViewModel.register(user)
+        return true
     }
 
     private fun showLoader(show: Boolean) {

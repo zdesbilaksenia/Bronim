@@ -10,16 +10,19 @@ class RegistrationPageViewModel {
     val registrationState = MutableLiveData<RegistrationPageState>()
 
     fun register(user: UserRegistration) {
-        registrationState.postValue(RegistrationPageState.Pending())
-        registrationPageManager.register({ result, error ->
-            when {
-                result != null -> {
-                    registrationState.postValue(RegistrationPageState.Success(result))
+        registrationState.postValue(RegistrationPageState.Pending)
+        registrationPageManager.register(
+            { result, error ->
+                when {
+                    result != null -> {
+                        registrationState.postValue(RegistrationPageState.Success(result))
+                    }
+                    else -> {
+                        registrationState.postValue(RegistrationPageState.Error(error!!))
+                    }
                 }
-                else -> {
-                    registrationState.postValue(RegistrationPageState.Error(error!!))
-                }
-            }
-        }, user)
+            },
+            user
+        )
     }
 }

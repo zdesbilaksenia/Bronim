@@ -1,8 +1,9 @@
 package com.yo.bronim
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -21,7 +22,10 @@ class RegistrationActivity : AppCompatActivity() {
         val currentUser = auth.currentUser
         if (currentUser != null) {
 //            TODO
-            Log.d("REGISTRATION_ACTIVITY", "=================User already logged in")
         }
+    }
+
+    companion object {
+        fun newInstance(context: Context?) = Intent(context, RegistrationActivity::class.java)
     }
 }

@@ -8,8 +8,11 @@ class RegistrationPageManager {
     private val registrationPageProvider = RegistrationPageProvider()
 
     fun register(callback: RegisterCallback, user: UserRegistration) {
-        registrationPageProvider.register({ result, error ->
-            callback(result, error)
-        }, user)
+        registrationPageProvider.register(
+            { result, error ->
+                callback(result, error)
+            },
+            user
+        )
     }
 }
