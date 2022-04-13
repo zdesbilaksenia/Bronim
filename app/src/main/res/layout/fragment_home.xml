@@ -54,6 +54,7 @@
                 app:layout_constraintEnd_toEndOf="parent">
 
             <ImageView
+                    android:id="@+id/home__profile_image"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     tools:background="@color/main_dark_color" />

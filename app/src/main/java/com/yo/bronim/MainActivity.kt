@@ -1,6 +1,8 @@
 package com.yo.bronim
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentContainerView
 import androidx.navigation.fragment.NavHostFragment
