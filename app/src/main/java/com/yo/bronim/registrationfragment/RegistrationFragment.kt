@@ -1,6 +1,7 @@
 package com.yo.bronim.registrationfragment;
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
 import android.view.LayoutInflater
@@ -10,14 +11,18 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.google.firebase.auth.*
+import com.yo.bronim.MainActivity
 import com.yo.bronim.R
 import com.yo.bronim.models.UserRegistration
 import com.yo.bronim.states.RegistrationPageState
+import com.yo.bronim.states.RegistrationPageState.*
 import com.yo.bronim.viewmodels.RegistrationPageViewModel
 
 class RegistrationFragment : Fragment() {
 
     private val registrationPageViewModel = RegistrationPageViewModel()
+
     private val editTextName by lazy {
         view?.findViewById<EditText>(R.id.registration_page__name_edit_text)
     }
@@ -48,22 +53,24 @@ class RegistrationFragment : Fragment() {
             register()
         }
 
-        registrationPageViewModel.registrationState.observe(viewLifecycleOwner) { registrationPageViewModel.registrationState.value
-            when(it) {
-                is RegistrationPageState.Pending -> showLoader(true)
-                is RegistrationPageState.Success -> {
+        registrationPageViewModel.registrationState.observe(viewLifecycleOwner) { state ->
+            when(state) {
+                is Pending -> showLoader(true)
+                is Success -> {
                     showLoader(false)
-                    Toast.makeText(
-                        activity,
-                        "Account was created!!",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    val intent = Intent(activity, MainActivity::class.java)
+                    startActivity(intent)
                 }
-                is RegistrationPageState.Error -> {
+                is Error -> {
                     showLoader(false)
+                    val text = when (state.error) {
+                        is FirebaseAuthWeakPasswordException -> getString(R.string.errorWeakPassword)
+                        is FirebaseAuthUserCollisionException -> getString(R.string.errorUserExists)
+                        else -> "Try again later"
+                    }
                     Toast.makeText(
                         activity,
-                        "Failed to create an account! Try again later!",
+                        "Failed to create an account! $text",
                         Toast.LENGTH_LONG
                     ).show()
                 }
@@ -112,7 +119,7 @@ class RegistrationFragment : Fragment() {
             return
         }
 
-        val user = UserRegistration(name, email, password)
+        val user = UserRegistration(null, name, email, password)
         registrationPageViewModel.register(user)
     }
 

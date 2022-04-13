@@ -11,13 +11,13 @@ class RegistrationPageViewModel {
 
     fun register(user: UserRegistration) {
         registrationState.postValue(RegistrationPageState.Pending())
-        registrationPageManager.register({ error ->  
+        registrationPageManager.register({ result, error ->
             when {
-                error === null -> {
-                    registrationState.postValue(RegistrationPageState.Success())
+                result != null -> {
+                    registrationState.postValue(RegistrationPageState.Success(result))
                 }
                 else -> {
-                    registrationState.postValue(RegistrationPageState.Error(error))
+                    registrationState.postValue(RegistrationPageState.Error(error!!))
                 }
             }
         }, user)

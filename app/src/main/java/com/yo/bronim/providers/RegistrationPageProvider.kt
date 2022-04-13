@@ -12,19 +12,19 @@ class RegistrationPageProvider {
     private val scope = CoroutineScope(Dispatchers.IO)
     private val registrationPageRepository = RegistrationPageRepository()
 
-    private suspend fun invokeCallback(callback: RegisterCallback, error: Throwable?) {
+    private suspend fun invokeCallback(callback: RegisterCallback, user: UserRegistration?, error: Throwable?) {
         withContext(Dispatchers.Main) {
-            callback(error)
+            callback(user, error)
         }
     }
 
     fun register(callback: RegisterCallback, user: UserRegistration) {
         scope.launch {
             try {
-                registrationPageRepository.register(user)
-                invokeCallback(callback, null)
+                val result = registrationPageRepository.register(user)
+                invokeCallback(callback, result, null)
             } catch (error: Throwable) {
-                invokeCallback(callback, error)
+                invokeCallback(callback, null, error)
             }
         }
     }
