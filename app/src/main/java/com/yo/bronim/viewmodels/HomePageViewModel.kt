@@ -8,14 +8,15 @@ class HomePageViewModel {
     private val homePageManager = HomePageManager()
     val recommendedRestaurantsState = MutableLiveData<HomePageState>()
     val newRestaurantsState = MutableLiveData<HomePageState>()
+    val nearestRestaurantsState = MutableLiveData<HomePageState>()
 
-    fun getRecommendedRestaurants() {
+    fun getPopularRestaurants() {
         recommendedRestaurantsState.postValue(HomePageState.Pending())
 
-        homePageManager.getRecommendedRestaurants { result, error ->
+        homePageManager.getPopularRestaurants { result, error ->
             when {
                 result != null -> {
-                    recommendedRestaurantsState.postValue(HomePageState.Succes(result))
+                    recommendedRestaurantsState.postValue(HomePageState.Success(result))
                 }
                 error != null -> {
                     recommendedRestaurantsState.postValue(HomePageState.Error(error))
@@ -30,10 +31,25 @@ class HomePageViewModel {
         homePageManager.getNewRestaurants { result, error ->
             when {
                 result != null -> {
-                    newRestaurantsState.postValue(HomePageState.Succes(result))
+                    newRestaurantsState.postValue(HomePageState.Success(result))
                 }
                 error != null -> {
                     newRestaurantsState.postValue(HomePageState.Error(error))
+                }
+            }
+        }
+    }
+
+    fun getNearestRestaurants() {
+        nearestRestaurantsState.postValue(HomePageState.Pending())
+
+        homePageManager.getNearestRestaurants { result, error ->
+            when {
+                result != null -> {
+                    nearestRestaurantsState.postValue(HomePageState.Success(result))
+                }
+                error != null -> {
+                    nearestRestaurantsState.postValue(HomePageState.Error(error))
                 }
             }
         }

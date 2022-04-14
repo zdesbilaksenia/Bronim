@@ -14,6 +14,7 @@ class CategoryAdapter(private var restaurants: Array<Restaurant>) :
     inner class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name: TextView = itemView.findViewById(R.id.restaurant_name)
         val address: TextView = itemView.findViewById(R.id.restaurant_address)
+        val rating: TextView = itemView.findViewById(R.id.restaurant_rating)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
@@ -26,6 +27,7 @@ class CategoryAdapter(private var restaurants: Array<Restaurant>) :
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         holder.name.text = restaurants[position].name
         holder.address.text = restaurants[position].address
+        holder.rating.text = restaurants[position].rating.toString()
     }
 
     override fun getItemCount(): Int {

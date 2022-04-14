@@ -1,71 +1,61 @@
 package com.yo.bronim.repository
 
-import android.os.SystemClock
 import com.yo.bronim.models.Restaurant
 
-
-class MainPageRepository {
-    fun getRecommendedRestaurants(): Array<Restaurant> {
-//        SystemClock.sleep(4000)
+class HomePageRepository {
+    fun getPopularRestaurants(): Array<Restaurant> {
         return popularRests
     }
 
     fun getNearestRestaurants(): Array<Restaurant> {
-        return newRests
+        return popularRests
     }
 
     fun getNewRestaurants(): Array<Restaurant> {
-//        SystemClock.sleep(5000)
         return newRests
     }
 
-    fun getKitchens(): Array<String> {
-        return kitchens
+    companion object {
+        private val tempCategory = arrayOf(
+            arrayOf(
+                "0",
+                "Популярное"
+            ),
+            arrayOf(
+                "1",
+                "Кухни"
+            ),
+            arrayOf(
+                "0",
+                "Близко к Вам"
+            ),
+            arrayOf(
+                "0",
+                "Популярное"
+            ),
+        )
+
+        private val popularRests = arrayOf(
+            Restaurant("Ресторан1", "Адрес", arrayOf("Вино", "Пицца", "Да"), 4.2f),
+            Restaurant("Ресторан2", "Адрес", arrayOf("Вино", "Пицца", "Длинный тег"), 4.1f),
+            Restaurant("Ресторан3", "Адрес", arrayOf("Длинный тег", "Длинный тег", "Да"), 3.7f),
+            Restaurant(
+                "Ресторан4",
+                "Адрес",
+                arrayOf("Вино", "Длинный тег", "Да", "Длинный тег"),
+                3.3f
+            ),
+            Restaurant("Ресторан5", "Адрес", arrayOf("Вино", "Пицца", "Да"), 5.0f),
+            Restaurant("Ресторан6", "Адрес", arrayOf("Вино", "Пицца", "Да"), 2.1f),
+        )
+
+        private val newRests = arrayOf(
+            Restaurant("Новый1", "Адрес", arrayOf(), 4.2f),
+            Restaurant("Новый2", "Адрес", arrayOf(), 4.2f),
+            Restaurant("Новый3", "Адрес", arrayOf(), 4.2f),
+            Restaurant("Новый4", "Адрес", arrayOf(), 4.2f),
+            Restaurant("Новый5", "Адрес", arrayOf(), 4.2f),
+            Restaurant("Новый6", "Адрес", arrayOf(), 4.2f),
+        )
     }
 }
-
-val tempCategory = arrayOf(
-    arrayOf(
-        "0",
-        "Популярное"
-    ),
-    arrayOf(
-        "1",
-        "Кухни"
-    ),
-    arrayOf(
-        "0",
-        "Близко к Вам"
-    ),
-    arrayOf(
-        "0",
-        "Популярное"
-    ),
-)
-
-val kitchens = arrayOf(
-    "японская",
-    "русская",
-    "итальянская",
-    "китайская",
-    "грузинская",
-    "французская",
-)
-
-val popularRests = arrayOf(
-    Restaurant("Ресторан1", "Адрес"),
-    Restaurant("Ресторан2", "Адрес"),
-    Restaurant("Ресторан3", "Адрес"),
-    Restaurant("Ресторан4", "Адрес"),
-    Restaurant("Ресторан5", "Адрес"),
-    Restaurant("Ресторан6", "Адрес"),
-)
-
-val newRests = arrayOf(
-    Restaurant("Новый1", "Адрес"),
-    Restaurant("Новый2", "Адрес"),
-    Restaurant("Новый3", "Адрес"),
-    Restaurant("Новый4", "Адрес"),
-    Restaurant("Новый5", "Адрес"),
-    Restaurant("Новый6", "Адрес"),
-)

@@ -14,4 +14,5 @@
     <color name="gray_200">#808080</color>
     <color name="main_dark_color">#505050</color>
     <color name="home_search_view_color">#33A4A4A4</color>
+    <color name="yellow">#F1CF56</color>
 </resources>
