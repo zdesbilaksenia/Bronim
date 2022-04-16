@@ -5,17 +5,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yo.bronim.R
-import com.yo.bronim.RegistrationActivity
+import com.yo.bronim.contracts.RegistrationContract
 import com.yo.bronim.homefragment.adapter.MainAdapter
 
 class HomeFragment : Fragment() {
     private var recycler: RecyclerView? = null
     private var layoutManager: RecyclerView.LayoutManager? = null
     private var adapter: RecyclerView.Adapter<MainAdapter.MainViewHolder>? = null
+
+    private val textViewName by lazy {
+        view?.findViewById<TextView>(R.id.home__name)
+    }
+
+    private val register = registerForActivityResult(RegistrationContract()) { name ->
+        textViewName?.text = name
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,8 +38,7 @@ class HomeFragment : Fragment() {
 
         val profileImageView = view.findViewById<ImageView>(R.id.home__profile_image)
         profileImageView.setOnClickListener {
-            val intent = RegistrationActivity.newInstance(context)
-            startActivity(intent)
+            register.launch(Unit)
         }
 
         return view

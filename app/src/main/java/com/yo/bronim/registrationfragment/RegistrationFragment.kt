@@ -1,6 +1,5 @@
 package com.yo.bronim.registrationfragment
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
 import android.view.LayoutInflater
@@ -12,8 +11,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
-import com.yo.bronim.MainActivity
 import com.yo.bronim.R
+import com.yo.bronim.RegistrationActivity
 import com.yo.bronim.models.UserRegistration
 import com.yo.bronim.states.RegistrationPageState
 import com.yo.bronim.viewmodels.RegistrationPageViewModel
@@ -57,8 +56,7 @@ class RegistrationFragment : Fragment() {
                 is RegistrationPageState.Pending -> showLoader(true)
                 is RegistrationPageState.Success -> {
                     showLoader(false)
-                    val intent = Intent(activity, MainActivity::class.java)
-                    startActivity(intent)
+                    (activity as RegistrationActivity).sendResult(state.user)
                 }
                 is RegistrationPageState.Error -> {
                     showLoader(false)
