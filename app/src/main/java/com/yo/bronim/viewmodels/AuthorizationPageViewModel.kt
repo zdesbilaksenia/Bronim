@@ -15,11 +15,10 @@ class AuthorizationPageViewModel {
         authorizationPageManager.authorize(
             {resultUser, error ->
                 when {
-                    error === null -> {
+                    resultUser != null -> {
                         authorizationPageState.postValue(AuthorizationPageState.Success(resultUser))
                     }
                     else -> {
-                        Log.i("DEBUG:", "VM Error State")
                         authorizationPageState.postValue(AuthorizationPageState.Error(error))
                     }
                 }

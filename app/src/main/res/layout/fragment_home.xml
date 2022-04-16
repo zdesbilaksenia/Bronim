@@ -33,10 +33,10 @@
                     android:layout_height="24dp" />
 
             <TextView
-                    android:id="@+id/name"
+                    android:id="@+id/home__name"
                     android:textSize="18sp"
                     android:textColor="@color/main_dark_color"
-                    tools:text="Афанасий"
+                    android:text="Афанасий"
                     android:textStyle="bold"
                     android:ellipsize="end"
                     android:maxLines="1"

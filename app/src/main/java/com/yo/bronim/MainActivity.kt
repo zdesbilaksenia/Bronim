@@ -1,5 +1,6 @@
 package com.yo.bronim
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
@@ -21,5 +22,9 @@ class MainActivity : AppCompatActivity() {
         findViewById<BottomNavigationView>(R.id.main_navigation).setupWithNavController(
             navController
         )
+    }
+
+    companion object {
+        fun newInstance(context: Context?) = Intent(context, MainActivity::class.java)
     }
 }

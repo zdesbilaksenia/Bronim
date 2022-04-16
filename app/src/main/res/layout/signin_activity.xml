@@ -3,10 +3,10 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".SignInActivity">
+        tools:context=".AuthorizationActivity">
 
     <androidx.fragment.app.FragmentContainerView
-            android:name="com.yo.bronim.signInFragment.SignInFragment"
+            android:name="com.yo.bronim.authorizationFragment.AuthorizationFragment"
             android:id="@+id/activity_signIn_fragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

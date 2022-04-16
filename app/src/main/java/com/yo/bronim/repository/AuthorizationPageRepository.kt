@@ -15,18 +15,13 @@ import kotlin.coroutines.suspendCoroutine
 class AuthorizationPageRepository {
     private val auth = FirebaseAuth.getInstance()
     suspend fun authorize(user: UserAuthorization): UserAuthorization {
-        Log.i("DEBUG: UserEmail: ",user.email)
-        Log.i("DEBUG: UserPassword: ",user.password)
         return suspendCoroutine { continuation ->
-            auth.signInWithEmailAndPassword(user.email,user.password)
+            auth.signInWithEmailAndPassword(user.email!!,user.password!!)
                 .addOnCompleteListener{
-                    Log.i("DEBUG", "in complete")
                     if (it.isSuccessful) {
-                        Log.i("DEBUG","success")
                         user.uid = auth.currentUser?.uid
                         continuation.resume(user)
                     } else {
-                        Log.i("DEBUG","error")
                         continuation.resumeWithException(it.exception!!)
                     }
             }

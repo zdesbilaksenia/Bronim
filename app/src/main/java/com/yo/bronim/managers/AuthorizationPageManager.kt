@@ -8,11 +8,6 @@ class AuthorizationPageManager {
     private val authorizationPageProvider = AuthorizationPageProvider()
 
     fun authorize(callback: AuthorizeCallback, user: UserAuthorization) {
-        authorizationPageProvider.authorize(
-            { _, error ->
-                callback(user, error)
-            },
-            user
-        )
+        authorizationPageProvider.authorize(callback, user)
     }
 }

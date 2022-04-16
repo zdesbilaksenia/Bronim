@@ -1,20 +1,22 @@
-package com.yo.bronim.signInFragment
+package com.yo.bronim.authorizationFragment
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.yo.bronim.MainActivity
+import com.yo.bronim.AuthorizationActivity
 import com.yo.bronim.R
 import com.yo.bronim.models.UserAuthorization
 import com.yo.bronim.states.AuthorizationPageState
 import com.yo.bronim.viewmodels.AuthorizationPageViewModel
 
-class SignInFragment : Fragment() {
+
+class AuthorizationFragment : Fragment() {
 
     private val signInViewModel = AuthorizationPageViewModel()
 
@@ -30,10 +32,6 @@ class SignInFragment : Fragment() {
         view?.findViewById<Button>(R.id.login_page__enter_button)
     }
 
-    private val errorMessage by lazy {
-        view?.findViewById<TextView>(R.id.login_page__error_text_view)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -44,9 +42,11 @@ class SignInFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         signInButton?.setOnClickListener{
-            register()
+            authorize()
         }
+
 
         signInViewModel.authorizationPageState.observe(viewLifecycleOwner) { viewModelState ->
             when(viewModelState) {
@@ -54,8 +54,7 @@ class SignInFragment : Fragment() {
 
                 }
                 is AuthorizationPageState.Success -> {
-                    val intent = Intent(activity, MainActivity::class.java)
-                    startActivity(intent)
+                    (activity as AuthorizationActivity).sendResultUser(viewModelState.user)
                 }
                 is AuthorizationPageState.Error -> {
                     Toast.makeText(
@@ -69,24 +68,28 @@ class SignInFragment : Fragment() {
         }
     }
 
-    private fun register() {
+    private fun authorize() {
         val userEmail = emailEditText?.text.toString().trim()
 
         val userPassword = passwordEditText?.text.toString().trim()
         if (userEmail.isEmpty()) {
-            errorMessage?.text = "Email is Empty"
+            emailEditText?.error = "Email is required!"
+            emailEditText?.requestFocus()
             return
         }
+
 
         if (userPassword.isEmpty()) {
-            errorMessage?.text = "Password is empty"
+            passwordEditText?.error = "Password is required!"
+            passwordEditText?.requestFocus()
             return
         }
 
-        Log.i("DEBUG: UserEmail: ",userEmail)
-        Log.i("DEBUG: UserPassword: ",userPassword)
+
         val user = UserAuthorization(null, null, userEmail, userPassword)
         signInViewModel.authorize(user)
-        errorMessage?.text = "Good"
+
     }
+
 }
+
