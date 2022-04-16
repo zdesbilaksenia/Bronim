@@ -1,5 +1,6 @@
 package com.yo.bronim.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.yo.bronim.models.UserAuthorization
 import com.yo.bronim.managers.AuthorizationPageManager
@@ -10,16 +11,18 @@ class AuthorizationPageViewModel {
     val authorizationPageState = MutableLiveData<AuthorizationPageState>()
 
     fun authorize(user: UserAuthorization) {
-        authorizationPageState.postValue(AuthorizationPageState.Pending())
-        authorizationPageManager.authorize({ error ->
-            when {
-                error === null -> {
-                    authorizationPageState.postValue(AuthorizationPageState.Success())
+        authorizationPageState.postValue(AuthorizationPageState.Pending)
+        authorizationPageManager.authorize(
+            {resultUser, error ->
+                when {
+                    error === null -> {
+                        authorizationPageState.postValue(AuthorizationPageState.Success(resultUser))
+                    }
+                    else -> {
+                        Log.i("DEBUG:", "VM Error State")
+                        authorizationPageState.postValue(AuthorizationPageState.Error(error))
+                    }
                 }
-                else -> {
-                    authorizationPageState.postValue(AuthorizationPageState.Error(error))
-                }
-            }
         }, user)
     }
 }

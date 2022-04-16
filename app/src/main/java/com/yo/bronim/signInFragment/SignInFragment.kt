@@ -1,15 +1,14 @@
 package com.yo.bronim.signInFragment
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.fragment.app.Fragment
-import com.google.android.gms.common.SignInButton
+import com.yo.bronim.MainActivity
 import com.yo.bronim.R
 import com.yo.bronim.models.UserAuthorization
 import com.yo.bronim.states.AuthorizationPageState
@@ -17,21 +16,21 @@ import com.yo.bronim.viewmodels.AuthorizationPageViewModel
 
 class SignInFragment : Fragment() {
 
-    private val SignInViewModel = AuthorizationPageViewModel()
+    private val signInViewModel = AuthorizationPageViewModel()
 
-    private val EmailEditText by lazy {
+    private val emailEditText by lazy {
         view?.findViewById<EditText>(R.id.login_page__email_edit_text)
     }
 
-    private val PasswordEditText by lazy {
+    private val passwordEditText by lazy {
         view?.findViewById<EditText>(R.id.login_page__password_edit_text)
     }
 
-    private val SignInButton by lazy {
+    private val signInButton by lazy {
         view?.findViewById<Button>(R.id.login_page__enter_button)
     }
 
-    private val ErrorMessage by lazy {
+    private val errorMessage by lazy {
         view?.findViewById<TextView>(R.id.login_page__error_text_view)
     }
 
@@ -41,26 +40,29 @@ class SignInFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_login_page, container, false)
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        SignInButton?.setOnClickListener{
+        signInButton?.setOnClickListener{
             register()
         }
 
-        SignInViewModel.authorizationPageState.observe(viewLifecycleOwner) { viewModelState ->
+        signInViewModel.authorizationPageState.observe(viewLifecycleOwner) { viewModelState ->
             when(viewModelState) {
                 is AuthorizationPageState.Pending -> {
 
                 }
                 is AuthorizationPageState.Success -> {
-
+                    val intent = Intent(activity, MainActivity::class.java)
+                    startActivity(intent)
                 }
                 is AuthorizationPageState.Error -> {
-
+                    Toast.makeText(
+                        activity,
+                        "Error",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
 
@@ -68,20 +70,23 @@ class SignInFragment : Fragment() {
     }
 
     private fun register() {
-        val userEmail = EmailEditText?.text.toString().trim()
-        val userPassword = PasswordEditText?.text.toString().trim()
+        val userEmail = emailEditText?.text.toString().trim()
+
+        val userPassword = passwordEditText?.text.toString().trim()
         if (userEmail.isEmpty()) {
-            ErrorMessage?.setText("Email is Empty")
+            errorMessage?.text = "Email is Empty"
             return
         }
 
         if (userPassword.isEmpty()) {
-            ErrorMessage?.setText("Password is empty")
+            errorMessage?.text = "Password is empty"
             return
         }
 
-        var user = UserAuthorization(userEmail, userPassword)
-        SignInViewModel.authorize(user)
-        ErrorMessage?.setText("Good")
+        Log.i("DEBUG: UserEmail: ",userEmail)
+        Log.i("DEBUG: UserPassword: ",userPassword)
+        val user = UserAuthorization(null, null, userEmail, userPassword)
+        signInViewModel.authorize(user)
+        errorMessage?.text = "Good"
     }
 }

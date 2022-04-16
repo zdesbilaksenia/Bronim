@@ -12,19 +12,23 @@ class AuthorizationPageProvider {
     private val scope = CoroutineScope(Dispatchers.IO)
     private val authorizationPageRepository = AuthorizationPageRepository()
 
-    private suspend fun invokeCallback(callback: AuthorizeCallback, error: Throwable?) {
+    private suspend fun invokeCallback(
+        callback: AuthorizeCallback,
+        user: UserAuthorization?,
+        error: Throwable?
+    ) {
         withContext(Dispatchers.Main) {
-            callback(error)
+            callback(user, error)
         }
     }
 
     fun authorize(callback: AuthorizeCallback, user: UserAuthorization) {
         scope.launch {
             try {
-                authorizationPageRepository.authorize(user)
-                invokeCallback(callback, null)
+                val resultUser = authorizationPageRepository.authorize(user)
+                invokeCallback(callback, resultUser, null)
             } catch (error: Throwable) {
-                invokeCallback(callback, error)
+                invokeCallback(callback, null, error)
             }
         }
     }

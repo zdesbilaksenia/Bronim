@@ -4,12 +4,15 @@ import com.yo.bronim.models.UserAuthorization
 import com.yo.bronim.models.AuthorizeCallback
 import com.yo.bronim.providers.AuthorizationPageProvider
 
-class AuthorizationPageManager() {
+class AuthorizationPageManager {
     private val authorizationPageProvider = AuthorizationPageProvider()
 
     fun authorize(callback: AuthorizeCallback, user: UserAuthorization) {
-        authorizationPageProvider.authorize({error ->
-            callback(error)
-        }, user)
+        authorizationPageProvider.authorize(
+            { _, error ->
+                callback(user, error)
+            },
+            user
+        )
     }
 }
