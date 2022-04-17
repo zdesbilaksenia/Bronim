@@ -1,6 +1,5 @@
 package com.yo.bronim.homefragment
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,15 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.ActivityResultCallback
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yo.bronim.R
-import com.yo.bronim.AuthorizationActivity
 import com.yo.bronim.contracts.AuthorizationContract
 import com.yo.bronim.homefragment.adapter.MainAdapter
 
@@ -47,18 +41,25 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        savedInstanceState?.let{
+            textViewName?.text = UserNameVariable
+        }
         val profileImageView = view.findViewById<ImageView>(R.id.home__profile_image)
         profileImageView.setOnClickListener {
             authorize.launch(Unit)
         }
     }
 
-
+    // сохранение состояния
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        var username = textViewName?.text.toString()
+        Log.i("UserName:",username)
+        outState.putString(UserNameVariable, username)
+    }
 
     companion object {
         fun newInstance() = HomeFragment()
+        var UserNameVariable = "USERNAME"
     }
 }
-
-

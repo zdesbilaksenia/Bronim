@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.yo.bronim.contracts.EXTRA_USER_AUTHORIZATION
 import com.yo.bronim.models.UserAuthorization
 
-class AuthorizationActivity: AppCompatActivity() {
+class AuthorizationActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,5 +23,4 @@ class AuthorizationActivity: AppCompatActivity() {
     companion object {
         fun newInstance(context: Context?) = Intent(context, AuthorizationActivity::class.java)
     }
-
 }

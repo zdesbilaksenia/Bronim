@@ -1,6 +1,5 @@
 package com.yo.bronim.providers
 
-import android.util.Log
 import com.yo.bronim.models.AuthorizeCallback
 import com.yo.bronim.models.UserAuthorization
 import com.yo.bronim.repository.AuthorizationPageRepository

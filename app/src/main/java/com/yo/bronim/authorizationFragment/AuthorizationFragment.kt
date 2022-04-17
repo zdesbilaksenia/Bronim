@@ -1,7 +1,10 @@
 package com.yo.bronim.authorizationFragment
 
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
+import android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP
 import android.os.Bundle
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,11 +13,11 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.yo.bronim.AuthorizationActivity
+import com.yo.bronim.MainActivity
 import com.yo.bronim.R
 import com.yo.bronim.models.UserAuthorization
 import com.yo.bronim.states.AuthorizationPageState
 import com.yo.bronim.viewmodels.AuthorizationPageViewModel
-
 
 class AuthorizationFragment : Fragment() {
 
@@ -32,6 +35,10 @@ class AuthorizationFragment : Fragment() {
         view?.findViewById<Button>(R.id.login_page__enter_button)
     }
 
+    private val backArrowButton by lazy {
+        view?.findViewById<Button>(R.id.login_page__arrow_left_button)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -43,15 +50,17 @@ class AuthorizationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        signInButton?.setOnClickListener{
+        signInButton?.setOnClickListener {
             authorize()
         }
 
+        backArrowButton?.setOnClickListener {
+
+        }
 
         signInViewModel.authorizationPageState.observe(viewLifecycleOwner) { viewModelState ->
-            when(viewModelState) {
+            when (viewModelState) {
                 is AuthorizationPageState.Pending -> {
-
                 }
                 is AuthorizationPageState.Success -> {
                     (activity as AuthorizationActivity).sendResultUser(viewModelState.user)
@@ -59,37 +68,37 @@ class AuthorizationFragment : Fragment() {
                 is AuthorizationPageState.Error -> {
                     Toast.makeText(
                         activity,
-                        "Error",
+                        getText(R.string.error_authorization),
                         Toast.LENGTH_LONG
                     ).show()
                 }
             }
-
         }
     }
 
     private fun authorize() {
         val userEmail = emailEditText?.text.toString().trim()
-
         val userPassword = passwordEditText?.text.toString().trim()
+
         if (userEmail.isEmpty()) {
-            emailEditText?.error = "Email is required!"
+            emailEditText?.error = getString(R.string.email_required)
             emailEditText?.requestFocus()
             return
         }
 
+        if (!Patterns.EMAIL_ADDRESS.matcher(userEmail).matches()) {
+            emailEditText?.error = getString(R.string.valid_email_required)
+            emailEditText?.requestFocus()
+            return
+        }
 
         if (userPassword.isEmpty()) {
-            passwordEditText?.error = "Password is required!"
+            passwordEditText?.error = getString(R.string.password_required)
             passwordEditText?.requestFocus()
             return
         }
 
-
         val user = UserAuthorization(null, null, userEmail, userPassword)
         signInViewModel.authorize(user)
-
     }
-
 }
-

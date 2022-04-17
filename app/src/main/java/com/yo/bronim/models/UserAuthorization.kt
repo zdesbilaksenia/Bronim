@@ -3,12 +3,12 @@ package com.yo.bronim.models
 import android.os.Parcel
 import android.os.Parcelable
 
-data class UserAuthorization (
+data class UserAuthorization(
     var uid: String?,
     val name: String?,
     val email: String?,
     val password: String?
-): Parcelable {
+) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readString(),
