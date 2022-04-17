@@ -1,7 +1,6 @@
 package com.yo.bronim.authorizationFragment
 
 import android.content.Intent
-import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
 import android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP
 import android.os.Bundle
 import android.util.Patterns
@@ -55,7 +54,9 @@ class AuthorizationFragment : Fragment() {
         }
 
         backArrowButton?.setOnClickListener {
-
+            val intent = Intent(activity, MainActivity::class.java)
+            intent.flags = FLAG_ACTIVITY_SINGLE_TOP
+            startActivity(intent)
         }
 
         signInViewModel.authorizationPageState.observe(viewLifecycleOwner) { viewModelState ->

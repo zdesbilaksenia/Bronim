@@ -41,8 +41,8 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        savedInstanceState?.let{
-            textViewName?.text = UserNameVariable
+        savedInstanceState?.let {
+            textViewName?.text = savedInstanceState.getString(UserNameVariable)
         }
         val profileImageView = view.findViewById<ImageView>(R.id.home__profile_image)
         profileImageView.setOnClickListener {
@@ -54,7 +54,7 @@ class HomeFragment : Fragment() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         var username = textViewName?.text.toString()
-        Log.i("UserName:",username)
+        Log.i("UserName:", username)
         outState.putString(UserNameVariable, username)
     }
 
