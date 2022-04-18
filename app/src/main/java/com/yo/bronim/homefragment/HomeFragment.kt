@@ -33,7 +33,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         recycler = view.findViewById(R.id.main_recycler)
-        recycler?.layoutManager = LinearLayoutManager(context)
+        recycler?.layoutManager = LinearLayoutManager(activity)
         recycler?.adapter = MainAdapter()
 
         homePageViewModel = HomePageViewModel()
