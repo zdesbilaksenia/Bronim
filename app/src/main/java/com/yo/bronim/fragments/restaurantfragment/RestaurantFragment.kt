@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.yo.bronim.R
@@ -18,7 +19,10 @@ const val NEAREST_VIEW_HOLDER_POS = 3
 
 class RestaurantFragment : Fragment() {
     private var restaurantPageViewModel = RestaurantPageViewModel()
+    private var img : ImageView?=null
     private var name : TextView?=null
+    private var address : TextView?=null
+    private var description : TextView?=null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,7 +35,10 @@ class RestaurantFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+       //TODO: img = view.findViewById<ImageView>(R.id.fragment_restaurant_page__image)
         name = view.findViewById<TextView>(R.id.fragment_restaurant_page__name)
+        address = view.findViewById<TextView>(R.id.fragment_restaurant_page__address)
+        description = view.findViewById<TextView>(R.id.fragment_restaurant_page__description)
         name?.text = "yo"
 
         restaurantPageViewModel = RestaurantPageViewModel()
@@ -48,15 +55,14 @@ class RestaurantFragment : Fragment() {
     private fun observeRestaurant(restaurantID: Int) {
         restaurantPageViewModel.restaurantState.observe(viewLifecycleOwner) { state ->
             when (state) {
-                // is Pending
                 is RestaurantPageState.Success -> {
-
+                    //TODO: заполнить поля
+                    //img?.img = state.result.img
+                    name?.text = state.result.name
+                    address?.text = state.result.address
+                    description?.text = state.result.description
                 }
             }
         }
-    }
-
-    companion object {
-        fun newInstance() = RestaurantFragment()
     }
 }

@@ -1,7 +1,9 @@
 package com.yo.bronim.models
 
 import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class Restaurant(
     @Json(name = "id") val id: Int,
     @Json(name = "name") val name: String?,
@@ -14,4 +16,9 @@ data class Restaurant(
 //    @Json(name = "geoposition") val geoposition: String,
     @Json(name = "tags") val tags: List<String>,
     @Json(name = "rating") val rating: Float,
+)
+
+@JsonClass(generateAdapter = true)
+data class RestaurantList(
+    @Json(name = "restaurants") val restaurants: Array<Restaurant>,
 )

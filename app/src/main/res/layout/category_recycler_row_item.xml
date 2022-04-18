@@ -6,6 +6,7 @@
         android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
+            android:id="@+id/category_card"
             android:layout_width="160dp"
             android:layout_height="210dp"
             app:cardCornerRadius="10dp"

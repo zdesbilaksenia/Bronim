@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.RatingBar
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.core.view.marginEnd
 import androidx.recyclerview.widget.RecyclerView
 import com.yo.bronim.R
@@ -26,6 +27,7 @@ class HorizontalItemAdapter(private var restaurants: Array<Restaurant>) :
         val name: TextView = itemView.findViewById(R.id.restaurant_name)
         val address: TextView = itemView.findViewById(R.id.restaurant_address)
         val rating: RatingBar = itemView.findViewById(R.id.restaurant_rating)
+        val cardLayout: CardView = itemView.findViewById(R.id.horizontal_card)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HorizontalItemViewHolder {
@@ -45,6 +47,10 @@ class HorizontalItemAdapter(private var restaurants: Array<Restaurant>) :
         restaurants[position].tags?.forEach {
             val textView = setTagParams(it)
             tagsContainer?.addView(textView)
+        }
+
+        holder.cardLayout.setOnClickListener {
+            // вторая ловушка для Stepana
         }
     }
 
