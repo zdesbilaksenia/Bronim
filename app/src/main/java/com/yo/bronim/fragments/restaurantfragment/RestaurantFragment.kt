@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.yo.bronim.R
 import com.yo.bronim.homefragment.adapter.MainAdapter
@@ -17,6 +18,7 @@ const val NEAREST_VIEW_HOLDER_POS = 3
 
 class RestaurantFragment : Fragment() {
     private var restaurantPageViewModel = RestaurantPageViewModel()
+    private var name : TextView?=null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,6 +30,9 @@ class RestaurantFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        name = view.findViewById<TextView>(R.id.fragment_restaurant_page__name)
+        name?.text = "yo"
 
         restaurantPageViewModel = RestaurantPageViewModel()
 
@@ -45,6 +50,7 @@ class RestaurantFragment : Fragment() {
             when (state) {
                 // is Pending
                 is RestaurantPageState.Success -> {
+
                 }
             }
         }
