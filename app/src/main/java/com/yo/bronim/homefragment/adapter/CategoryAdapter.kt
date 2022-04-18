@@ -6,19 +6,15 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.yo.bronim.R
+import com.yo.bronim.models.Restaurant
 
-class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
-    private val tempRests = arrayOf(
-        arrayOf("Ресторан", "Адрес"),
-        arrayOf("Ресторан", "Адрес"),
-        arrayOf("Ресторан", "Адрес"),
-        arrayOf("Ресторан", "Адрес"),
-        arrayOf("Ресторан", "Адрес"),
-    )
+class CategoryAdapter(private var restaurants: Array<Restaurant>) :
+    RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
 
     inner class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name: TextView = itemView.findViewById(R.id.restaurant_name)
         val address: TextView = itemView.findViewById(R.id.restaurant_address)
+        val rating: TextView = itemView.findViewById(R.id.restaurant_rating)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
@@ -29,11 +25,12 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>
     }
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
-        holder.name.text = tempRests[position][0]
-        holder.address.text = tempRests[position][1]
+        holder.name.text = restaurants[position].name
+        holder.address.text = restaurants[position].address
+        holder.rating.text = restaurants[position].rating.toString()
     }
 
     override fun getItemCount(): Int {
-        return tempRests.size
+        return restaurants.size
     }
 }
