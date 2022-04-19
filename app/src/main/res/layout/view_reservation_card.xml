@@ -2,8 +2,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
-    <com.google.android.material.card.MaterialCardView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="18dp"
+        >
+    <androidx.cardview.widget.CardView
+            android:id="@+id/view_reservation_card__card"
             android:layout_width="match_parent"
             android:layout_height="140dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -93,6 +97,7 @@
                                 android:textFontWeight="300"
                             />
                         <TextView
+                                android:id="@+id/view_reservation_card__date"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/main_dark_color"
@@ -119,6 +124,7 @@
                                 android:textFontWeight="300"
                                 />
                         <TextView
+                                android:id="@+id/view_reservation_card__time"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/main_dark_color"
@@ -146,6 +152,7 @@
                             android:textFontWeight="300"
                             />
                     <TextView
+                            android:id="@+id/view_reservation_card__guests_number"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/main_dark_color"
@@ -157,5 +164,5 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </com.google.android.material.card.MaterialCardView>
+    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

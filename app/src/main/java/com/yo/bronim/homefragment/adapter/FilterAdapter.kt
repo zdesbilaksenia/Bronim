@@ -6,16 +6,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.yo.bronim.R
+import com.yo.bronim.models.kitchens
 
 class FilterAdapter : RecyclerView.Adapter<FilterAdapter.FilterViewHolder>() {
-    private val kitchens = arrayOf(
-        "японская",
-        "русская",
-        "японская",
-        "русская",
-        "японская",
-        "русская",
-    )
 
     inner class FilterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val kitchen: TextView = itemView.findViewById(R.id.kitchen)
@@ -29,7 +22,7 @@ class FilterAdapter : RecyclerView.Adapter<FilterAdapter.FilterViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: FilterViewHolder, position: Int) {
-        holder.kitchen.text = kitchens[position]
+        holder.kitchen.text = kitchens[position].name
     }
 
     override fun getItemCount(): Int {
