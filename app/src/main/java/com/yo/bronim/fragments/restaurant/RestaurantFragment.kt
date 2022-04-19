@@ -12,11 +12,6 @@ import com.yo.bronim.R
 import com.yo.bronim.states.RestaurantPageState
 import com.yo.bronim.viewmodels.RestaurantPageViewModel
 
-const val POPULAR_VIEW_HOLDER_POS = 0
-const val KITCHENS_VIEW_HOLDER_POS = 1
-const val NEW_VIEW_HOLDER_POS = 2
-const val NEAREST_VIEW_HOLDER_POS = 3
-
 class RestaurantFragment : Fragment() {
     private var restaurantPageViewModel = RestaurantPageViewModel()
     private var img : ImageView?=null
