@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,6 +21,18 @@ const val NEAREST_VIEW_HOLDER_POS = 3
 class HomeFragment : Fragment() {
     private var recycler: RecyclerView? = null
     private var homePageViewModel = HomePageViewModel()
+
+    private val textViewName by lazy {
+        view?.findViewById<TextView>(R.id.home__name)
+    }
+
+//    Sample of result activity usage
+//    private val register = registerForActivityResult(RegistrationContract()) { name ->
+//        textViewName?.text = name
+//    }
+//    someButton.setOnClickListener {
+//            register.launch(Unit)
+//        }
 
     override fun onCreateView(
         inflater: LayoutInflater,
