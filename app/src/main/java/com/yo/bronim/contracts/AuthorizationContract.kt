@@ -17,6 +17,6 @@ class AuthorizationContract : ActivityResultContract<Unit, String?>() {
         if (resultCode != Activity.RESULT_OK) return null
 
         val user = intent.getParcelableExtra<UserAuthorization>(EXTRA_USER_AUTHORIZATION)
-        return user?.email
+        return user?.name
     }
 }

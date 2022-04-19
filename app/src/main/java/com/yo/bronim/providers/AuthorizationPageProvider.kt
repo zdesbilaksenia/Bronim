@@ -1,5 +1,6 @@
 package com.yo.bronim.providers
 
+import android.util.Log
 import com.yo.bronim.models.AuthorizeCallback
 import com.yo.bronim.models.UserAuthorization
 import com.yo.bronim.repository.AuthorizationPageRepository
@@ -7,6 +8,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlin.math.log
 
 class AuthorizationPageProvider {
     private val scope = CoroutineScope(Dispatchers.IO)
@@ -25,11 +27,27 @@ class AuthorizationPageProvider {
     fun authorize(callback: AuthorizeCallback, user: UserAuthorization) {
         scope.launch {
             try {
-                val resultUser = authorizationPageRepository.authorize(user)
+                val fbUser = authorizationPageRepository.authorize(user)
+                val resultUser = authorizationPageRepository.getUserData(fbUser.uid)
+                Log.i("Success:", resultUser?.name!!)
                 invokeCallback(callback, resultUser, null)
             } catch (error: Throwable) {
+                Log.i("Failed:","Ploho")
+                Log.e("Error:", error.toString())
                 invokeCallback(callback, null, error)
             }
         }
     }
+
+    /*
+    fun getUsername(callback: AuthorizeCallback) {
+        scope.launch {
+            try {
+                val uid = authorizationPageRepository.getUId()
+            } catch (error: Throwable) {
+
+            }
+        }
+    }
+     */
 }

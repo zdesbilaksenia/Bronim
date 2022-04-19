@@ -10,4 +10,9 @@ object AuthorizationManager {
     fun authorize(callback: AuthorizeCallback, user: UserAuthorization) {
         authorizationProvider.authorize(callback, user)
     }
+
+    /*
+    fun getUsername(callback: AuthorizeCallback) {
+        authorizationProvider
+    }*/
 }

@@ -2,12 +2,15 @@ package com.yo.bronim.models
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class UserAuthorization(
-    var uid: String?,
-    val name: String?,
-    val email: String?,
-    val password: String?
+    @Json(name = "firebase_id") var uid: String?,
+    @Json(name = "name") val name: String?,
+    @Json(name = "email") val email: String?,
+    @Json(name = "password") val password: String?
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
