@@ -1,4 +1,4 @@
-package com.yo.bronim.fragments.restaurantfragment
+package com.yo.bronim.fragments.restaurant
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +8,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.yo.bronim.R
-import com.yo.bronim.homefragment.adapter.MainAdapter
 import com.yo.bronim.states.RestaurantPageState
 import com.yo.bronim.viewmodels.RestaurantPageViewModel
 
@@ -39,20 +38,19 @@ class RestaurantFragment : Fragment() {
         name = view.findViewById<TextView>(R.id.fragment_restaurant_page__name)
         address = view.findViewById<TextView>(R.id.fragment_restaurant_page__address)
         description = view.findViewById<TextView>(R.id.fragment_restaurant_page__description)
-        name?.text = "yo"
 
         restaurantPageViewModel = RestaurantPageViewModel()
 
         val restaurantIDDebug = 1
 
         //TODO: передавать ID ресторана
-        observeRestaurant(restaurantIDDebug)
+        observeRestaurant()
 
         //TODO: передавать ID ресторана
         restaurantPageViewModel.getRestaurant(restaurantIDDebug)
     }
 
-    private fun observeRestaurant(restaurantID: Int) {
+    private fun observeRestaurant() {
         restaurantPageViewModel.restaurantState.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is RestaurantPageState.Success -> {

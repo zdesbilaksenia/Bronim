@@ -1,4 +1,4 @@
-package com.yo.bronim.homefragment
+package com.yo.bronim.fragments.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yo.bronim.R
-import com.yo.bronim.homefragment.adapter.MainAdapter
+import com.yo.bronim.fragments.home.adapter.MainAdapter
 import com.yo.bronim.states.HomePageState
 import com.yo.bronim.viewmodels.HomePageViewModel
 

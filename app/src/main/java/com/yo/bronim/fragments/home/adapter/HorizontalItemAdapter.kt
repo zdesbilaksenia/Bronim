@@ -1,4 +1,4 @@
-package com.yo.bronim.homefragment.adapter
+package com.yo.bronim.fragments.home.adapter
 
 import android.content.Context
 import android.text.TextUtils
@@ -9,7 +9,6 @@ import android.widget.LinearLayout
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.cardview.widget.CardView
-import androidx.core.view.marginEnd
 import androidx.recyclerview.widget.RecyclerView
 import com.yo.bronim.R
 import com.yo.bronim.models.Restaurant

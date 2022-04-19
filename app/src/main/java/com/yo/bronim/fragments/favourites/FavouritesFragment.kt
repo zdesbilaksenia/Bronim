@@ -1,9 +1,10 @@
-package com.yo.bronim
+package com.yo.bronim.fragments.favourites
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.yo.bronim.R
 import androidx.fragment.app.Fragment
 
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
