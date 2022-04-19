@@ -12,19 +12,23 @@
     <string name="personal_info_text_view_text">Личная информация</string>
     <string name="notifications_text_view_text">Уведомления</string>
     <string name="user_name">Имя</string>
-    <string name="user_name_hint">Enter your name</string>
+    <string name="user_name_hint">Введите имя</string>
     <string name="email">E-mail</string>
-    <string name="email_hint">Enter your E-mail</string>
+    <string name="email_hint">Введите email</string>
     <string name="password">Пароль</string>
-    <string name="password_hint">Enter your password</string>
+    <string name="password_hint">Введите пароль</string>
     <string name="password_again">Повторите Пароль</string>
-    <string name="password_again_hint">Enter your password again</string>
+    <string name="password_again_hint">Введите пароль ещё раз</string>
     <string name="login">Войти</string>
     <string name="register">Зарегистрироваться</string>
     <string name="create_account">Создать аккаунт</string>
     <string name="home_greeting">Добрый день,</string>
     <string name="home">home</string>
     <string name="map">map</string>
+    <string name="email_required">Введите email</string>
+    <string name="password_required">Введите пароль</string>
+    <string name="valid_email_required">Введите корректный email</string>
+    <string name="error_authorization">Данный пользователь не найден</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="reservations_list">reservations list</string>
