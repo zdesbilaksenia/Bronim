@@ -2,10 +2,10 @@ build:
   maxIssues: 0
   excludeCorrectable: false
   weights:
-    # complexity: 2
-    # LongParameterList: 1
-    # style: 1
-    # comments: 1
+  # complexity: 2
+  # LongParameterList: 1
+  # style: 1
+  # comments: 1
 
 config:
   validation: true
@@ -25,11 +25,11 @@ processors:
 console-reports:
   active: true
   exclude:
-     - 'ProjectStatisticsReport'
-     - 'ComplexityReport'
-     - 'NotificationReport'
-  #  - 'FindingsReport'
-     - 'FileBasedFindingsReport'
+    - 'ProjectStatisticsReport'
+    - 'ComplexityReport'
+    - 'NotificationReport'
+    #  - 'FindingsReport'
+    - 'FileBasedFindingsReport'
 
 output-reports:
   active: true
@@ -182,10 +182,10 @@ exceptions:
   SwallowedException:
     active: false
     ignoredExceptionTypes:
-     - InterruptedException
-     - NumberFormatException
-     - ParseException
-     - MalformedURLException
+      - InterruptedException
+      - NumberFormatException
+      - ParseException
+      - MalformedURLException
     allowedExceptionNameRegex: '_|(ignore|expected).*'
   ThrowingExceptionFromFinally:
     active: false
@@ -195,9 +195,9 @@ exceptions:
     active: false
     excludes: ['**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/jsTest/**', '**/iosTest/**']
     exceptions:
-     - IllegalArgumentException
-     - IllegalStateException
-     - IOException
+      - IllegalArgumentException
+      - IllegalStateException
+      - IOException
   ThrowingNewInstanceOfSameException:
     active: false
   TooGenericExceptionCaught:
@@ -216,10 +216,10 @@ exceptions:
   TooGenericExceptionThrown:
     active: true
     exceptionNames:
-     - Error
-     - Exception
-     - Throwable
-     - RuntimeException
+      - Error
+      - Exception
+      - Throwable
+      - RuntimeException
 
 formatting:
   active: true
