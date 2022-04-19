@@ -5,6 +5,7 @@ import com.yo.bronim.models.RestaurantList
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Headers
+import retrofit2.http.Path
 
 interface RestaurantApi {
     @Headers("Content-Type: application/json")
@@ -20,6 +21,6 @@ interface RestaurantApi {
     suspend fun getNewRestaurants(): Response<RestaurantList>
 
     @Headers("Content-Type: application/json")
-    @GET("/bronim/restaurants/!!!!!!!!!!!")
-    suspend fun getRestaurant(): Response<Restaurant>
+    @GET("/bronim/restaurants/{id}")
+    suspend fun getRestaurant(@Path("id") id : Int): Response<Restaurant>
 }

@@ -1,25 +1,21 @@
 package com.yo.bronim.repository
 
+import com.yo.bronim.interfaces.RestaurantApi
 import com.yo.bronim.models.Restaurant
+import okhttp3.OkHttpClient
+import retrofit2.Retrofit
+import retrofit2.converter.moshi.MoshiConverterFactory
 
 class RestaurantPageRepository {
-    fun getRestaurant(restaurantID: Int): Restaurant {
-        return restaurant
-    }
+    private val client = OkHttpClient.Builder().build()
+    private val retrofit = Retrofit.Builder()
+        .client(client)
+        .baseUrl("https://bmstusa.ru/")
+        .addConverterFactory(MoshiConverterFactory.create().asLenient())
+        .build()
+    private val restaurantApi = retrofit.create(RestaurantApi::class.java)
 
-    companion object {
-        private val restaurant =
-            Restaurant(
-                1,
-                "2",
-                "a",
-                "b",
-                "c",
-                "d",
-                "e",
-                "f",
-                listOf("i", "j"),
-                10f
-            )
+    suspend fun getRestaurant(restaurantID: Int): Restaurant? {
+        return restaurantApi.getRestaurant(restaurantID).body()
     }
 }
