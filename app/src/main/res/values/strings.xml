@@ -29,4 +29,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="reservations_list">reservations list</string>
     <string name="favourites">favourites</string>
+    <string name="your_reservations">Ваши заявки</string>
+    <string name="date">Дата</string>
+    <string name="time">Время</string>
+    <string name="guests_number">Количество гостей</string>
 </resources>
