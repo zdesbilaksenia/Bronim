@@ -33,4 +33,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="reservations_list">reservations list</string>
     <string name="favourites">favourites</string>
+    <!--    Registration exceptions-->
+    <string name="errorWeakPassword">Password is too weak</string>
+    <string name="errorInvalidEmail">Please use valid email</string>
+    <string name="errorUserExists">User with such email already exists</string>
+    <string name="weakPasswordException">Password is too weak</string>
 </resources>
