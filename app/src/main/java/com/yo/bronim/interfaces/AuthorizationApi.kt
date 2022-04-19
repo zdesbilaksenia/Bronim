@@ -6,12 +6,10 @@ import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Path
 
-
 interface AuthorizationApi {
     @Headers("Content-Type: application/json")
     @GET("bronim/profiles/{id}")
     suspend fun authorize(
-        @Path("id") Uid : String?
+        @Path("id") firebaseID: String?
     ): Response<UserAuthorization?>?
-
 }

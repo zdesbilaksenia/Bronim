@@ -43,8 +43,6 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         if (savedInstanceState != null) {
             textViewName?.text = savedInstanceState.getString(UserNameVariable)
-        } else {
-
         }
         val profileImageView = view.findViewById<ImageView>(R.id.home__profile_image)
         profileImageView.setOnClickListener {

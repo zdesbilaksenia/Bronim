@@ -8,7 +8,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import kotlin.math.log
 
 class AuthorizationPageProvider {
     private val scope = CoroutineScope(Dispatchers.IO)
@@ -32,7 +31,7 @@ class AuthorizationPageProvider {
                 Log.i("Success:", resultUser?.name!!)
                 invokeCallback(callback, resultUser, null)
             } catch (error: Throwable) {
-                Log.i("Failed:","Ploho")
+                Log.i("Failed:", "Ploho")
                 Log.e("Error:", error.toString())
                 invokeCallback(callback, null, error)
             }

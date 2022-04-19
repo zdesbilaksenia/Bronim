@@ -3,11 +3,11 @@ package com.yo.bronim.repository
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.yo.bronim.interfaces.AuthorizationApi
-import okhttp3.OkHttpClient
 import com.yo.bronim.models.UserAuthorization
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
@@ -39,9 +39,9 @@ class AuthorizationPageRepository {
         }
     }
 
-    suspend fun getUserData(UId: String?): UserAuthorization? {
+    suspend fun getUserData(firebaseID: String?): UserAuthorization? {
         Log.i("Body", "in GetData")
-        return authorizationApi.authorize(UId)?.body()
+        return authorizationApi.authorize(firebaseID)?.body()
     }
 
     /*
