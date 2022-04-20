@@ -64,12 +64,14 @@ class RestaurantFragment : Fragment() {
             val user = AuthorizationActivity.getFBUser()
             if (user == null) {
                 authorize.launch(Unit)
+            } else {
+                val intent = Intent(context, ReservationActivity::class.java)
+                intent.putExtra("start", restaurant?.start)
+                intent.putExtra("end", restaurant?.end)
+                intent.putExtra("id", restaurant?.id)
+                context?.startActivity(intent)
             }
-            val intent = Intent(context, ReservationActivity::class.java)
-            intent.putExtra("start", restaurant?.start)
-            intent.putExtra("end", restaurant?.end)
-            intent.putExtra("id", restaurant?.id)
-            context?.startActivity(intent)
+
         }
     }
 
