@@ -2,9 +2,13 @@ package com.yo.bronim.interfaces
 
 import com.yo.bronim.models.PostReservation
 import com.yo.bronim.models.ReservationsList
-import com.yo.bronim.models.RestaurantList
 import retrofit2.Response
-import retrofit2.http.*
+import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.Headers
+import retrofit2.http.POST
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ReservationApi {
     @Headers("Content-Type: application/json")
@@ -14,7 +18,6 @@ interface ReservationApi {
         @Query("date") date: String,
         @Query("guests") numOfGuests: Int
     ): Response<ReservationsList>
-
 
     @Headers("Content-Type: application/json")
     @POST("/bronim/restaurants/{id}/tables/{table}")

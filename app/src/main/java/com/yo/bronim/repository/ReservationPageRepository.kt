@@ -2,15 +2,13 @@ package com.yo.bronim.repository
 
 import android.util.Log
 import com.yo.bronim.interfaces.ReservationApi
-import com.yo.bronim.interfaces.RestaurantApi
 import com.yo.bronim.models.PostReservation
 import com.yo.bronim.models.Reservation
-import com.yo.bronim.models.Restaurant
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-class ReservationPageRepository() {
+class ReservationPageRepository {
     private val client = OkHttpClient.Builder().build()
     private val retrofit = Retrofit.Builder()
         .client(client)

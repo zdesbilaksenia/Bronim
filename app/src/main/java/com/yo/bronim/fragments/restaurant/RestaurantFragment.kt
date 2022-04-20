@@ -14,7 +14,6 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.yo.bronim.R
 import com.yo.bronim.ReservationActivity
-import com.yo.bronim.RestaurantActivity
 import com.yo.bronim.models.Restaurant
 import com.yo.bronim.states.RestaurantPageState
 import com.yo.bronim.viewmodels.RestaurantPageViewModel
@@ -76,7 +75,7 @@ class RestaurantFragment : Fragment() {
             when (state) {
                 is RestaurantPageState.Success -> {
                     restaurant = state.result
-                    Glide.with(this).load(state.result.img).into(img!!);
+                    Glide.with(this).load(state.result.img).into(img!!)
                     name?.text = state.result.name
                     address?.text = state.result.address
                     description?.text = state.result.description

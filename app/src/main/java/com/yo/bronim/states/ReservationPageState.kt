@@ -1,7 +1,6 @@
 package com.yo.bronim.states
 
 import com.yo.bronim.models.Reservation
-import com.yo.bronim.models.Restaurant
 
 sealed class ReservationPageState {
     class Pending : ReservationPageState()

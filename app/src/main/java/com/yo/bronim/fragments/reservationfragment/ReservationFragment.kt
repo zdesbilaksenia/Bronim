@@ -7,7 +7,11 @@ import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
+import android.widget.Button
+import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.helper.widget.Flow
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -17,13 +21,15 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yo.bronim.R
-import com.yo.bronim.fragments.restaurant.RestaurantFragment
 import com.yo.bronim.models.PostReservation
 import com.yo.bronim.states.ReservationPageState
 import com.yo.bronim.viewmodels.ReservationPageViewModel
-import java.util.*
+import java.util.Calendar
+import java.util.GregorianCalendar
 import kotlin.collections.ArrayList
 
+const val REST_START = 0
+const val REST_FINISH = 47
 
 class ReservationFragment : Fragment() {
     private var spinner: AutoCompleteTextView? = null
@@ -44,8 +50,8 @@ class ReservationFragment : Fragment() {
     private var restId: Int? = null
     private var tables: MutableList<Int> = ArrayList()
     private var times: MutableMap<Int, List<Int>> = mutableMapOf()
-    private var restStart: Int = 0
-    private var restFinish: Int = 47
+    private var restStart: Int = REST_START
+    private var restFinish: Int = REST_FINISH
 
     private var tableCard: CardView? = null
     private var timeCard: CardView? = null
@@ -60,7 +66,7 @@ class ReservationFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Log.d("FRAGMENT","yes")
+        Log.d("FRAGMENT", "yes")
         return inflater.inflate(R.layout.fragment_reservation, container, false)
     }
 
@@ -144,22 +150,14 @@ class ReservationFragment : Fragment() {
                         "1",
                         convertChosenDate(),
                         numOfGuests,
-                        chosenTime, null
-                    ), restId!!, chosenTable!!
+                        chosenTime,
+                        null
+                    ),
+                    restId!!,
+                    chosenTable!!
                 )
             }
-            Log.d(
-                "RESULT SEND",
-                "${
-                    PostReservation(
-                        chosenTable.toString(),
-                        "1",
-                        convertChosenDate(),
-                        numOfGuests,
-                        chosenTime, null
-                    )
-                }"
-            )
+            activity?.finish()
         }
     }
 
@@ -295,7 +293,7 @@ class ReservationFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(start: Int, end: Int, id: Int) = RestaurantFragment().apply {
+        fun newInstance(start: Int, end: Int, id: Int) = ReservationFragment().apply {
             bundle?.putInt("start", start)
             bundle?.putInt("end", end)
             bundle?.putInt("id", id)

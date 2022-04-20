@@ -48,8 +48,7 @@ class HorizontalItemAdapter(private var restaurants: Array<Restaurant>) :
         holder.address.text = restaurants[position].address
         holder.rating.rating = restaurants[position].rating
 
-
-        Glide.with(context!!).load(restaurants[position].img).into(holder.image);
+        Glide.with(context!!).load(restaurants[position].img).into(holder.image)
 
         restaurants[position].tags?.forEach {
             val textView = setTagParams(it)
