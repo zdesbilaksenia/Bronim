@@ -1,4 +1,4 @@
-package com.yo.bronim.registrationfragment
+package com.yo.bronim.fragments.registrationfragment
 
 import android.os.Bundle
 import android.util.Patterns

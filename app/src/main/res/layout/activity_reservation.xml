@@ -3,13 +3,12 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".RegistrationActivity">
+        android:padding="18dp"
+        tools:context=".ReservationActivity">
 
     <androidx.fragment.app.FragmentContainerView
-            android:name="com.yo.bronim.fragments.registrationfragment.RegistrationFragment"
-            android:id="@+id/activity_registration_fragment"
+            android:id="@+id/reservation_fragment_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-        />
+            android:layout_height="match_parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

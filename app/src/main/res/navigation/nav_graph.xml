@@ -7,22 +7,22 @@
 
     <fragment
             android:id="@id/navigation_home_fragment"
-            android:name="com.yo.bronim.homefragment.HomeFragment"
+            android:name="com.yo.bronim.fragments.home.HomeFragment"
             android:label="fragment_home"
             tools:layout="@layout/fragment_home" />
     <fragment
             android:id="@id/navigation_map_fragment"
-            android:name="com.yo.bronim.MapFragment"
+            android:name="com.yo.bronim.fragments.map.MapFragment"
             android:label="fragment_map"
             tools:layout="@layout/fragment_map" />
     <fragment
             android:id="@id/navigation_reservation_list_fragment"
-            android:name="com.yo.bronim.ReservationsListFragment"
+            android:name="com.yo.bronim.fragments.reservationlist.ReservationsListFragment"
             android:label="fragment_reservations_list"
             tools:layout="@layout/fragment_reservations_list" />
     <fragment
             android:id="@id/navigation_favourites_fragment"
-            android:name="com.yo.bronim.FavouritesFragment"
+            android:name="com.yo.bronim.fragments.favourites.FavouritesFragment"
             android:label="fragment_favourites"
             tools:layout="@layout/fragment_favourites" />
 </navigation>

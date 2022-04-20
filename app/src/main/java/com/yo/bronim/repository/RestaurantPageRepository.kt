@@ -7,7 +7,7 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-class HomePageRepository {
+class RestaurantPageRepository {
     private val client = OkHttpClient.Builder().build()
     private val retrofit = Retrofit.Builder()
         .client(client)
@@ -16,15 +16,8 @@ class HomePageRepository {
         .build()
     private val restaurantApi = retrofit.create(RestaurantApi::class.java)
 
-    suspend fun getPopularRestaurants(): Array<Restaurant>? {
-        return restaurantApi.getPopularRestaurants().body()?.restaurants
-    }
-
-    suspend fun getNearestRestaurants(): Array<Restaurant>? {
-        return restaurantApi.getNearestRestaurants().body()?.restaurants
-    }
-
-    suspend fun getNewRestaurants(): Array<Restaurant>? {
-        return restaurantApi.getNewRestaurants().body()?.restaurants
+    suspend fun getRestaurant(restaurantID: Int?): Restaurant? {
+        Log.d("FUCCCKK repo", restaurantID.toString())
+        return restaurantApi.getRestaurant(restaurantID).body()
     }
 }

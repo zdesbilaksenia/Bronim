@@ -16,6 +16,8 @@ data class Restaurant(
 //    @Json(name = "geoposition") val geoposition: String,
     @Json(name = "tags") val tags: List<String>?,
     @Json(name = "rating") val rating: Float,
+    @Json(name = "starts_at_cell_id") val start: Int,
+    @Json(name = "ends_at_cell_id") val end: Int,
 )
 
 @JsonClass(generateAdapter = true)

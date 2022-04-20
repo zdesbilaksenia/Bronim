@@ -1,4 +1,4 @@
-package com.yo.bronim.homefragment
+package com.yo.bronim.fragments.home
 
 import android.os.Bundle
 import android.util.Log
@@ -11,8 +11,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yo.bronim.R
+import com.yo.bronim.fragments.home.adapter.MainAdapter
 import com.yo.bronim.contracts.AuthorizationContract
-import com.yo.bronim.homefragment.adapter.MainAdapter
 import com.yo.bronim.states.HomePageState
 import com.yo.bronim.viewmodels.HomePageViewModel
 
@@ -33,9 +33,6 @@ class HomeFragment : Fragment() {
 //            register.launch(Unit)
 //        }
 
-    private val textViewName by lazy {
-        view?.findViewById<TextView>(R.id.home__name)
-    }
 
     private val authorize = registerForActivityResult(AuthorizationContract()) { user ->
         textViewName?.text = user?.name
@@ -61,7 +58,7 @@ class HomeFragment : Fragment() {
         }
 
         recycler = view.findViewById(R.id.main_recycler)
-        recycler?.layoutManager = LinearLayoutManager(context)
+        recycler?.layoutManager = LinearLayoutManager(activity)
         recycler?.adapter = MainAdapter()
 
         homePageViewModel = HomePageViewModel()
