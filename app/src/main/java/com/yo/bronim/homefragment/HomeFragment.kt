@@ -25,10 +25,6 @@ class HomeFragment : Fragment() {
     private var recycler: RecyclerView? = null
     private var homePageViewModel = HomePageViewModel()
 
-    private val textViewName by lazy {
-        view?.findViewById<TextView>(R.id.home__name)
-    }
-
 //    Sample of result activity usage
 //    private val register = registerForActivityResult(RegistrationContract()) { name ->
 //        textViewName?.text = name
@@ -127,17 +123,6 @@ class HomeFragment : Fragment() {
                     )
                 }
             }
-        }
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        if (savedInstanceState != null) {
-            textViewName?.text = savedInstanceState.getString(UserNameVariable)
-        }
-        val profileImageView = view.findViewById<ImageView>(R.id.home__profile_image)
-        profileImageView.setOnClickListener {
-            authorize.launch(Unit)
         }
     }
 
