@@ -12,8 +12,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.yo.bronim.AuthorizationActivity
 import com.yo.bronim.R
 import com.yo.bronim.ReservationActivity
+import com.yo.bronim.contracts.AuthorizationContract
 import com.yo.bronim.models.Restaurant
 import com.yo.bronim.states.RestaurantPageState
 import com.yo.bronim.viewmodels.RestaurantPageViewModel
@@ -27,6 +29,8 @@ class RestaurantFragment : Fragment() {
     private var restaurantID: Int? = 0
     var bundle: Bundle? = Bundle()
     private var restaurant: Restaurant? = null
+
+    private val authorize = registerForActivityResult(AuthorizationContract()) { }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,6 +61,10 @@ class RestaurantFragment : Fragment() {
 
         val makeReservation = view.findViewById<Button>(R.id.make_reservation_btn)
         makeReservation.setOnClickListener {
+            val user = AuthorizationActivity.getFBUser()
+            if (user == null) {
+                authorize.launch(Unit)
+            }
             val intent = Intent(context, ReservationActivity::class.java)
             intent.putExtra("start", restaurant?.start)
             intent.putExtra("end", restaurant?.end)

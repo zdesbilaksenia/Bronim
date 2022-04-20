@@ -20,6 +20,7 @@ import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.yo.bronim.AuthorizationActivity
 import com.yo.bronim.R
 import com.yo.bronim.models.PostReservation
 import com.yo.bronim.states.ReservationPageState
@@ -144,18 +145,22 @@ class ReservationFragment : Fragment() {
         val okButton = view.findViewById<Button>(R.id.reservation_ok_btn)
         okButton.setOnClickListener {
             if (chosenTable != null && chosenDay != null && chosenTime.size > 0 && restId != null) {
-                reservationPageViewModel.sendReservationInfo(
-                    PostReservation(
-                        chosenTable.toString(),
-                        "1",
-                        convertChosenDate(),
-                        numOfGuests,
-                        chosenTime,
-                        null
-                    ),
-                    restId!!,
-                    chosenTable!!
-                )
+                val user = AuthorizationActivity.getFBUser()
+                if (user != null) {
+                    reservationPageViewModel.sendReservationInfo(
+                        PostReservation(
+                            chosenTable.toString(),
+                            user.uid,
+                            convertChosenDate(),
+                            numOfGuests,
+                            chosenTime,
+                            null
+                        ),
+                        restId!!,
+                        chosenTable!!
+                    )
+                }
+
             }
             activity?.finish()
         }

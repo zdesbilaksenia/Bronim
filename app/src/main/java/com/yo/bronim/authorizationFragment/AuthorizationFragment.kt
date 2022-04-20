@@ -67,9 +67,6 @@ class AuthorizationFragment : Fragment() {
         }
 
         backArrowButton?.setOnClickListener {
-//            val intent = Intent(activity, MainActivity::class.java)
-//            intent.flags = FLAG_ACTIVITY_SINGLE_TOP
-//            startActivity(intent)
             (activity as AuthorizationActivity).sendResultUser(null)
         }
 
