@@ -1,6 +1,8 @@
 package com.yo.bronim.fragments.restaurant
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,13 +21,13 @@ class RestaurantFragment : Fragment() {
     private var address : TextView?=null
     private var description : TextView?=null
     private var restaurantID : Int?=0
+    private var bundle : Bundle?= Bundle()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        restaurantID = arguments?.getInt("restaurantID")
         return inflater.inflate(R.layout.fragment_restaurant_page, container, false)
     }
 
@@ -40,7 +42,12 @@ class RestaurantFragment : Fragment() {
         restaurantPageViewModel = RestaurantPageViewModel()
 
         observeRestaurant()
-        restaurantPageViewModel.getRestaurant(restaurantID!!)
+        restaurantPageViewModel.getRestaurant(restaurantID)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        restaurantID = bundle?.getInt("restaurantID")
     }
 
     private fun observeRestaurant() {
@@ -52,6 +59,15 @@ class RestaurantFragment : Fragment() {
                     address?.text = state.result.address
                     description?.text = state.result.description
                 }
+            }
+        }
+    }
+
+    companion object {
+        fun newInstance(restaurantID: Int) = RestaurantFragment().apply {
+            bundle?.putInt("restaurantID", restaurantID)
+            arguments = bundle?.apply{
+                putInt("RestaurantID", restaurantID)
             }
         }
     }

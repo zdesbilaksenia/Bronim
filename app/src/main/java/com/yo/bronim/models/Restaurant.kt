@@ -14,7 +14,7 @@ data class Restaurant(
     @Json(name = "email") val email: String,
     @Json(name = "website_url") val website: String,
 //    @Json(name = "geoposition") val geoposition: String,
-    @Json(name = "tags") val tags: List<String>,
+    @Json(name = "tags") val tags: List<String>?,
     @Json(name = "rating") val rating: Float,
 )
 

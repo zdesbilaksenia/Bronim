@@ -22,5 +22,5 @@ interface RestaurantApi {
 
     @Headers("Content-Type: application/json")
     @GET("/bronim/restaurants/{id}")
-    suspend fun getRestaurant(@Path("id") id : Int): Response<Restaurant>
+    suspend fun getRestaurant(@Path("id") id : Int?): Response<Restaurant>
 }

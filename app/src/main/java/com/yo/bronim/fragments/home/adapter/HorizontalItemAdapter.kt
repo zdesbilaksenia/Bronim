@@ -1,6 +1,7 @@
 package com.yo.bronim.fragments.home.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.yo.bronim.R
+import com.yo.bronim.RestaurantActivity
 import com.yo.bronim.models.Restaurant
 
 const val TAG_MARGIN = 16
@@ -49,7 +51,9 @@ class HorizontalItemAdapter(private var restaurants: Array<Restaurant>) :
         }
 
         holder.cardLayout.setOnClickListener {
-            // вторая ловушка для Stepana
+            val intent = Intent(context, RestaurantActivity::class.java)
+            intent.putExtra("restaurantID", restaurants[position].id)
+            context?.startActivity(intent)
         }
     }
 

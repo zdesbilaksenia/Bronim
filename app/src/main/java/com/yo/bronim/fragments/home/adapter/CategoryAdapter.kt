@@ -41,11 +41,6 @@ class CategoryAdapter(private var restaurants: Array<Restaurant>) :
             val intent = Intent(context, RestaurantActivity::class.java)
             intent.putExtra("restaurantID", restaurants[position].id)
             context?.startActivity(intent)
-
-            // ловушка для Stepana
-            //TODO: При создании активити в него нужно передать id ресторана
-            //id ресторана = restaurants[position].id
-            //TODO: В адаптере горизонтальном то же самое надо
         }
     }
 

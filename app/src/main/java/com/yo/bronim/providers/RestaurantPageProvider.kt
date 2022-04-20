@@ -1,5 +1,6 @@
 package com.yo.bronim.providers
 
+import android.util.Log
 import com.yo.bronim.models.Restaurant as Restaurant
 import com.yo.bronim.repository.RestaurantPageRepository as RestaurantPageRepository
 import java.io.IOException
@@ -24,8 +25,9 @@ class RestaurantPageProvider {
 
     fun getRestaurant(
         callback: (result: Restaurant?, error: Throwable?) -> Unit,
-        restaurantID: Int
+        restaurantID: Int?
     ) {
+        Log.d("FUCCCKK prov", restaurantID.toString())
         scope.launch {
             try {
                 val result = restaurantPageRepository.getRestaurant(restaurantID)

@@ -1,5 +1,6 @@
 package com.yo.bronim.repository
 
+import android.util.Log
 import com.yo.bronim.interfaces.RestaurantApi
 import com.yo.bronim.models.Restaurant
 import okhttp3.OkHttpClient
@@ -15,7 +16,8 @@ class RestaurantPageRepository {
         .build()
     private val restaurantApi = retrofit.create(RestaurantApi::class.java)
 
-    suspend fun getRestaurant(restaurantID: Int): Restaurant? {
+    suspend fun getRestaurant(restaurantID: Int?): Restaurant? {
+        Log.d("FUCCCKK repo", restaurantID.toString())
         return restaurantApi.getRestaurant(restaurantID).body()
     }
 }
