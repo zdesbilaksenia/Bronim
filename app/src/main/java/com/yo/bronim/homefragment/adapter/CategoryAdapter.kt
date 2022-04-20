@@ -13,7 +13,6 @@ import com.yo.bronim.R
 import com.yo.bronim.ReservationActivity
 import com.yo.bronim.models.Restaurant
 
-
 class CategoryAdapter(private var restaurants: Array<Restaurant>) :
     RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
 

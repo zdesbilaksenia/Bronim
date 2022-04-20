@@ -6,7 +6,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/reservation_item_bckgrnd"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="10dp"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
         android:paddingStart="14dp"
