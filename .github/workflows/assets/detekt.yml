@@ -67,7 +67,7 @@ complexity:
   ComplexCondition:
     active: true
     excludes: ['**/generated/**']
-    threshold: 4
+    threshold: 5
   ComplexInterface:
     active: false
     excludes: ['**/generated/**']
@@ -93,7 +93,7 @@ complexity:
   LongMethod:
     active: true
     excludes: ['**/generated/**']
-    threshold: 60
+    threshold: 80
   LongParameterList:
     active: true
     excludes: ['**/generated/**']
@@ -560,7 +560,7 @@ style:
   MagicNumber:
     active: true
     excludes: ['**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/jsTest/**', '**/iosTest/**', '**/generated/**']
-    ignoreNumbers: ['-1', '0', '1', '2']
+    ignoreNumbers: ['-1', '0', '1', '2', '30', '240']
     ignoreHashCodeFunction: true
     ignorePropertyDeclaration: false
     ignoreLocalVariableDeclaration: false

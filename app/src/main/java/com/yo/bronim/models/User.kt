@@ -6,14 +6,12 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class UserAuthorization(
-    @Json(name = "firebase_id") var uid: String?,
-    @Json(name = "name") val name: String?,
-    @Json(name = "email") val email: String?,
-    @Json(name = "password") val password: String?
+data class User(
+    @Json(name = "firebase_id") var uid: String? = null,
+    @Json(name = "name") val name: String? = null,
+    @Json(name = "email") val email: String? = null,
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
-        parcel.readString(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString()
@@ -23,22 +21,19 @@ data class UserAuthorization(
         parcel.writeString(uid)
         parcel.writeString(name)
         parcel.writeString(email)
-        parcel.writeString(password)
     }
 
     override fun describeContents(): Int {
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<UserAuthorization> {
-        override fun createFromParcel(parcel: Parcel): UserAuthorization {
-            return UserAuthorization(parcel)
+    companion object CREATOR : Parcelable.Creator<User> {
+        override fun createFromParcel(parcel: Parcel): User {
+            return User(parcel)
         }
 
-        override fun newArray(size: Int): Array<UserAuthorization?> {
+        override fun newArray(size: Int): Array<User?> {
             return arrayOfNulls(size)
         }
     }
 }
-
-typealias AuthorizeCallback = (user: User?, error: Throwable?) -> Unit

@@ -25,10 +25,6 @@ class HomeFragment : Fragment() {
     private var recycler: RecyclerView? = null
     private var homePageViewModel = HomePageViewModel()
 
-    private val textViewName by lazy {
-        view?.findViewById<TextView>(R.id.home__name)
-    }
-
 //    Sample of result activity usage
 //    private val register = registerForActivityResult(RegistrationContract()) { name ->
 //        textViewName?.text = name
@@ -37,8 +33,12 @@ class HomeFragment : Fragment() {
 //            register.launch(Unit)
 //        }
 
-    private val authorize = registerForActivityResult(AuthorizationContract()) { email ->
-        textViewName?.text = email
+    private val textViewName by lazy {
+        view?.findViewById<TextView>(R.id.home__name)
+    }
+
+    private val authorize = registerForActivityResult(AuthorizationContract()) { user ->
+        textViewName?.text = user?.name
     }
 
     override fun onCreateView(

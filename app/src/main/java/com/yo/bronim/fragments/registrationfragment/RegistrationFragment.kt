@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.yo.bronim.R
 import com.yo.bronim.RegistrationActivity
+import com.yo.bronim.contracts.AuthorizationContract
 import com.yo.bronim.models.UserRegistration
 import com.yo.bronim.states.RegistrationPageState
 import com.yo.bronim.viewmodels.RegistrationPageViewModel
@@ -37,6 +38,14 @@ class RegistrationFragment : Fragment() {
         view?.findViewById<Button>(R.id.registration_page__create_account_button)
     }
 
+    private val buttonLogin by lazy {
+        view?.findViewById<Button>(R.id.registration_page__login_button)
+    }
+
+    private val login = registerForActivityResult(AuthorizationContract()) { user ->
+        (activity as RegistrationActivity).sendResult(user)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -49,6 +58,10 @@ class RegistrationFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         buttonRegister?.setOnClickListener {
             register()
+        }
+
+        buttonLogin?.setOnClickListener {
+            login.launch(Unit)
         }
 
         registrationPageViewModel.registrationState.observe(viewLifecycleOwner) { state ->
