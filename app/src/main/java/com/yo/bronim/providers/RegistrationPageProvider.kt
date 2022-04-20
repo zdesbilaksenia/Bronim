@@ -1,6 +1,8 @@
 package com.yo.bronim.providers
 
+import android.util.Log
 import com.yo.bronim.models.RegisterCallback
+import com.yo.bronim.models.User
 import com.yo.bronim.models.UserRegistration
 import com.yo.bronim.repository.RegistrationPageRepository
 import kotlinx.coroutines.CoroutineScope
@@ -14,7 +16,7 @@ class RegistrationPageProvider {
 
     private suspend fun invokeCallback(
         callback: RegisterCallback,
-        user: UserRegistration?,
+        user: User?,
         error: Throwable?
     ) {
         withContext(Dispatchers.Main) {
@@ -25,9 +27,18 @@ class RegistrationPageProvider {
     fun register(callback: RegisterCallback, user: UserRegistration) {
         scope.launch {
             try {
+                Log.d("[PROVIDER>REGISTER", "START REGISTER")
                 val result = registrationPageRepository.register(user)
-                invokeCallback(callback, result, null)
+                Log.d("[PROVIDER>REGISTER", "result = $result")
+                val resultUser = User(
+                    uid = result.uid,
+                    name = result.name,
+                    email = result.email,
+                )
+                registrationPageRepository.postUserData(resultUser)
+                invokeCallback(callback, resultUser, null)
             } catch (error: Throwable) {
+                Log.d("[PROVIDER>REGISTER", "ERROR = $error")
                 invokeCallback(callback, null, error)
             }
         }

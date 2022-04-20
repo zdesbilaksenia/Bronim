@@ -38,4 +38,5 @@
     <string name="errorInvalidEmail">Please use valid email</string>
     <string name="errorUserExists">User with such email already exists</string>
     <string name="weakPasswordException">Password is too weak</string>
+    <string name="already_have_an_account">Уже есть аккаунт?</string>
 </resources>

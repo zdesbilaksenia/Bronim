@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import com.yo.bronim.AuthorizationActivity
 import com.yo.bronim.MainActivity
 import com.yo.bronim.R
+import com.yo.bronim.contracts.RegistrationContract
 import com.yo.bronim.models.UserAuthorization
 import com.yo.bronim.states.AuthorizationPageState
 import com.yo.bronim.viewmodels.AuthorizationPageViewModel
@@ -38,6 +39,14 @@ class AuthorizationFragment : Fragment() {
         view?.findViewById<Button>(R.id.login_page__arrow_left_button)
     }
 
+    private val registerButton by lazy {
+        view?.findViewById<Button>(R.id.login_page__register_button)
+    }
+
+    private val register = registerForActivityResult(RegistrationContract()) { user ->
+        (activity as AuthorizationActivity).sendResultUser(user)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -51,6 +60,10 @@ class AuthorizationFragment : Fragment() {
 
         signInButton?.setOnClickListener {
             authorize()
+        }
+
+        registerButton?.setOnClickListener {
+            register.launch(Unit)
         }
 
         backArrowButton?.setOnClickListener {

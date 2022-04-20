@@ -37,8 +37,8 @@ class HomeFragment : Fragment() {
         view?.findViewById<TextView>(R.id.home__name)
     }
 
-    private val authorize = registerForActivityResult(AuthorizationContract()) { email ->
-        textViewName?.text = email
+    private val authorize = registerForActivityResult(AuthorizationContract()) { user ->
+        textViewName?.text = user?.name
     }
 
     override fun onCreateView(
@@ -51,7 +51,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        
+
         if (savedInstanceState != null) {
             textViewName?.text = savedInstanceState.getString(UserNameVariable)
         }
