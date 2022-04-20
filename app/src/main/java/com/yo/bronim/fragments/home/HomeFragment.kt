@@ -38,7 +38,9 @@ class HomeFragment : Fragment() {
     }
 
     private val authorize = registerForActivityResult(AuthorizationContract()) { user ->
-        textViewName?.text = user?.name
+        if (user != null) {
+            textViewName?.text = user.name
+        }
     }
 
     override fun onCreateView(
