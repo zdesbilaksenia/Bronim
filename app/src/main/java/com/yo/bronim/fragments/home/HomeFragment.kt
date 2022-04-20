@@ -33,6 +33,9 @@ class HomeFragment : Fragment() {
 //            register.launch(Unit)
 //        }
 
+    private val textViewName by lazy {
+        view?.findViewById<TextView>(R.id.home__name)
+    }
 
     private val authorize = registerForActivityResult(AuthorizationContract()) { user ->
         textViewName?.text = user?.name
