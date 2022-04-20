@@ -6,11 +6,13 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.yo.bronim.R
 import com.yo.bronim.RestaurantActivity
 import com.yo.bronim.models.Restaurant
@@ -29,6 +31,7 @@ class HorizontalItemAdapter(private var restaurants: Array<Restaurant>) :
         val address: TextView = itemView.findViewById(R.id.restaurant_address)
         val rating: RatingBar = itemView.findViewById(R.id.restaurant_rating)
         val cardLayout: CardView = itemView.findViewById(R.id.horizontal_card)
+        val image: ImageView = itemView.findViewById(R.id.restaurant_image)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HorizontalItemViewHolder {
@@ -44,6 +47,9 @@ class HorizontalItemAdapter(private var restaurants: Array<Restaurant>) :
         holder.name.text = restaurants[position].name
         holder.address.text = restaurants[position].address
         holder.rating.rating = restaurants[position].rating
+
+
+        Glide.with(context!!).load(restaurants[position].img).into(holder.image);
 
         restaurants[position].tags?.forEach {
             val textView = setTagParams(it)

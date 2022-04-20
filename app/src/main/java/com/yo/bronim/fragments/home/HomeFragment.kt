@@ -1,14 +1,18 @@
 package com.yo.bronim.fragments.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yo.bronim.R
 import com.yo.bronim.fragments.home.adapter.MainAdapter
+import com.yo.bronim.contracts.AuthorizationContract
 import com.yo.bronim.states.HomePageState
 import com.yo.bronim.viewmodels.HomePageViewModel
 
@@ -21,6 +25,23 @@ class HomeFragment : Fragment() {
     private var recycler: RecyclerView? = null
     private var homePageViewModel = HomePageViewModel()
 
+    private val textViewName by lazy {
+        view?.findViewById<TextView>(R.id.home__name)
+    }
+
+//    Sample of result activity usage
+//    private val register = registerForActivityResult(RegistrationContract()) { name ->
+//        textViewName?.text = name
+//    }
+//    someButton.setOnClickListener {
+//            register.launch(Unit)
+//        }
+
+
+    private val authorize = registerForActivityResult(AuthorizationContract()) { email ->
+        textViewName?.text = email
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -32,8 +53,16 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        if (savedInstanceState != null) {
+            textViewName?.text = savedInstanceState.getString(UserNameVariable)
+        }
+        val profileImageView = view.findViewById<ImageView>(R.id.home__profile_image)
+        profileImageView.setOnClickListener {
+            authorize.launch(Unit)
+        }
+
         recycler = view.findViewById(R.id.main_recycler)
-        recycler?.layoutManager = LinearLayoutManager(context)
+        recycler?.layoutManager = LinearLayoutManager(activity)
         recycler?.adapter = MainAdapter()
 
         homePageViewModel = HomePageViewModel()
@@ -98,7 +127,16 @@ class HomeFragment : Fragment() {
         }
     }
 
+    // сохранение состояния
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        var username = textViewName?.text.toString()
+        Log.i("UserName:", username)
+        outState.putString(UserNameVariable, username)
+    }
+
     companion object {
         fun newInstance() = HomeFragment()
+        var UserNameVariable = "USERNAME"
     }
 }

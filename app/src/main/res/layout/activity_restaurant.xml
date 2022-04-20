@@ -7,7 +7,6 @@ tools:context=".RestaurantActivity">
 
 <androidx.fragment.app.FragmentContainerView
         android:id="@+id/restaurant_fragment_container"
-        android:name="com.yo.bronim.fragments.restaurant.RestaurantFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

@@ -13,6 +13,7 @@ import com.yo.bronim.fragments.restaurant.RestaurantFragment
 class RestaurantActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d("ACTIVITY CREATE", "Yes")
         setContentView(R.layout.activity_restaurant)
         val intent = intent
         val restaurantID = intent.getIntExtra("restaurantID", 0)

@@ -5,12 +5,16 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.yo.bronim.R
 import com.yo.bronim.RestaurantActivity
 import com.yo.bronim.models.Restaurant
+import java.lang.System.load
 
 class CategoryAdapter(private var restaurants: Array<Restaurant>) :
     RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
@@ -22,6 +26,7 @@ class CategoryAdapter(private var restaurants: Array<Restaurant>) :
         val address: TextView = itemView.findViewById(R.id.restaurant_address)
         val rating: TextView = itemView.findViewById(R.id.restaurant_rating)
         val cardLayout: CardView = itemView.findViewById(R.id.category_card)
+        val image: ImageView = itemView.findViewById(R.id.restaurant_image)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
@@ -36,6 +41,8 @@ class CategoryAdapter(private var restaurants: Array<Restaurant>) :
         holder.name.text = restaurants[position].name
         holder.address.text = restaurants[position].address
         holder.rating.text = restaurants[position].rating.toString()
+
+        Glide.with(context!!).load(restaurants[position].img).into(holder.image);
 
         holder.cardLayout.setOnClickListener {
             val intent = Intent(context, RestaurantActivity::class.java)
