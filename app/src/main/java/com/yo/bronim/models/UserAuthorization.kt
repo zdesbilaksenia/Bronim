@@ -41,4 +41,4 @@ data class UserAuthorization(
     }
 }
 
-typealias AuthorizeCallback = (user: UserAuthorization?, error: Throwable?) -> Unit
+typealias AuthorizeCallback = (user: User?, error: Throwable?) -> Unit

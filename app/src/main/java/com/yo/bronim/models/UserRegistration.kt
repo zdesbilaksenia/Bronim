@@ -38,4 +38,4 @@ data class UserRegistration(
     }
 }
 
-typealias RegisterCallback = (user: UserRegistration?, error: Throwable?) -> Unit
+typealias RegisterCallback = (user: User?, error: Throwable?) -> Unit

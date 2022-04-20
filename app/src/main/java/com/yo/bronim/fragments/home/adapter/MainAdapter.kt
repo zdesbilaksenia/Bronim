@@ -1,4 +1,4 @@
-package com.yo.bronim.homefragment.adapter
+package com.yo.bronim.fragments.home.adapter
 
 import android.content.Context
 import android.view.LayoutInflater

@@ -34,13 +34,38 @@
     <string name="reservations_list">reservations list</string>
     <string name="favourites">favourites</string>
     <string name="your_reservations">Ваши заявки</string>
+    <string name="num_of_guests">Количество гостей</string>
     <string name="date">Дата</string>
     <string name="time">Время</string>
-    <string name="guests_number">Количество гостей</string>
+    <string-array name="months">
+        <item>ЯНВ</item>
+        <item>ФЕВ</item>
+        <item>МАР</item>
+        <item>АПР</item>
+        <item>МАЙ</item>
+        <item>ИЮН</item>
+        <item>ИЮЛ</item>
+        <item>АВГ</item>
+        <item>СЕН</item>
+        <item>ОКТ</item>
+        <item>НОЯ</item>
+        <item>ДЕК</item>
+    </string-array>
+    <string-array name="weekdays">
+        <item>ВС</item>
+        <item>ПН</item>
+        <item>ВТ</item>
+        <item>СР</item>
+        <item>ЧТ</item>
+        <item>ПТ</item>
+        <item>СБ</item>
+    </string-array>
+>>>>>>> 6c6292757fa537d126c7ba78f607323561a3c7a6
     <!--    Registration exceptions-->
     <string name="errorUserIsNotLoggedIn">User is not logged in</string>
     <string name="errorWeakPassword">Password is too weak</string>
     <string name="errorInvalidEmail">Please use valid email</string>
     <string name="errorUserExists">User with such email already exists</string>
     <string name="weakPasswordException">Password is too weak</string>
+    <string name="already_have_an_account">Уже есть аккаунт?</string>
 </resources>

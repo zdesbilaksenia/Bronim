@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
     <ScrollView
             android:id="@+id/fragment_restaurant_page__content"
@@ -14,8 +12,7 @@
             android:layout_height="0dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/fragment_restaurant_page__btn_frame"
-            android:fillViewport="true"
-            >
+            android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -24,15 +21,15 @@
             <ImageView
                     android:id="@+id/fragment_restaurant_page__image"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="240dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:src="@drawable/restaurant_placeholder"
                     android:scaleType="centerCrop"
                     android:contentDescription="@string/restaurant_photo" />
 
             <ImageView
+                    android:id="@+id/fragment_restaurant_page__btn_back"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toTopOf="@+id/fragment_restaurant_page__image"
@@ -41,13 +38,17 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginStart="8dp"
                     tools:ignore="ContentDescription" />
+
             <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toTopOf="@+id/fragment_restaurant_page__image"
-                    app:layout_constraintEnd_toEndOf="@+id/fragment_restaurant_page__image" android:src="@drawable/ic_fav" android:layout_marginTop="8dp"
+                    app:layout_constraintEnd_toEndOf="@+id/fragment_restaurant_page__image"
+                    android:src="@drawable/ic_fav"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     tools:ignore="ContentDescription" />
+
             <TextView
                     android:id="@+id/fragment_restaurant_page__name"
                     android:layout_width="0dp"
@@ -57,10 +58,11 @@
                     app:layout_constraintTop_toBottomOf="@+id/fragment_restaurant_page__image"
                     android:textColor="@color/text_dark"
                     android:textSize="28sp"
-                    android:text="Sempre"
+                    tools:text="Sempre"
                     android:textFontWeight="500"
                     android:paddingHorizontal="18dp"
                     android:paddingTop="10dp" />
+
             <TextView
                     android:id="@+id/fragment_restaurant_page__address"
                     android:layout_width="0dp"
@@ -70,8 +72,9 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     android:textColor="@color/text_dark"
                     android:textSize="12sp"
-                    android:text="ул. Большая Дмитровка, 22, Москва (с1)"
+                    tools:text="ул. Большая Дмитровка, 22, Москва (с1)"
                     android:paddingHorizontal="18dp" />
+
             <TextView
                     android:id="@+id/fragment_restaurant_page__description"
                     android:layout_width="0dp"
@@ -81,7 +84,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     android:textColor="@color/text_dark"
                     android:textSize="16sp"
-                    android:text="Ресторан SEMPRE — зелёный уголок в центре столицы с европейской кухней в авторской интерпретации и дизайнерским эко-интерьером, не имеющим аналогов в Москве и мире.\n\nДизайн интерьера SEMPRE — творение бельгийского дизайнера Гюста Семпре. Таинственный сад, вдохновленный зеленью северной флоры, стирает границы города и природы. Лианы, свисающие с потолка, лесной мох на стенах, колоритная мебель из массива натурального дерева, посуда и столовые приборы ручной работы. Самобытность каждой детали и отсутствие стереотипного деления пространства — свобода, как в джунглях."
+                    tools:text="Ресторан SEMPRE — зелёный уголок в центре столицы с европейской кухней в авторской интерпретации и дизайнерским эко-интерьером, не имеющим аналогов в Москве и мире.\n\nДизайн интерьера SEMPRE — творение бельгийского дизайнера Гюста Семпре. Таинственный сад, вдохновленный зеленью северной флоры, стирает границы города и природы. Лианы, свисающие с потолка, лесной мох на стенах, колоритная мебель из массива натурального дерева, посуда и столовые приборы ручной работы. Самобытность каждой детали и отсутствие стереотипного деления пространства — свобода, как в джунглях."
                     android:paddingHorizontal="18dp"
                     android:paddingBottom="10dp"
                     android:layout_marginTop="10dp" />
@@ -94,15 +97,15 @@
             android:layout_height="wrap_content"
             android:paddingVertical="10dp"
             android:paddingHorizontal="18dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            >
+            app:layout_constraintBottom_toBottomOf="parent">
+
         <Button
+                android:id="@+id/make_reservation_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/turquoise_btn"
                 android:paddingVertical="12dp"
                 android:text="@string/to_book"
-                android:elevation="0dp"
-                />
+                android:elevation="0dp" />
     </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
