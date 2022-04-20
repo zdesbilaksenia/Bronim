@@ -3,13 +3,13 @@ package com.yo.bronim.providers
 import com.yo.bronim.models.PostReservation
 import com.yo.bronim.models.Reservation
 import com.yo.bronim.repository.ReservationPageRepository
+import java.io.IOException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.io.IOException
 
-class ReservationPageProvider() {
+class ReservationPageProvider {
     private val scope = CoroutineScope(Dispatchers.IO)
 
     private val reservationPageRepository = ReservationPageRepository()

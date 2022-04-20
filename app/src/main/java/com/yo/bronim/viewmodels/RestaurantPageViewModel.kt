@@ -13,16 +13,17 @@ class RestaurantPageViewModel {
         Log.d("FUCCCKK viewm", restaurantID.toString())
         restaurantState.postValue(RestaurantPageState.Pending())
 
-        restaurantPageManager.getRestaurant( { result, error ->
-            when {
-                result != null -> {
-                    restaurantState.postValue(RestaurantPageState.Success(result))
+        restaurantPageManager.getRestaurant(
+            { result, error ->
+                when {
+                    result != null -> {
+                        restaurantState.postValue(RestaurantPageState.Success(result))
+                    }
+                    error != null -> {
+                        restaurantState.postValue(RestaurantPageState.Error(error))
+                    }
                 }
-                error != null -> {
-                    restaurantState.postValue(RestaurantPageState.Error(error))
-                }
-            }
-        },
+            },
             restaurantID
         )
     }

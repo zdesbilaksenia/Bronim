@@ -42,7 +42,7 @@ class CategoryAdapter(private var restaurants: Array<Restaurant>) :
         holder.address.text = restaurants[position].address
         holder.rating.text = restaurants[position].rating.toString()
 
-        Glide.with(context!!).load(restaurants[position].img).into(holder.image);
+        Glide.with(context!!).load(restaurants[position].img).into(holder.image)
 
         holder.cardLayout.setOnClickListener {
             val intent = Intent(context, RestaurantActivity::class.java)
