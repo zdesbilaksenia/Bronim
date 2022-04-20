@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.yo.bronim.contracts.EXTRA_USER_AUTHORIZATION
@@ -27,9 +28,8 @@ class AuthorizationActivity : AppCompatActivity() {
     companion object {
         fun newInstance(context: Context?) = Intent(context, AuthorizationActivity::class.java)
         private val auth = Firebase.auth
-        fun isAuthorized(): Boolean {
-            val user = auth.currentUser
-            return user != null
+        fun getFBUser(): FirebaseUser? {
+            return auth.currentUser
         }
     }
 }
