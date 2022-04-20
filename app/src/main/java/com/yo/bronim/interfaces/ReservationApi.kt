@@ -1,6 +1,6 @@
 package com.yo.bronim.interfaces
 
-import com.yo.bronim.models.ReservationRestaurantList
+import com.yo.bronim.models.RestaurantReservationList
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Headers
@@ -11,5 +11,5 @@ interface ReservationApi {
     @GET("/bronim/{id]/reservations")
     suspend fun getReservationsList(
         @Path("id") id: String,
-    ): Response<ReservationRestaurantList>
+    ): Response<RestaurantReservationList>
 }

@@ -38,6 +38,7 @@
     <string name="time">Время</string>
     <string name="guests_number">Количество гостей</string>
     <!--    Registration exceptions-->
+    <string name="errorUserIsNotLoggedIn">User is not logged in</string>
     <string name="errorWeakPassword">Password is too weak</string>
     <string name="errorInvalidEmail">Please use valid email</string>
     <string name="errorUserExists">User with such email already exists</string>

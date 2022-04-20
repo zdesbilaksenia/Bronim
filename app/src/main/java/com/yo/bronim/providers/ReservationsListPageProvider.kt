@@ -1,5 +1,6 @@
 package com.yo.bronim.providers
 
+import com.yo.bronim.R
 import com.yo.bronim.models.Reservation
 import com.yo.bronim.models.ReservationsListCallback
 import com.yo.bronim.repository.ReservationsListPageRepository
@@ -7,14 +8,16 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.lang.Error
+import com.yo.bronim.models.ReservationListItem as ReservationListItem
 
 class ReservationsListPageProvider {
     private val scope = CoroutineScope(Dispatchers.IO)
     private val reservationsListPageRepository = ReservationsListPageRepository()
 
     private suspend fun invokeCallback(
-        callback: (result: Array<Reservation>?, error: Throwable?) -> Unit,
-        result: Array<Reservation>?,
+        callback: ReservationsListCallback,
+        result: Array<ReservationListItem>?,
         error: Throwable?
     ) {
         withContext(Dispatchers.Main) {
@@ -25,8 +28,24 @@ class ReservationsListPageProvider {
     fun getReservationsList(callback: ReservationsListCallback) {
         scope.launch {
             try {
-                val result = reservationsListPageRepository.getReservationsList()
-                invokeCallback(callback, result, null)
+                val restaurantReservationList = reservationsListPageRepository.getReservationsList()
+                    ?: throw Exception(R.string.errorUserIsNotLoggedIn.toString())
+                val result = ArrayList<ReservationListItem>()
+                for (rr in restaurantReservationList) {
+//                    todo
+                    val time = "02:53"
+                    val reservation = ReservationListItem(
+                        id = rr.reservation.id,
+                        name = rr.restaurant.name,
+                        address = rr.restaurant.address,
+                        tags = rr.restaurant.tags,
+                        date = rr.reservation.date,
+                        time = time,
+                        guests_num = rr.reservation.guests_num,
+                    )
+                    result.add(reservation)
+                }
+                invokeCallback(callback, result.toTypedArray(), null)
             } catch (error: Throwable) {
                 invokeCallback(callback, null, error)
             }

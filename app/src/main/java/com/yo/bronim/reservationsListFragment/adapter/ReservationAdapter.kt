@@ -8,9 +8,10 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.yo.bronim.R
 import com.yo.bronim.models.Reservation
+import com.yo.bronim.models.ReservationListItem
 import org.w3c.dom.Text
 
-class ReservationAdapter(private var reservations: Array<Reservation>) : RecyclerView.Adapter<ReservationAdapter.ReservationViewHolder>() {
+class ReservationAdapter(private var reservations: Array<ReservationListItem>) : RecyclerView.Adapter<ReservationAdapter.ReservationViewHolder>() {
     inner class ReservationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 //        val reservationCard : CardView = itemView.findViewById(R.id.view_reservation_card__card)
         val name : TextView = itemView.findViewById(R.id.view_reservation_card__restaurant_name)
