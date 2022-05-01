@@ -11,8 +11,7 @@ object AuthorizationManager {
         authorizationProvider.authorize(callback, user)
     }
 
-    /*
-    fun getUsername(callback: AuthorizeCallback) {
-        authorizationProvider
-    }*/
+    fun isAuthorized(callback: (error: Throwable?) -> Unit) {
+        authorizationProvider.isAuthorized(callback)
+    }
 }

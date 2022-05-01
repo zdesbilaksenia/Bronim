@@ -25,6 +25,12 @@
         <item name="cornerRadius">10dp</item>
     </style>
 
+    <style name="red_btn">
+        <item name="android:textColor">@color/white</item>
+        <item name="backgroundTint">@color/red</item>
+        <item name="cornerRadius">10dp</item>
+    </style>
+
     <style name="icon_btn">
         <item name="backgroundTint">@color/gray_200</item>
         <item name="cornerRadius">10dp</item>

@@ -44,14 +44,14 @@ class AuthorizationPageRepository {
         return authorizationApi.authorize(firebaseID)?.body()
     }
 
-    /*
-
-    suspend fun getUId(): String? {
-        if (auth.currentUser != null) {
-            return auth.currentUser?.uid
-        } else {
-            throw Exception("Auth.currentUser is null")
+    suspend fun isAuthorized() {
+        return suspendCoroutine { continuation ->
+            if (auth.currentUser != null) {
+                Log.i("isAuthorizedRepo", auth.currentUser!!.uid)
+                continuation.resume(Unit)
+            } else {
+                continuation.resumeWithException(Exception("not authorized"))
+            }
         }
     }
-     */
 }
