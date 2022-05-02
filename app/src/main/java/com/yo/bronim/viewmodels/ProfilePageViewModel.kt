@@ -2,12 +2,14 @@ package com.yo.bronim.viewmodels
 
 import androidx.lifecycle.MutableLiveData
 import com.yo.bronim.managers.ProfilePageManager
+import com.yo.bronim.models.User
 import com.yo.bronim.states.ProfilePageState
 
 class ProfilePageViewModel {
     private val profilePageManager = ProfilePageManager
     val signOutState = MutableLiveData<ProfilePageState>()
     val saveProfileState = MutableLiveData<ProfilePageState>()
+    val getProfileState = MutableLiveData<ProfilePageState>()
 
     fun signOut() {
         signOutState.postValue(ProfilePageState.Pending)
@@ -24,18 +26,34 @@ class ProfilePageViewModel {
         }
     }
 
-    fun saveProfile() {
+    fun saveProfile(user: User?) {
         saveProfileState.postValue(ProfilePageState.Pending)
-        profilePageManager.saveProfile { error ->
+        profilePageManager.saveProfile(
+            { resultUser, error ->
+                when {
+                    error == null -> {
+                        saveProfileState.postValue(ProfilePageState.Success(resultUser))
+                    }
+                    else -> {
+                        saveProfileState.postValue(ProfilePageState.Error(error))
+                    }
+                }
+        },
+            user
+        )
+    }
+
+    fun getProfile() {
+        getProfileState.postValue(ProfilePageState.Pending)
+        profilePageManager.getProfile { resultUser, error ->
             when {
                 error == null -> {
-                    saveProfileState.postValue(ProfilePageState.Success(null))
+                    getProfileState.postValue(ProfilePageState.Success(resultUser))
                 }
                 else -> {
-                    saveProfileState.postValue(ProfilePageState.Error(error))
+                    getProfileState.postValue(ProfilePageState.Error(error))
                 }
             }
-
         }
     }
 }

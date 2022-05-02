@@ -3,7 +3,7 @@ package com.yo.bronim.repository
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.yo.bronim.interfaces.ProfileApi
-import com.yo.bronim.models.UserAuthorization
+import com.yo.bronim.models.User
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -35,7 +35,22 @@ class ProfilePageRepository {
         }
     }
 
-    suspend fun saveProfile(): UserAuthorization? {
-        return profileApi.updateProfile(auth.currentUser!!.uid)?.body()
+    suspend fun getFirebaseUID(): String? {
+        return suspendCoroutine { continuation ->
+            if (auth.currentUser != null) {
+                Log.i("isAuthorizedRepo", auth.currentUser!!.uid)
+                continuation.resume(auth.currentUser!!.uid)
+            } else {
+                continuation.resumeWithException(Exception("not authorized"))
+            }
+        }
+    }
+
+    suspend fun saveProfile(fireBaseID: String?, user: User?): User? {
+        return profileApi.updateProfile(fireBaseID, user)?.body()
+    }
+
+    suspend fun getProfile(fireBaseID: String?): User? {
+        return profileApi.getProfile(fireBaseID)?.body()
     }
 }

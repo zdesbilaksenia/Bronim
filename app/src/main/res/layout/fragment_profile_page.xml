@@ -181,7 +181,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginHorizontal="10dp"
             app:layout_constraintTop_toBottomOf="@id/profile_page__person_info_card"
-            app:layout_constraintBottom_toTopOf="@id/profile_page__signOut_button"
             android:id="@+id/profile_page__notifications_card"
             app:cardCornerRadius="10dp"
             app:cardElevation="10dp"
@@ -239,17 +238,6 @@
     </androidx.cardview.widget.CardView>
 
     <Button
-            android:id="@+id/profile_page__signOut_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/profile_page__notifications_card"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:text="Выход"
-            style="@style/red_btn"
-            android:layout_marginEnd="20dp"/>
-
-    <Button
             android:id="@+id/profile_page__save_profile_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -258,6 +246,19 @@
             app:layout_constraintStart_toStartOf="parent"
             android:text="Сохранить"
             style="@style/turquoise_btn"
-            android:layout_marginStart="20dp"/>
+            android:layout_marginStart="24dp"
+            android:layout_marginBottom="10dp"/>
+
+    <Button
+            android:id="@+id/profile_page__signOut_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/profile_page__notifications_card"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="Выход"
+            style="@style/red_btn"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="10dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
