@@ -33,7 +33,6 @@ class RegistrationPageRepository {
         return suspendCoroutine { continuation ->
             auth.createUserWithEmailAndPassword(user.email!!, user.password!!)
                 .addOnCompleteListener { task ->
-                    Log.i("DEBUG", "in complete")
                     if (task.isSuccessful) {
                         user.uid = auth.currentUser?.uid
                         continuation.resume(user)

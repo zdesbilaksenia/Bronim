@@ -40,7 +40,6 @@ class AuthorizationPageRepository {
     }
 
     suspend fun getUserData(firebaseID: String?): UserAuthorization? {
-        Log.i("Body", "in GetData")
         return authorizationApi.authorize(firebaseID)?.body()
     }
 
