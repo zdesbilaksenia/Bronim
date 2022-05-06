@@ -67,7 +67,6 @@ class ReservationFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Log.d("FRAGMENT", "yes")
         return inflater.inflate(R.layout.fragment_reservation, container, false)
     }
 

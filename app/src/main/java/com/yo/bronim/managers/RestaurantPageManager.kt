@@ -11,7 +11,6 @@ class RestaurantPageManager {
         callback: (result: Restaurant?, error: Throwable?) -> Unit,
         restaurantID: Int?
     ) {
-        Log.d("FUCCCKK mang", restaurantID.toString())
         restaurantPageProvider.getRestaurant(
             { result, error -> callback(result, error) },
             restaurantID

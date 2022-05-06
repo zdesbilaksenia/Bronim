@@ -37,7 +37,6 @@ class RestaurantFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Log.d("CREATE REST", "yes")
         return inflater.inflate(R.layout.fragment_restaurant_page, container, false)
     }
 

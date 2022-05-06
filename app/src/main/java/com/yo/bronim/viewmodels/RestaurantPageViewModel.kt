@@ -10,7 +10,6 @@ class RestaurantPageViewModel {
     val restaurantState = MutableLiveData<RestaurantPageState>()
 
     fun getRestaurant(restaurantID: Int?) {
-        Log.d("FUCCCKK viewm", restaurantID.toString())
         restaurantState.postValue(RestaurantPageState.Pending())
 
         restaurantPageManager.getRestaurant(

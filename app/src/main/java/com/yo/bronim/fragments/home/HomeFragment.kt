@@ -87,7 +87,7 @@ class HomeFragment : Fragment() {
                     )
                     (recycler?.adapter as MainAdapter).showCategoryRestaurants(
                         recommendedHolder as MainAdapter.MainViewHolder,
-                        state.result
+                        state.result, View.GONE
                     )
                 }
             }
@@ -104,7 +104,8 @@ class HomeFragment : Fragment() {
                     )
                     (recycler?.adapter as MainAdapter).showCategoryRestaurants(
                         newRestsHolder as MainAdapter.MainViewHolder,
-                        state.result
+                        state.result,
+                        View.GONE
                     )
                 }
             }
@@ -121,7 +122,7 @@ class HomeFragment : Fragment() {
                     )
                     (recycler?.adapter as MainAdapter).showNearestRestaurants(
                         nearestRestsHolder as MainAdapter.MainViewHolder,
-                        state.result
+                        state.result, View.GONE
                     )
                 }
             }

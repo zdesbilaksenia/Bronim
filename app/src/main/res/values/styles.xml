@@ -69,4 +69,9 @@
         <item name="android:layout_width">93dp</item>
         <item name="android:textColor">@color/main_dark_color</item>
     </style>
+
+    <style name="text_input" parent="ThemeOverlay.AppCompat">
+        <item name="android:layout_width">125dp</item>
+        <item name="android:layout_height">43dp</item>
+    </style>
 </resources>

@@ -7,7 +7,6 @@ import com.yo.bronim.fragments.reservationfragment.ReservationFragment
 
 class ReservationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        Log.d("STARTED", "yes")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation)
         val intent = intent

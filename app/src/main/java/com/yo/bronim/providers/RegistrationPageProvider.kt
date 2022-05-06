@@ -27,9 +27,7 @@ class RegistrationPageProvider {
     fun register(callback: RegisterCallback, user: UserRegistration) {
         scope.launch {
             try {
-                Log.d("[PROVIDER>REGISTER", "START REGISTER")
                 val result = registrationPageRepository.register(user)
-                Log.d("[PROVIDER>REGISTER", "result = $result")
                 val resultUser = User(
                     uid = result.uid,
                     name = result.name,
@@ -38,7 +36,6 @@ class RegistrationPageProvider {
                 registrationPageRepository.postUserData(resultUser)
                 invokeCallback(callback, resultUser, null)
             } catch (error: Throwable) {
-                Log.d("[PROVIDER>REGISTER", "ERROR = $error")
                 invokeCallback(callback, null, error)
             }
         }
