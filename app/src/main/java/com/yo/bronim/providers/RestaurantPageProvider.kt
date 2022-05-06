@@ -1,6 +1,5 @@
 package com.yo.bronim.providers
 
-import android.util.Log
 import com.yo.bronim.models.Restaurant as Restaurant
 import com.yo.bronim.repository.RestaurantPageRepository as RestaurantPageRepository
 import java.io.IOException

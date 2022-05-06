@@ -2,7 +2,6 @@ package com.yo.bronim.fragments.reservationfragment
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
@@ -159,7 +158,6 @@ class ReservationFragment : Fragment() {
                         chosenTable!!
                     )
                 }
-
             }
             activity?.finish()
         }
@@ -292,7 +290,7 @@ class ReservationFragment : Fragment() {
 
     private fun convertChosenDate(): String {
         return "${calendar.get(Calendar.YEAR)}.${
-            (chosenMonth + 1).toString().padStart(2, '0')
+        (chosenMonth + 1).toString().padStart(2, '0')
         }.${chosenDay?.second.toString().padStart(2, '0')}"
     }
 

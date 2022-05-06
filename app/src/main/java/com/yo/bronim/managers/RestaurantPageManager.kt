@@ -1,6 +1,5 @@
 package com.yo.bronim.managers
 
-import android.util.Log
 import com.yo.bronim.models.Restaurant
 import com.yo.bronim.providers.RestaurantPageProvider
 

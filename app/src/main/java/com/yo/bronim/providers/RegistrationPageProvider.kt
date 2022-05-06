@@ -1,6 +1,5 @@
 package com.yo.bronim.providers
 
-import android.util.Log
 import com.yo.bronim.models.RegisterCallback
 import com.yo.bronim.models.User
 import com.yo.bronim.models.UserRegistration
