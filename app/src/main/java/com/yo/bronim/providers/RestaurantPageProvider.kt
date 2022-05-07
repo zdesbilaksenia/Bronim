@@ -27,7 +27,6 @@ class RestaurantPageProvider {
         callback: (result: Restaurant?, error: Throwable?) -> Unit,
         restaurantID: Int?
     ) {
-        Log.d("FUCCCKK prov", restaurantID.toString())
         scope.launch {
             try {
                 val result = restaurantPageRepository.getRestaurant(restaurantID)

@@ -17,7 +17,6 @@ class RestaurantPageRepository {
     private val restaurantApi = retrofit.create(RestaurantApi::class.java)
 
     suspend fun getRestaurant(restaurantID: Int?): Restaurant? {
-        Log.d("FUCCCKK repo", restaurantID.toString())
         return restaurantApi.getRestaurant(restaurantID).body()
     }
 }
