@@ -1,7 +1,6 @@
 package com.yo.bronim.fragments.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -135,7 +134,6 @@ class HomeFragment : Fragment() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         var username = textViewName?.text.toString()
-        Log.i("UserName:", username)
         outState.putString(UserNameVariable, username)
     }
 
