@@ -1,7 +1,6 @@
 package com.yo.bronim.fragments.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,7 +37,9 @@ class HomeFragment : Fragment() {
     }
 
     private val authorize = registerForActivityResult(AuthorizationContract()) { user ->
-        textViewName?.text = user?.name
+        if (user != null) {
+            textViewName?.text = user.name
+        }
     }
 
     override fun onCreateView(
@@ -85,7 +86,8 @@ class HomeFragment : Fragment() {
                     )
                     (recycler?.adapter as MainAdapter).showCategoryRestaurants(
                         recommendedHolder as MainAdapter.MainViewHolder,
-                        state.result
+                        state.result,
+                        View.GONE
                     )
                 }
             }
@@ -102,7 +104,8 @@ class HomeFragment : Fragment() {
                     )
                     (recycler?.adapter as MainAdapter).showCategoryRestaurants(
                         newRestsHolder as MainAdapter.MainViewHolder,
-                        state.result
+                        state.result,
+                        View.GONE
                     )
                 }
             }
@@ -119,7 +122,8 @@ class HomeFragment : Fragment() {
                     )
                     (recycler?.adapter as MainAdapter).showNearestRestaurants(
                         nearestRestsHolder as MainAdapter.MainViewHolder,
-                        state.result
+                        state.result,
+                        View.GONE
                     )
                 }
             }
@@ -130,7 +134,6 @@ class HomeFragment : Fragment() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         var username = textViewName?.text.toString()
-        Log.i("UserName:", username)
         outState.putString(UserNameVariable, username)
     }
 

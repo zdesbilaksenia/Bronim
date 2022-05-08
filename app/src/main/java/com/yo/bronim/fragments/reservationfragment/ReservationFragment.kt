@@ -2,7 +2,6 @@ package com.yo.bronim.fragments.reservationfragment
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +19,7 @@ import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.yo.bronim.AuthorizationActivity
 import com.yo.bronim.R
 import com.yo.bronim.models.PostReservation
 import com.yo.bronim.states.ReservationPageState
@@ -66,7 +66,6 @@ class ReservationFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Log.d("FRAGMENT", "yes")
         return inflater.inflate(R.layout.fragment_reservation, container, false)
     }
 
@@ -144,18 +143,21 @@ class ReservationFragment : Fragment() {
         val okButton = view.findViewById<Button>(R.id.reservation_ok_btn)
         okButton.setOnClickListener {
             if (chosenTable != null && chosenDay != null && chosenTime.size > 0 && restId != null) {
-                reservationPageViewModel.sendReservationInfo(
-                    PostReservation(
-                        chosenTable.toString(),
-                        "1",
-                        convertChosenDate(),
-                        numOfGuests,
-                        chosenTime,
-                        null
-                    ),
-                    restId!!,
-                    chosenTable!!
-                )
+                val user = AuthorizationActivity.getFBUser()
+                if (user != null) {
+                    reservationPageViewModel.sendReservationInfo(
+                        PostReservation(
+                            chosenTable.toString(),
+                            user.uid,
+                            convertChosenDate(),
+                            numOfGuests,
+                            chosenTime,
+                            null
+                        ),
+                        restId!!,
+                        chosenTable!!
+                    )
+                }
             }
             activity?.finish()
         }
@@ -288,7 +290,7 @@ class ReservationFragment : Fragment() {
 
     private fun convertChosenDate(): String {
         return "${calendar.get(Calendar.YEAR)}.${
-            (chosenMonth + 1).toString().padStart(2, '0')
+        (chosenMonth + 1).toString().padStart(2, '0')
         }.${chosenDay?.second.toString().padStart(2, '0')}"
     }
 

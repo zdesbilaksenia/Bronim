@@ -3,7 +3,6 @@ package com.yo.bronim.fragments.restaurant
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,8 +11,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.yo.bronim.AuthorizationActivity
 import com.yo.bronim.R
 import com.yo.bronim.ReservationActivity
+import com.yo.bronim.contracts.AuthorizationContract
 import com.yo.bronim.models.Restaurant
 import com.yo.bronim.states.RestaurantPageState
 import com.yo.bronim.viewmodels.RestaurantPageViewModel
@@ -28,12 +29,13 @@ class RestaurantFragment : Fragment() {
     var bundle: Bundle? = Bundle()
     private var restaurant: Restaurant? = null
 
+    private val authorize = registerForActivityResult(AuthorizationContract()) { }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Log.d("CREATE REST", "yes")
         return inflater.inflate(R.layout.fragment_restaurant_page, container, false)
     }
 
@@ -57,11 +59,16 @@ class RestaurantFragment : Fragment() {
 
         val makeReservation = view.findViewById<Button>(R.id.make_reservation_btn)
         makeReservation.setOnClickListener {
-            val intent = Intent(context, ReservationActivity::class.java)
-            intent.putExtra("start", restaurant?.start)
-            intent.putExtra("end", restaurant?.end)
-            intent.putExtra("id", restaurant?.id)
-            context?.startActivity(intent)
+            val user = AuthorizationActivity.getFBUser()
+            if (user == null) {
+                authorize.launch(Unit)
+            } else {
+                val intent = Intent(context, ReservationActivity::class.java)
+                intent.putExtra("start", restaurant?.start)
+                intent.putExtra("end", restaurant?.end)
+                intent.putExtra("id", restaurant?.id)
+                context?.startActivity(intent)
+            }
         }
     }
 

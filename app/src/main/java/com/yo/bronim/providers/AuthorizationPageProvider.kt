@@ -43,16 +43,4 @@ class AuthorizationPageProvider {
             }
         }
     }
-
-    /*
-    fun getUsername(callback: AuthorizeCallback) {
-        scope.launch {
-            try {
-                val uid = authorizationPageRepository.getUId()
-            } catch (error: Throwable) {
-
-            }
-        }
-    }
-     */
 }
