@@ -94,9 +94,6 @@ class RestaurantFragment : Fragment() {
     companion object {
         fun newInstance(restaurantID: Int) = RestaurantFragment().apply {
             bundle?.putInt("restaurantID", restaurantID)
-//            arguments = bundle?.apply {
-//                putInt("RestaurantID", restaurantID)
-//            }
         }
     }
 }

@@ -25,14 +25,6 @@ class HomeFragment : Fragment() {
     private var recycler: RecyclerView? = null
     private var homePageViewModel = HomePageViewModel()
 
-//    Sample of result activity usage
-//    private val register = registerForActivityResult(RegistrationContract()) { name ->
-//        textViewName?.text = name
-//    }
-//    someButton.setOnClickListener {
-//            register.launch(Unit)
-//        }
-
     private val textViewName by lazy {
         view?.findViewById<TextView>(R.id.home__name)
     }
@@ -131,11 +123,9 @@ class HomeFragment : Fragment() {
         }
     }
 
-    // сохранение состояния
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         var username = textViewName?.text.toString()
-        Log.i("UserName:", username)
         outState.putString(UserNameVariable, username)
     }
 
