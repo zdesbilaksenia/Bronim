@@ -12,7 +12,8 @@ import com.yo.bronim.R
 import com.yo.bronim.fragments.home.adapter.TAG_MARGIN
 import com.yo.bronim.models.ReservationListItem
 
-class ReservationAdapter(private var reservations: Array<ReservationListItem>) : RecyclerView.Adapter<ReservationAdapter.ReservationViewHolder>() {
+class ReservationAdapter(private var reservations: Array<ReservationListItem>) :
+    RecyclerView.Adapter<ReservationAdapter.ReservationViewHolder>() {
 
     private var context: Context? = null
     private var tagsContainer: LinearLayout? = null
@@ -47,7 +48,9 @@ class ReservationAdapter(private var reservations: Array<ReservationListItem>) :
             val textView = setTagParams(tag)
             tagsContainer?.addView(textView)
         }
-        (reservations[position].guests_num.toString() + " человек").also { holder.guestsNumber.text = it }
+        (reservations[position].guests.toString() + " человек").also {
+            holder.guestsNumber.text = it
+        }
     }
 
     override fun getItemCount(): Int {

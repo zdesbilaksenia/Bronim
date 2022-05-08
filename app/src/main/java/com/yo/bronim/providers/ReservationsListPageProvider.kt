@@ -39,7 +39,7 @@ class ReservationsListPageProvider {
                         tags = rr.restaurant.tags,
                         date = rr.reservation.date,
                         time = time,
-                        guests_num = rr.reservation.guests_num,
+                        guests = rr.reservation.guests,
                     )
                     result.add(reservation)
                 }
@@ -60,7 +60,7 @@ var reservations: Array<ReservationListItem> = arrayOf(
         tags = listOf("lala", "gaga"),
         date = "19.04",
         time = "23:46",
-        guests_num = 6,
+        guests = 6,
     ),
     ReservationListItem(
         id = 1,
@@ -69,7 +69,7 @@ var reservations: Array<ReservationListItem> = arrayOf(
         tags = listOf("lala", "gaga"),
         date = "19.04",
         time = "23:46",
-        guests_num = 6,
+        guests = 6,
     ),
     ReservationListItem(
         id = 1,
@@ -78,7 +78,7 @@ var reservations: Array<ReservationListItem> = arrayOf(
         tags = listOf("lala", "gaga"),
         date = "19.04",
         time = "23:46",
-        guests_num = 6,
+        guests = 6,
     ),
     ReservationListItem(
         id = 1,
@@ -87,7 +87,7 @@ var reservations: Array<ReservationListItem> = arrayOf(
         tags = listOf("lala", "gaga"),
         date = "19.04",
         time = "23:46",
-        guests_num = 6,
+        guests = 6,
     ),
     ReservationListItem(
         id = 1,
@@ -96,6 +96,6 @@ var reservations: Array<ReservationListItem> = arrayOf(
         tags = listOf("lala", "gaga"),
         date = "19.04",
         time = "23:46",
-        guests_num = 6,
+        guests = 6,
     ),
 )
