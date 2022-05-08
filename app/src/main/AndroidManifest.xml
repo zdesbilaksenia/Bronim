@@ -3,7 +3,7 @@
         package="com.yo.bronim">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <!--    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />-->
+
     <application
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
@@ -11,6 +11,11 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/Theme.Bronim">
+        <activity
+                android:name=".ReservationsListActivity"
+                android:exported="false"
+                android:label="@string/title_activity_reservations_list"
+                android:theme="@style/Theme.Bronim.NoActionBar" />
         <activity
                 android:name=".RegistrationActivity"
                 android:exported="false" />
@@ -23,8 +28,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RestaurantActivity"></activity>
-        <activity android:name=".ReservationActivity"></activity>
+        <activity android:name=".RestaurantActivity" />
+        <activity android:name=".ReservationActivity" />
         <activity
                 android:name=".AuthorizationActivity"
                 android:parentActivityName=".MainActivity">
@@ -32,7 +37,6 @@
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value=".MainActivity" />
         </activity>
-
     </application>
 
 </manifest>

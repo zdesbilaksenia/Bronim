@@ -44,6 +44,8 @@ val restaurants = arrayOf(
         website = "lala.ru",
         tags = listOf("lala", "gaga"),
         rating = 3.4F,
+        start = 1,
+        end = 10,
     ),
     Restaurant(
         id = 1,
@@ -56,6 +58,8 @@ val restaurants = arrayOf(
         website = "lala.ru",
         tags = listOf("lala", "gaga"),
         rating = 3.4F,
+        start = 1,
+        end = 10,
     ),
     Restaurant(
         id = 1,
@@ -68,6 +72,8 @@ val restaurants = arrayOf(
         website = "lala.ru",
         tags = listOf("lala", "gaga"),
         rating = 3.4F,
+        start = 1,
+        end = 10,
     ),
     Restaurant(
         id = 1,
@@ -80,5 +86,7 @@ val restaurants = arrayOf(
         website = "lala.ru",
         tags = listOf("lala", "gaga"),
         rating = 3.4F,
+        start = 1,
+        end = 10,
     ),
 )

@@ -1,16 +1,14 @@
-package com.yo.bronim.reservationsListFragment
+package com.yo.bronim.fragments.reservationsListFragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yo.bronim.R
-import com.yo.bronim.models.Reservation
-import com.yo.bronim.reservationsListFragment.adapter.ReservationAdapter
+import com.yo.bronim.fragments.reservationsListFragment.adapter.ReservationAdapter
 import com.yo.bronim.states.ReservationsListState
 import com.yo.bronim.viewmodels.ReservationsListPageViewModel
 

@@ -4,7 +4,6 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-<<<<<<< HEAD
 data class ReservationListItem (
        @Json(name = "id") val id : Int?,
        @Json(name = "name") val name : String?,
@@ -16,7 +15,7 @@ data class ReservationListItem (
 )
 
 @JsonClass(generateAdapter = true)
-data class Reservation (
+data class GetReservation (
        @Json(name = "id") val id : Int,
        @Json(name = "reservation_date") val date : String,
        @Json(name = "cells") val cells : Int,
@@ -26,7 +25,7 @@ data class Reservation (
 @JsonClass(generateAdapter = true)
 data class RestaurantReservation(
        @Json(name = "restaurant") val restaurant: Restaurant,
-       @Json(name = "reservation") val reservation: Reservation,
+       @Json(name = "reservation") val reservation: GetReservation,
 )
 
 
@@ -36,7 +35,7 @@ data class RestaurantReservationList(
 )
 
 typealias ReservationsListCallback = (result: Array<ReservationListItem>?, error: Throwable?) -> Unit
-=======
+
 data class Reservation(
     @Json(name = "table_id") val table: Int,
     @Json(name = "reserved_cells") val times: List<Int>,
@@ -56,4 +55,3 @@ data class PostReservation(
     @Json(name = "cells") val cells: MutableList<Int>,
     @Json(name = "comment") val comment: String?
 )
->>>>>>> 6c6292757fa537d126c7ba78f607323561a3c7a6

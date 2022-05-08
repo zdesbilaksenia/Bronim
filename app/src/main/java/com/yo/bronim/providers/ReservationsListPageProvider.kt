@@ -46,9 +46,58 @@ class ReservationsListPageProvider {
                     result.add(reservation)
                 }
                 invokeCallback(callback, result.toTypedArray(), null)
+//                invokeCallback(callback, reservations, null)
             } catch (error: Throwable) {
                 invokeCallback(callback, null, error)
             }
         }
     }
 }
+
+var reservations : Array<ReservationListItem> = arrayOf(
+    ReservationListItem(
+        id = 1,
+        name = "Sempre",
+        address = "улица такая дом такой",
+        tags = listOf("lala", "gaga"),
+        date = "19.04",
+        time = "23:46",
+        guests_num = 6,
+    ),
+    ReservationListItem(
+        id = 1,
+        name = "Sempre",
+        address = "улица такая дом такой",
+        tags = listOf("lala", "gaga"),
+        date = "19.04",
+        time = "23:46",
+        guests_num = 6,
+    ),
+    ReservationListItem(
+        id = 1,
+        name = "Sempre",
+        address = "улица такая дом такой",
+        tags = listOf("lala", "gaga"),
+        date = "19.04",
+        time = "23:46",
+        guests_num = 6,
+    ),
+    ReservationListItem(
+        id = 1,
+        name = "Sempre",
+        address = "улица такая дом такой",
+        tags = listOf("lala", "gaga"),
+        date = "19.04",
+        time = "23:46",
+        guests_num = 6,
+    ),
+    ReservationListItem(
+        id = 1,
+        name = "Sempre",
+        address = "улица такая дом такой",
+        tags = listOf("lala", "gaga"),
+        date = "19.04",
+        time = "23:46",
+        guests_num = 6,
+    ),
+)
