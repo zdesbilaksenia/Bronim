@@ -42,15 +42,4 @@ class AuthorizationPageRepository {
     suspend fun getUserData(firebaseID: String?): UserAuthorization? {
         return authorizationApi.authorize(firebaseID)?.body()
     }
-
-    /*
-
-    suspend fun getUId(): String? {
-        if (auth.currentUser != null) {
-            return auth.currentUser?.uid
-        } else {
-            throw Exception("Auth.currentUser is null")
-        }
-    }
-     */
 }
