@@ -18,12 +18,16 @@ class ReservationAdapter(private var reservations: Array<ReservationListItem>) :
     private var tagsContainer: LinearLayout? = null
 
     inner class ReservationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val name : TextView = itemView.findViewById(R.id.view_reservation_card__restaurant_name)
-        val address : TextView = itemView.findViewById(R.id.view_reservation_card__restaurant_address)
+        val name: TextView = itemView.findViewById(R.id.view_reservation_card__restaurant_name)
+        val address: TextView = itemView.findViewById(
+            R.id.view_reservation_card__restaurant_address
+        )
 //        val tags:
-        val date : TextView = itemView.findViewById(R.id.view_reservation_card__date)
-        val time : TextView = itemView.findViewById(R.id.view_reservation_card__time)
-        val guestsNumber : TextView = itemView.findViewById(R.id.view_reservation_card__guests_number)
+        val date: TextView = itemView.findViewById(R.id.view_reservation_card__date)
+        val time: TextView = itemView.findViewById(R.id.view_reservation_card__time)
+        val guestsNumber: TextView = itemView.findViewById(
+            R.id.view_reservation_card__guests_number
+        )
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReservationViewHolder {

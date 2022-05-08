@@ -1,15 +1,13 @@
 package com.yo.bronim.providers
 
 import com.yo.bronim.R
-import com.yo.bronim.models.Reservation
+import com.yo.bronim.models.ReservationListItem as ReservationListItem
 import com.yo.bronim.models.ReservationsListCallback
 import com.yo.bronim.repository.ReservationsListPageRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.lang.Error
-import com.yo.bronim.models.ReservationListItem as ReservationListItem
 
 class ReservationsListPageProvider {
     private val scope = CoroutineScope(Dispatchers.IO)
@@ -54,7 +52,7 @@ class ReservationsListPageProvider {
     }
 }
 
-var reservations : Array<ReservationListItem> = arrayOf(
+var reservations: Array<ReservationListItem> = arrayOf(
     ReservationListItem(
         id = 1,
         name = "Sempre",

@@ -12,11 +12,6 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.Bronim">
         <activity
-                android:name=".ReservationsListActivity"
-                android:exported="false"
-                android:label="@string/title_activity_reservations_list"
-                android:theme="@style/Theme.Bronim.NoActionBar" />
-        <activity
                 android:name=".RegistrationActivity"
                 android:exported="false" />
         <activity

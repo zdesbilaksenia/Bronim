@@ -54,4 +54,3 @@ class ReservationsListFragment : Fragment() {
         fun newInstance() = ReservationsListFragment()
     }
 }
-

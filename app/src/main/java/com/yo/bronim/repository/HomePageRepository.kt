@@ -1,6 +1,5 @@
 package com.yo.bronim.repository
 
-import com.yo.bronim.R
 import com.yo.bronim.interfaces.RestaurantApi
 import com.yo.bronim.models.Restaurant
 import okhttp3.OkHttpClient
@@ -17,18 +16,15 @@ class HomePageRepository {
     private val restaurantApi = retrofit.create(RestaurantApi::class.java)
 
     suspend fun getPopularRestaurants(): Array<Restaurant>? {
-//        return restaurantApi.getPopularRestaurants().body()?.restaurants
-        return restaurants
+        return restaurantApi.getPopularRestaurants().body()?.restaurants
     }
 
     suspend fun getNearestRestaurants(): Array<Restaurant>? {
-//        return restaurantApi.getNearestRestaurants().body()?.restaurants
-        return restaurants
+        return restaurantApi.getNearestRestaurants().body()?.restaurants
     }
 
     suspend fun getNewRestaurants(): Array<Restaurant>? {
-//        return restaurantApi.getNewRestaurants().body()?.restaurants
-        return restaurants
+        return restaurantApi.getNewRestaurants().body()?.restaurants
     }
 }
 

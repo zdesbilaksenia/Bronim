@@ -1,6 +1,5 @@
 package com.yo.bronim.states
 
-import com.yo.bronim.models.Reservation
 import com.yo.bronim.models.ReservationListItem
 
 sealed class ReservationsListState {

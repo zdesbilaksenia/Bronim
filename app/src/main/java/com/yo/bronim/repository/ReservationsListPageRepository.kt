@@ -3,10 +3,8 @@ package com.yo.bronim.repository
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.yo.bronim.interfaces.ReservationApi
-import com.yo.bronim.models.Reservation
 import com.yo.bronim.models.ReservationListItem
 import com.yo.bronim.models.RestaurantReservation
-import com.yo.bronim.models.RestaurantReservationList
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -30,7 +28,7 @@ class ReservationsListPageRepository {
     }
 }
 
-var reservations : Array<ReservationListItem> = arrayOf(
+var reservations: Array<ReservationListItem> = arrayOf(
     ReservationListItem(
         id = 1,
         name = "Sempre",

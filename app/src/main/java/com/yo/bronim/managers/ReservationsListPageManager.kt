@@ -7,7 +7,7 @@ class ReservationsListPageManager {
     private val reservationsListPageProvider = ReservationsListPageProvider()
 
     fun getReservationsList(callback: ReservationsListCallback) {
-        reservationsListPageProvider.getReservationsList { result, error ->  
+        reservationsListPageProvider.getReservationsList { result, error ->
             callback(result, error)
         }
     }

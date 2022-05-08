@@ -2,7 +2,6 @@ package com.yo.bronim.viewmodels
 
 import androidx.lifecycle.MutableLiveData
 import com.yo.bronim.managers.ReservationsListPageManager
-import com.yo.bronim.models.ReservationsListCallback
 import com.yo.bronim.states.ReservationsListState
 
 class ReservationsListPageViewModel {
