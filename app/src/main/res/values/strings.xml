@@ -33,9 +33,35 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="reservations_list">reservations list</string>
     <string name="favourites">favourites</string>
+    <string name="num_of_guests">Количество гостей</string>
+    <string name="date">Дата</string>
+    <string-array name="months">
+        <item>ЯНВ</item>
+        <item>ФЕВ</item>
+        <item>МАР</item>
+        <item>АПР</item>
+        <item>МАЙ</item>
+        <item>ИЮН</item>
+        <item>ИЮЛ</item>
+        <item>АВГ</item>
+        <item>СЕН</item>
+        <item>ОКТ</item>
+        <item>НОЯ</item>
+        <item>ДЕК</item>
+    </string-array>
+    <string-array name="weekdays">
+        <item>ВС</item>
+        <item>ПН</item>
+        <item>ВТ</item>
+        <item>СР</item>
+        <item>ЧТ</item>
+        <item>ПТ</item>
+        <item>СБ</item>
+    </string-array>
     <!--    Registration exceptions-->
     <string name="errorWeakPassword">Password is too weak</string>
     <string name="errorInvalidEmail">Please use valid email</string>
     <string name="errorUserExists">User with such email already exists</string>
     <string name="weakPasswordException">Password is too weak</string>
+    <string name="already_have_an_account">Уже есть аккаунт?</string>
 </resources>

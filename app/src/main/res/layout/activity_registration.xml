@@ -6,7 +6,7 @@
         tools:context=".RegistrationActivity">
 
     <androidx.fragment.app.FragmentContainerView
-            android:name="com.yo.bronim.registrationfragment.RegistrationFragment"
+            android:name="com.yo.bronim.fragments.registrationfragment.RegistrationFragment"
             android:id="@+id/activity_registration_fragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

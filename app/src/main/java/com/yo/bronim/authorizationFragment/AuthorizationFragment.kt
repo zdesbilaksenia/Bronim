@@ -1,7 +1,5 @@
 package com.yo.bronim.authorizationFragment
 
-import android.content.Intent
-import android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP
 import android.os.Bundle
 import android.util.Patterns
 import android.view.LayoutInflater
@@ -12,8 +10,8 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.yo.bronim.AuthorizationActivity
-import com.yo.bronim.MainActivity
 import com.yo.bronim.R
+import com.yo.bronim.contracts.RegistrationContract
 import com.yo.bronim.models.UserAuthorization
 import com.yo.bronim.states.AuthorizationPageState
 import com.yo.bronim.viewmodels.AuthorizationPageViewModel
@@ -38,6 +36,14 @@ class AuthorizationFragment : Fragment() {
         view?.findViewById<Button>(R.id.login_page__arrow_left_button)
     }
 
+    private val registerButton by lazy {
+        view?.findViewById<Button>(R.id.login_page__register_button)
+    }
+
+    private val register = registerForActivityResult(RegistrationContract()) { user ->
+        (activity as AuthorizationActivity).sendResultUser(user)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -53,10 +59,12 @@ class AuthorizationFragment : Fragment() {
             authorize()
         }
 
+        registerButton?.setOnClickListener {
+            register.launch(Unit)
+        }
+
         backArrowButton?.setOnClickListener {
-            val intent = Intent(activity, MainActivity::class.java)
-            intent.flags = FLAG_ACTIVITY_SINGLE_TOP
-            startActivity(intent)
+            (activity as AuthorizationActivity).sendResultUser(null)
         }
 
         signInViewModel.authorizationPageState.observe(viewLifecycleOwner) { viewModelState ->
