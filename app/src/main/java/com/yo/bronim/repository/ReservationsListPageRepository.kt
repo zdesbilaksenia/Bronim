@@ -1,5 +1,6 @@
 package com.yo.bronim.repository
 
+import android.util.Log
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.yo.bronim.interfaces.ReservationApi
@@ -21,7 +22,10 @@ class ReservationsListPageRepository {
     suspend fun getReservationsList(): Array<RestaurantReservation>? {
         val user = Firebase.auth.currentUser
         if (user != null) {
-            return reservationApi.getReservationsList(user.uid).body()?.restaurantReservationList
+//            return reservationApi.getReservationsList(user.uid).body()?.restaurantReservationList
+            var body = reservationApi.getReservationsList(user.uid).body()
+            Log.d("[RESERV_LIST_REPO]", body.toString())
+            return body?.restaurantReservationList
         }
         return null
 //        return reservations
