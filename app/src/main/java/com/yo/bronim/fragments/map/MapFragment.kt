@@ -1,18 +1,14 @@
 package com.yo.bronim.fragments.map
 
-import android.Manifest.permission.ACCESS_COARSE_LOCATION
 import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.content.Context
-import android.graphics.Color
 import android.graphics.PointF
 import android.os.Bundle
-import android.util.Log
-import com.yandex.mapkit.logo.HorizontalAlignment.LEFT
-import com.yandex.mapkit.logo.VerticalAlignment.BOTTOM
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.core.content.PermissionChecker.PERMISSION_GRANTED
 import androidx.core.content.PermissionChecker.checkSelfPermission
 import androidx.fragment.app.Fragment
@@ -20,7 +16,6 @@ import com.yandex.mapkit.Animation
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.geometry.Point
 import com.yandex.mapkit.layers.ObjectEvent
-import com.yandex.mapkit.logo.Alignment
 import com.yandex.mapkit.map.*
 import com.yandex.mapkit.map.Map
 import com.yandex.mapkit.mapview.MapView
@@ -28,12 +23,22 @@ import com.yandex.mapkit.user_location.UserLocationLayer
 import com.yandex.mapkit.user_location.UserLocationObjectListener
 import com.yandex.mapkit.user_location.UserLocationView
 import com.yandex.runtime.image.ImageProvider
+import com.yandex.runtime.ui_view.ViewProvider
 import com.yo.bronim.R
 
+const val MOSCOW_LAT = 55.751244
+const val MOSCOW_LNG = 37.618423
+
+const val TEST_LAT = 55.765990
+const val TEST_LNG = 37.684560
 
 class MapFragment : Fragment(), UserLocationObjectListener, CameraListener {
     private var mapView: MapView? = null
+    private var fab: CardView? = null
     private var userLocationLayer: UserLocationLayer? = null
+    private var userLocationView: UserLocationView? = null
+
+    private var followUserLocation = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,110 +52,98 @@ class MapFragment : Fragment(), UserLocationObjectListener, CameraListener {
         super.onViewCreated(view, savedInstanceState)
 
         mapView = view.findViewById(R.id.mapview)
-
+        fab = view.findViewById(R.id.geo_fab)
 
         checkPermission()
-        val mapLogoAlignment = Alignment(LEFT, BOTTOM)
-        mapView?.map?.logo?.setAlignment(mapLogoAlignment)
-        user_location_fab.setImageResource(R.drawable.ic_my_location_black_24dp)
-        mapView?.map?.move(
-            CameraPosition(Point(55.751574, 37.573856), 11.0f, 0.0f, 0.0f),
-            Animation(Animation.Type.SMOOTH, 0f),
-            null
-        )
+        fab?.setOnClickListener {
+            cameraUserPosition()
+            followUserLocation = true
+        }
+
+        addMarks()
     }
 
     override fun onStart() {
         super.onStart()
-        mapView?.onStart();
-        MapKitFactory.getInstance().onStart();
+        mapView?.onStart()
+        MapKitFactory.getInstance().onStart()
     }
 
     override fun onStop() {
         super.onStop()
-        mapView?.onStop();
-        MapKitFactory.getInstance().onStop();
+        mapView?.onStop()
+        MapKitFactory.getInstance().onStop()
     }
 
     private fun checkPermission() {
         val permissionFineLocation = checkSelfPermission(activity as Context, ACCESS_FINE_LOCATION)
-        val permissionCoarseLocation =
-            checkSelfPermission(activity as Context, ACCESS_COARSE_LOCATION)
-        if (permissionFineLocation == PERMISSION_GRANTED || permissionCoarseLocation == PERMISSION_GRANTED) {
+        if (permissionFineLocation == PERMISSION_GRANTED) {
             prepareMap()
-            Log.d("PERMISSION", "Granted ${permissionFineLocation}, ${permissionCoarseLocation}")
         } else {
-            Toast.makeText(
-                activity, "Не удалось получить данные о местоположении", Toast.LENGTH_SHORT
-            ).show()
+            cameraDefaultPosition()
         }
     }
 
     private fun prepareMap() {
-        userLocationLayer = mapView?.mapWindow?.let {
-            MapKitFactory.getInstance().createUserLocationLayer(
-                it
-            )
-        }
-        userLocationLayer?.isVisible = true
-        userLocationLayer?.isHeadingEnabled = true
-        userLocationLayer?.setObjectListener(this)
-
         mapView?.map?.addCameraListener(this)
 
-//        cameraUserPosition()
+        userLocationLayer = MapKitFactory.getInstance().createUserLocationLayer(mapView!!.mapWindow)
 
-//        permissionLocation = true
+        userLocationLayer?.isVisible = true
+        userLocationLayer?.isHeadingEnabled = false
+        userLocationLayer?.setObjectListener(this)
     }
 
+    private fun cameraUserPosition() {
+        if (userLocationLayer?.cameraPosition() != null) {
+            val location = userLocationLayer?.cameraPosition()!!.target
+            mapView?.map?.move(
+                CameraPosition(location, 16f, 0f, 0f),
+                Animation(Animation.Type.SMOOTH, 1f),
+                null
+            )
+        } else {
+            Toast.makeText(activity, R.string.geo_error, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun cameraDefaultPosition() {
+        Toast.makeText(activity, R.string.geo_error, Toast.LENGTH_SHORT).show()
+        mapView?.map?.move(CameraPosition(Point(MOSCOW_LAT, MOSCOW_LNG), 16f, 0f, 0f))
+    }
 
     companion object {
         fun newInstance() = MapFragment()
-        const val requestPermissionLocation = 1
     }
 
     override fun onObjectAdded(userLocationView: UserLocationView) {
-        userLocationLayer!!.setAnchor(
-            PointF((mapView!!.width * 0.5).toFloat(), (mapView!!.height * 0.5).toFloat()),
-            PointF((mapView!!.width * 0.5).toFloat(), (mapView!!.height * 0.83).toFloat())
+        val pinIcon: CompositeIcon = userLocationView.pin.useCompositeIcon()
+
+        pinIcon.setIcon(
+            "pin",
+            ImageProvider.fromResource(activity, R.drawable.search_result),
+            IconStyle().setAnchor(PointF(0.5f, 0.5f))
+                .setRotationType(RotationType.ROTATE)
+                .setZIndex(1f)
+                .setScale(0.5f)
         )
 
-//        userLocationView.arrow.setIcon(
-//            ImageProvider.fromResource(
-//                activity, R.drawable.user_arrow
-//            )
-//        )
-
-        val pinIcon = userLocationView.pin.useCompositeIcon()
-
-//        pinIcon.setIcon(
-//            "icon",
-//            ImageProvider.fromResource(activity, R.drawable.icon),
-//            IconStyle().setAnchor(PointF(0f, 0f))
-//                .setRotationType(RotationType.ROTATE)
-//                .setZIndex(0f)
-//                .setScale(1f)
-//        )
-//
-//        pinIcon.setIcon(
-//            "pin",
-//            ImageProvider.fromResource(activity, R.drawable.search_result),
-//            IconStyle().setAnchor(PointF(0.5f, 0.5f))
-//                .setRotationType(RotationType.ROTATE)
-//                .setZIndex(1f)
-//                .setScale(0.5f)
-//        )
-
-//        userLocationView.accuracyCircle.fillColor = Color.BLUE and -0x66000001
-//        userLocationView.pin.setIcon(fromResource(activity, R.drawable.ic_fav))
-//        userLocationView.arrow.setIcon(fromResource(activity, R.drawable.ic_fav))
-//        userLocationView.accuracyCircle.fillColor = BLUE
+        followUserLocation = true
     }
 
     override fun onObjectRemoved(p0: UserLocationView) {
     }
 
     override fun onObjectUpdated(p0: UserLocationView, p1: ObjectEvent) {
+        if (followUserLocation) cameraUserPosition()
+    }
+
+    private fun setAnchor() {
+        userLocationLayer?.setAnchor(
+            PointF((mapView!!.width * 0.5).toFloat(), (mapView!!.height * 0.5).toFloat()),
+            PointF((mapView!!.width * 0.5).toFloat(), (mapView!!.height * 0.83).toFloat())
+        )
+        followUserLocation = false
     }
 
     override fun onCameraPositionChanged(
@@ -159,11 +152,26 @@ class MapFragment : Fragment(), UserLocationObjectListener, CameraListener {
         p2: CameraUpdateReason,
         finished: Boolean
     ) {
-        userLocationLayer?.setAnchor(
-            PointF((mapView!!.width * 0.5).toFloat(), (mapView!!.height * 0.5).toFloat()),
-            PointF((mapView!!.width * 0.5).toFloat(), (mapView!!.height * 0.83).toFloat())
-        )
+        if (finished) {
+            if (followUserLocation) {
+                setAnchor()
+            }
+        } else {
+            if (!followUserLocation) {
+                userLocationLayer?.resetAnchor()
+            }
+        }
+    }
 
-//        user_location_fab.setImageResource(R.drawable.ic_my_location_black_24dp)
+    private fun addMarks() {
+        val view = View(requireContext()).apply {
+            background = requireContext().getDrawable(R.drawable.ic_map_mark)
+        }
+        val mark =
+            mapView?.map?.mapObjects?.addPlacemark(Point(TEST_LAT, TEST_LNG), ViewProvider(view))
+        mark?.addTapListener { mapObject, point ->
+            Toast.makeText(activity, "Нажато", Toast.LENGTH_SHORT).show()
+            true
+        }
     }
 }
