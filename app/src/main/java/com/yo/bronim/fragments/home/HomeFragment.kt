@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.yo.bronim.R
 import com.yo.bronim.contracts.AuthorizationContract
 import com.yo.bronim.fragments.home.adapter.MainAdapter
+import com.yo.bronim.states.CuisineFiltrationState
 import com.yo.bronim.states.HomePageState
 import com.yo.bronim.viewmodels.HomePageViewModel
 
@@ -62,6 +63,7 @@ class HomeFragment : Fragment() {
         observePopularRestaurants()
         observeNewRestaurants()
         observeNearestRestaurants()
+        observeCuisineFiltration()
 
         homePageViewModel.getPopularRestaurants()
         homePageViewModel.getNewRestaurants()
@@ -117,6 +119,22 @@ class HomeFragment : Fragment() {
                         state.result,
                         View.GONE
                     )
+                }
+            }
+        }
+    }
+
+    private fun observeCuisineFiltration() {
+        homePageViewModel.cuisineFiltrationState.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is CuisineFiltrationState.Pending -> {
+                    // TODO loader
+                }
+                is CuisineFiltrationState.Success -> {
+                    // TODO load rests
+                }
+                is CuisineFiltrationState.Error -> {
+                    // TODO error handle
                 }
             }
         }

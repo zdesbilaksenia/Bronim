@@ -28,4 +28,10 @@ class HomePageManager {
             callback(result, error)
         }
     }
+
+    fun cuisineFiltration(callback: (result: Array<Restaurant>?, error: Throwable?) -> Unit, cuisine: String) {
+        homePageProvider.cuisineFiltration({result, error ->
+            callback(result, error)
+        }, cuisine)
+    }
 }

@@ -26,4 +26,8 @@ class HomePageRepository {
     suspend fun getNewRestaurants(): Array<Restaurant>? {
         return restaurantApi.getNewRestaurants().body()?.restaurants
     }
+
+    suspend fun cuisineFiltration(cuisine: String): Array<Restaurant>? {
+        return restaurantApi.cuisineFiltration(cuisine).body()?.restaurants
+    }
 }
