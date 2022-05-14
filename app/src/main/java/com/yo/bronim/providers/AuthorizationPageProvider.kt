@@ -29,15 +29,13 @@ class AuthorizationPageProvider {
             try {
                 val fbUser = authorizationPageRepository.authorize(user)
                 val result = authorizationPageRepository.getUserData(fbUser.uid)
-                Log.i("Success:", result?.name!!)
                 val resultUser = User(
-                    uid = result.uid,
-                    name = result.name,
-                    email = result.email,
+                    uid = result?.uid,
+                    name = result?.name,
+                    email = result?.email,
                 )
                 invokeCallback(callback, resultUser, null)
             } catch (error: Throwable) {
-                Log.i("Failed:", "Ploho")
                 Log.e("Error:", error.toString())
                 invokeCallback(callback, null, error)
             }

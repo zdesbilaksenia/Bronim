@@ -25,10 +25,6 @@ class RegistrationPageRepository {
         .build()
     private val registrationApi = retrofit.create(RegistrationApi::class.java)
 
-//    constructor() {
-//        auth = FirebaseAuth.getInstance()
-//    }
-
     suspend fun register(user: UserRegistration): UserRegistration {
         return suspendCoroutine { continuation ->
             auth.createUserWithEmailAndPassword(user.email!!, user.password!!)

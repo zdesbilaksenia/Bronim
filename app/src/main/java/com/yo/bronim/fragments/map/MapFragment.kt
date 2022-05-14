@@ -16,8 +16,13 @@ import com.yandex.mapkit.Animation
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.geometry.Point
 import com.yandex.mapkit.layers.ObjectEvent
-import com.yandex.mapkit.map.*
+import com.yandex.mapkit.map.CameraListener
+import com.yandex.mapkit.map.CameraPosition
+import com.yandex.mapkit.map.CameraUpdateReason
+import com.yandex.mapkit.map.CompositeIcon
+import com.yandex.mapkit.map.IconStyle
 import com.yandex.mapkit.map.Map
+import com.yandex.mapkit.map.RotationType
 import com.yandex.mapkit.mapview.MapView
 import com.yandex.mapkit.user_location.UserLocationLayer
 import com.yandex.mapkit.user_location.UserLocationObjectListener
@@ -131,8 +136,7 @@ class MapFragment : Fragment(), UserLocationObjectListener, CameraListener {
         followUserLocation = true
     }
 
-    override fun onObjectRemoved(p0: UserLocationView) {
-    }
+    override fun onObjectRemoved(p0: UserLocationView) {}
 
     override fun onObjectUpdated(p0: UserLocationView, p1: ObjectEvent) {
         if (followUserLocation) cameraUserPosition()
