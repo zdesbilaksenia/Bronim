@@ -17,6 +17,16 @@
             android:layout_height="50dp"
             tools:ignore="SpeakableTextPresentCheck" />
 
+    <ProgressBar
+            android:id="@+id/progress_bar"
+            android:visibility="visible"
+            android:layout_marginTop="@dimen/progress_bar_margin_top"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.cardview.widget.CardView
             android:layout_width="0dp"
             android:layout_height="wrap_content"

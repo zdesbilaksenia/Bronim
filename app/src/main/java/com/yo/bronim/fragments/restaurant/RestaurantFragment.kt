@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
@@ -21,6 +22,7 @@ import com.yo.bronim.viewmodels.RestaurantPageViewModel
 
 class RestaurantFragment : Fragment() {
     private var restaurantPageViewModel = RestaurantPageViewModel()
+    private var progressBar: ProgressBar? = null
     private var img: ImageView? = null
     private var name: TextView? = null
     private var address: TextView? = null
@@ -42,6 +44,7 @@ class RestaurantFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        progressBar = view.findViewById(R.id.progress_bar)
         img = view.findViewById<ImageView>(R.id.fragment_restaurant_page__image)
         name = view.findViewById<TextView>(R.id.fragment_restaurant_page__name)
         address = view.findViewById<TextView>(R.id.fragment_restaurant_page__address)
@@ -81,6 +84,7 @@ class RestaurantFragment : Fragment() {
         restaurantPageViewModel.restaurantState.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is RestaurantPageState.Success -> {
+                    progressBar?.visibility = View.GONE
                     restaurant = state.result
                     Glide.with(this).load(state.result.img).into(img!!)
                     name?.text = state.result.name
