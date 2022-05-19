@@ -29,7 +29,7 @@ interface ReservationApi {
     ): Response<PostReservation>
 
     @Headers("Content-Type: application/json")
-    @GET("/bronim/{id]/reservations")
+    @GET("/bronim/profiles/{id}/reservations")
     suspend fun getReservationsList(
         @Path("id") id: String,
     ): Response<RestaurantReservationList>

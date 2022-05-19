@@ -20,10 +20,13 @@ class ReservationsListPageRepository {
     private val reservationApi = retrofit.create(ReservationApi::class.java)
 
     suspend fun getReservationsList(): Array<RestaurantReservation>? {
+        Log.d("[RESERV_LIST_REPO]", "start getResrvList")
         val user = Firebase.auth.currentUser
         if (user != null) {
 //            return reservationApi.getReservationsList(user.uid).body()?.restaurantReservationList
-            var body = reservationApi.getReservationsList(user.uid).body()
+            Log.d("[RESERV_LIST_REPO]", "gettin getResrvList")
+            val body = reservationApi.getReservationsList(user.uid).body()
+            Log.d("[RESERV_LIST_REPO]", "got getResrvList")
             Log.d("[RESERV_LIST_REPO]", body.toString())
             return body?.restaurantReservationList
         }

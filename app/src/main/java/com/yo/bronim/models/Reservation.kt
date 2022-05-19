@@ -25,7 +25,7 @@ data class GetReservation(
 @JsonClass(generateAdapter = true)
 data class RestaurantReservation(
     @Json(name = "restaurant") val restaurant: Restaurant,
-    @Json(name = "reservation") val reservation: GetReservation,
+    @Json(name = "reservation") val reservation: PostReservation,
 )
 
 @JsonClass(generateAdapter = true)

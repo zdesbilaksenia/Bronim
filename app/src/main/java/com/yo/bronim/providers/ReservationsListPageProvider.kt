@@ -33,7 +33,7 @@ class ReservationsListPageProvider {
 //                    todo
                     val time = "02:53"
                     val reservation = ReservationListItem(
-                        id = rr.reservation.id,
+                        id = 0,
                         name = rr.restaurant.name,
                         address = rr.restaurant.address,
                         tags = rr.restaurant.tags,
