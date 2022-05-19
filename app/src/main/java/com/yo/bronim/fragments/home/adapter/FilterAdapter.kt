@@ -13,18 +13,21 @@ import com.yo.bronim.R
 import com.yo.bronim.models.Kitchen
 import com.yo.bronim.models.kitchens
 
-class FilterAdapter (
+class FilterAdapter(
     private val listener: (Int) -> Unit
-        ) : RecyclerView.Adapter<FilterAdapter.FilterViewHolder>() {
+) : RecyclerView.Adapter<FilterAdapter.FilterViewHolder>(), View.OnClickListener {
 
     private var context: Context? = null
     private var prevHolder: FilterViewHolder? = null
+
+    private var selectedPos: Int? = null
 
     inner class FilterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val kitchen: TextView = itemView.findViewById(R.id.kitchen)
         val card: MaterialCardView = itemView.findViewById(R.id.kitchen_card)
         var chosen: Boolean = false
     }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilterViewHolder {
         context = parent.context
@@ -37,26 +40,45 @@ class FilterAdapter (
     override fun onBindViewHolder(holder: FilterViewHolder, position: Int) {
         val kitchen = kitchens[position]
         holder.kitchen.text = kitchen.name
-//        holder.itemView.setOnClickListener { listener(position) }
+
+        if (position != selectedPos) {
+            holder.card.strokeColor = ContextCompat.getColor(context!!, R.color.main_dark_color)
+        } else {
+            holder.card.strokeColor = ContextCompat.getColor(context!!, R.color.turquoise)
+        }
+        //        holder.itemView.setOnClickListener { listener(position) }
         holder.card.setOnClickListener {
-            if (holder.chosen) {
-                holder.card.strokeColor =
-                    ContextCompat.getColor(context!!, R.color.main_dark_color)
-                prevHolder = null
-                Log.d("FADAPTER", "$position off")
-            } else {
-                prevHolder?.chosen = false
-                prevHolder?.card?.strokeColor =
-                    ContextCompat.getColor(context!!, R.color.main_dark_color)
-                holder.card.strokeColor = ContextCompat.getColor(context!!, R.color.turquoise)
-                prevHolder = holder
-                Log.d("FADAPTER", "$position on")
-            }
-            holder.chosen = !holder.chosen
+            holder.card.strokeColor = ContextCompat.getColor(context!!, R.color.turquoise)
+            selectedPos = holder.adapterPosition
+            Log.e("KITCHEN", holder.kitchen.text.toString())
+            Log.e("POSITION", position.toString())
+            prevHolder?.card?.strokeColor = ContextCompat.getColor(context!!, R.color.main_dark_color)
+            prevHolder = holder
+//            Log.e("HOLDER", holder.card.toString())
+//            if (holder.chosen) {
+//                holder.card.strokeColor =
+//                    ContextCompat.getColor(context!!, R.color.main_dark_color)
+//                prevHolder = null
+//                Log.d("FADAPTER", "$position off")
+//            } else {
+//                prevHolder?.chosen = false
+//                prevHolder?.card?.strokeColor =
+//                    ContextCompat.getColor(context!!, R.color.main_dark_color)
+//                holder.card.strokeColor = ContextCompat.getColor(context!!, R.color.turquoise)
+//                prevHolder = holder
+//                Log.d("FADAPTER", "$position on")
+//            }
+//            holder.chosen = !holder.chosen
         }
     }
 
     override fun getItemCount(): Int {
         return kitchens.size
+    }
+
+    override fun onClick(view: View?) {
+        if (selectedPos != null) {
+            notifyItemChanged(selectedPos!!)
+        }
     }
 }

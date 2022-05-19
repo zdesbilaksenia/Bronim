@@ -1,5 +1,6 @@
 package com.yo.bronim.managers
 
+import android.util.Log
 import com.yo.bronim.models.PostReservation
 import com.yo.bronim.models.Reservation
 import com.yo.bronim.providers.ReservationPageProvider
