@@ -140,14 +140,12 @@ class HomeFragment : Fragment() {
         homePageAuthorizationViewModel.isAuthorizedState.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is AuthorizationPageState.Success -> {
-                    Log.i("observe", "success")
                     profileImageView?.setOnClickListener {
                         val intent = Intent(context, ProfileActivity::class.java)
                         startActivity(intent)
                     }
                 }
                 is AuthorizationPageState.Error -> {
-                    Log.i("observe", "error")
                     profileImageView?.setOnClickListener {
                         authorize.launch(Unit)
                     }
