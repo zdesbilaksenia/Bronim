@@ -135,7 +135,7 @@ class HomeFragment : Fragment() {
             }
         }
     }
-    
+
     private fun observeIsAuthorized() {
         homePageAuthorizationViewModel.isAuthorizedState.observe(viewLifecycleOwner) { state ->
             when (state) {

@@ -50,7 +50,7 @@ class AuthorizationPageProvider {
             }
         }
     }
-    
+
     fun isAuthorized(callback: (error: Throwable?) -> Unit) {
         scope.launch {
             try {
