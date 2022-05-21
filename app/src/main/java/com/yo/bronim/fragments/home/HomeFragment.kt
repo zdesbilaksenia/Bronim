@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yo.bronim.ProfileActivity
 import com.yo.bronim.R
-import com.yo.bronim.RegistrationActivity
 import com.yo.bronim.contracts.AuthorizationContract
 import com.yo.bronim.fragments.home.adapter.MainAdapter
 import com.yo.bronim.states.AuthorizationPageState
@@ -78,11 +77,9 @@ class HomeFragment : Fragment() {
         observeNewRestaurants()
         observeNearestRestaurants()
 
-
         homePageViewModel.getPopularRestaurants()
         homePageViewModel.getNewRestaurants()
         homePageViewModel.getNearestRestaurants()
-
     }
 
     override fun onStart() {
@@ -147,7 +144,7 @@ class HomeFragment : Fragment() {
 
     private fun observeIsAuthorized() {
         homePageAuthorizationViewModel.isAuthorizedState.observe(viewLifecycleOwner) { state ->
-            when (state){
+            when (state) {
                 is AuthorizationPageState.Success -> {
                     Log.i("observe", "success")
                     profileImageView?.setOnClickListener {
@@ -162,7 +159,6 @@ class HomeFragment : Fragment() {
                     }
                 }
             }
-
         }
     }
 

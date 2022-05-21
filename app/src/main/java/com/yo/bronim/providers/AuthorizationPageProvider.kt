@@ -58,10 +58,10 @@ class AuthorizationPageProvider {
             try {
                 authorizationPageRepository.isAuthorized()
                 Log.i("Success:", "Horosho")
-                invokeErrorCallback(callback,null)
+                invokeErrorCallback(callback, null)
             } catch (error: Throwable) {
                 Log.i("Failed:", "Ploho")
-                invokeErrorCallback(callback,error)
+                invokeErrorCallback(callback, error)
             }
         }
     }

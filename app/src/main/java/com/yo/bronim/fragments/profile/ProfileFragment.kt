@@ -13,7 +13,7 @@ import com.yo.bronim.models.User
 import com.yo.bronim.states.ProfilePageState
 import com.yo.bronim.viewmodels.ProfilePageViewModel
 
-class ProfileFragment: Fragment() {
+class ProfileFragment : Fragment() {
 
     private var profilePageViewModel = ProfilePageViewModel()
 
@@ -49,7 +49,6 @@ class ProfileFragment: Fragment() {
         view?.findViewById<TextView>(R.id.profile_page__phone_edit_text)
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -76,12 +75,10 @@ class ProfileFragment: Fragment() {
         }
 
         profilePageViewModel.getProfile()
-
     }
 
-
     private fun observeSignOut() {
-        profilePageViewModel.signOutState.observe(viewLifecycleOwner) {state ->
+        profilePageViewModel.signOutState.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is ProfilePageState.Success -> {
                     (activity as ProfileActivity).sendResult(null)
@@ -98,7 +95,7 @@ class ProfileFragment: Fragment() {
     }
 
     private fun observeSaveProfile() {
-        profilePageViewModel.saveProfileState.observe(viewLifecycleOwner) {state ->
+        profilePageViewModel.saveProfileState.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is ProfilePageState.Success -> {
                     Toast.makeText(
@@ -119,7 +116,7 @@ class ProfileFragment: Fragment() {
     }
 
     private fun observeGetProfile() {
-        profilePageViewModel.getProfileState.observe(viewLifecycleOwner) {state ->
+        profilePageViewModel.getProfileState.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is ProfilePageState.Success -> {
                     editTextName?.text = state.user?.name
@@ -144,7 +141,7 @@ class ProfileFragment: Fragment() {
         val email = editTextEmail?.text.toString().trim()
         val phoneNumber = editTextPhoneNumber?.text.toString().trim()
 
-        val user = User(null,name,surname,email,sex,dateOfBirth,phoneNumber)
+        val user = User(null, name, surname, email, sex, dateOfBirth, phoneNumber)
         profilePageViewModel.saveProfile(user)
     }
 }

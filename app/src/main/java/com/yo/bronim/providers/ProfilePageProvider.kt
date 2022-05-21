@@ -27,7 +27,7 @@ class ProfilePageProvider {
         error: Throwable?
     ) {
         withContext(Dispatchers.Main) {
-            callback(user,error)
+            callback(user, error)
         }
     }
 
@@ -35,11 +35,11 @@ class ProfilePageProvider {
         scope.launch {
             try {
                 profilePageRepository.signOut()
-                invokeErrorCallback(callback,null)
+                invokeErrorCallback(callback, null)
             } catch (error: Throwable) {
                 Log.i("Failed:", "Ploho")
                 Log.e("Error:", error.toString())
-                invokeErrorCallback(callback,error)
+                invokeErrorCallback(callback, error)
             }
         }
     }
@@ -48,12 +48,12 @@ class ProfilePageProvider {
         scope.launch {
             try {
                 val firebaseID = profilePageRepository.getFirebaseUID()
-                val resultUser = profilePageRepository.saveProfile(firebaseID,user)
-                invokeUserCallback(callback,resultUser,null)
+                val resultUser = profilePageRepository.saveProfile(firebaseID, user)
+                invokeUserCallback(callback, resultUser, null)
             } catch (error: Throwable) {
                 Log.i("Failed:", "Ploho")
                 Log.e("Error:", error.toString())
-                invokeUserCallback(callback,null,error)
+                invokeUserCallback(callback, null, error)
             }
         }
     }
@@ -63,11 +63,11 @@ class ProfilePageProvider {
             try {
                 val firebaseID = profilePageRepository.getFirebaseUID()
                 val resultUser = profilePageRepository.getProfile(firebaseID)
-                invokeUserCallback(callback,resultUser,null)
+                invokeUserCallback(callback, resultUser, null)
             } catch (error: Throwable) {
                 Log.i("Failed:", "Ploho")
                 Log.e("Error:", error.toString())
-                invokeUserCallback(callback,null,error)
+                invokeUserCallback(callback, null, error)
             }
         }
     }

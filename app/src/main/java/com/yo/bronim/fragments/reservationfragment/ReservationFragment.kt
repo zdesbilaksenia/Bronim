@@ -160,7 +160,6 @@ class ReservationFragment : Fragment() {
                         chosenTable!!
                     )
                 }
-
             }
             activity?.finish()
         }

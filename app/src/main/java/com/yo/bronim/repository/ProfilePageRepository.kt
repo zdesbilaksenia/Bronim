@@ -4,12 +4,12 @@ import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.yo.bronim.interfaces.ProfileApi
 import com.yo.bronim.models.User
-import okhttp3.OkHttpClient
-import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
+import okhttp3.OkHttpClient
+import retrofit2.Retrofit
+import retrofit2.converter.moshi.MoshiConverterFactory
 
 class ProfilePageRepository {
     private val auth = FirebaseAuth.getInstance()
@@ -31,7 +31,6 @@ class ProfilePageRepository {
             } else {
                 continuation.resumeWithException(Exception("not authorized"))
             }
-
         }
     }
 

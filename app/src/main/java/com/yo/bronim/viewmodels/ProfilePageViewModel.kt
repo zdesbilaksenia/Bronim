@@ -22,7 +22,6 @@ class ProfilePageViewModel {
                     signOutState.postValue(ProfilePageState.Error(error))
                 }
             }
-
         }
     }
 
@@ -38,7 +37,7 @@ class ProfilePageViewModel {
                         saveProfileState.postValue(ProfilePageState.Error(error))
                     }
                 }
-        },
+            },
             user
         )
     }

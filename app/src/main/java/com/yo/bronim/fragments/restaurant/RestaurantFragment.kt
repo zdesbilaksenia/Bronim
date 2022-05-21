@@ -71,7 +71,6 @@ class RestaurantFragment : Fragment() {
                 intent.putExtra("id", restaurant?.id)
                 context?.startActivity(intent)
             }
-
         }
     }
 
