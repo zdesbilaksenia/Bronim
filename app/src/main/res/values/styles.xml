@@ -38,6 +38,12 @@
         <item name="strokeWidth">1dp</item>
     </style>
 
+    <style name="brick_btn">
+        <item name="android:textColor">@color/white</item>
+        <item name="backgroundTint">@color/brick</item>
+        <item name="cornerRadius">10dp</item>
+    </style>
+
     <style name="rating_bar">
         <item name="colorControlNormal">@color/gray_200</item>
         <item name="colorControlActivated">@color/yellow</item>

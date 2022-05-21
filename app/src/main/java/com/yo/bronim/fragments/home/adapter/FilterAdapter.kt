@@ -7,14 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
 import com.yo.bronim.R
 import com.yo.bronim.models.Kitchen
 import com.yo.bronim.models.kitchens
+import com.yo.bronim.states.CuisineFiltrationState
 
 class FilterAdapter(
-    private val listener: (Int) -> Unit
+    private val isFilteringCallback: (Boolean) -> Unit
 ) : RecyclerView.Adapter<FilterAdapter.FilterViewHolder>(), View.OnClickListener {
 
     private var context: Context? = null
@@ -53,7 +55,17 @@ class FilterAdapter(
             Log.e("KITCHEN", holder.kitchen.text.toString())
             Log.e("POSITION", position.toString())
             prevHolder?.card?.strokeColor = ContextCompat.getColor(context!!, R.color.main_dark_color)
-            prevHolder = holder
+//            prevHolder = if (prevHolder == holder) null else holder
+            if (prevHolder == holder) {
+                prevHolder = null
+                isFilteringCallback(false)
+            } else {
+//                if (prevHolder == null) {
+//                    isFilteringCallback(true)
+//                }
+                isFilteringCallback(true)
+                prevHolder = holder
+            }
 //            Log.e("HOLDER", holder.card.toString())
 //            if (holder.chosen) {
 //                holder.card.strokeColor =
