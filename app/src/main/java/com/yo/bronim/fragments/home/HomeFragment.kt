@@ -1,6 +1,7 @@
 package com.yo.bronim.fragments.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -73,11 +74,13 @@ class HomeFragment : Fragment() {
             when (state) {
                 // is Pending
                 is HomePageState.Success -> {
+                    Log.e("OBSERVE POPULAR", "success")
                     val recommendedHolder = recycler?.findViewHolderForAdapterPosition(
                         POPULAR_VIEW_HOLDER_POS
                     )
+                    Log.e("HOLDER POPULAR", recommendedHolder.toString())
                     (recycler?.adapter as MainAdapter).showCategoryRestaurants(
-                        recommendedHolder as MainAdapter.MainViewHolder,
+                        recommendedHolder as MainAdapter.MainViewHolder?,
                         state.result,
                         View.GONE
                     )
@@ -91,11 +94,13 @@ class HomeFragment : Fragment() {
             when (state) {
                 // is Pending
                 is HomePageState.Success -> {
+                    Log.e("OBSERVE NEW", "success")
                     val newRestsHolder = recycler?.findViewHolderForAdapterPosition(
                         NEW_VIEW_HOLDER_POS
                     )
+                    Log.e("HOLDER NEW", newRestsHolder.toString())
                     (recycler?.adapter as MainAdapter).showCategoryRestaurants(
-                        newRestsHolder as MainAdapter.MainViewHolder,
+                        newRestsHolder as MainAdapter.MainViewHolder?,
                         state.result,
                         View.GONE
                     )
@@ -109,11 +114,13 @@ class HomeFragment : Fragment() {
             when (state) {
                 // is Pending
                 is HomePageState.Success -> {
+                    Log.e("OBSERVE NEAREST", "success")
                     val nearestRestsHolder = recycler?.findViewHolderForAdapterPosition(
                         NEAREST_VIEW_HOLDER_POS
                     )
+                    Log.e("HOLDER NEAREST", nearestRestsHolder.toString())
                     (recycler?.adapter as MainAdapter).showNearestRestaurants(
-                        nearestRestsHolder as MainAdapter.MainViewHolder,
+                        nearestRestsHolder as MainAdapter.MainViewHolder?,
                         state.result,
                         View.GONE
                     )

@@ -58,13 +58,13 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
         return CATEGORIES.size + itemsList.size
     }
 
-    fun showCategoryRestaurants(holder: MainViewHolder, restaurants: Array<Restaurant>, gone: Int) {
-        holder.progressBar.visibility = gone
-        holder.recyclerView.adapter = CategoryAdapter(restaurants)
+    fun showCategoryRestaurants(holder: MainViewHolder?, restaurants: Array<Restaurant>, gone: Int) {
+        holder?.progressBar?.visibility = gone
+        holder?.recyclerView?.adapter = CategoryAdapter(restaurants)
     }
 
-    fun showNearestRestaurants(holder: MainViewHolder, restaurants: Array<Restaurant>, gone: Int) {
-        holder.progressBar.visibility = gone
-        holder.recyclerView.adapter = HorizontalItemAdapter(restaurants)
+    fun showNearestRestaurants(holder: MainViewHolder?, restaurants: Array<Restaurant>, gone: Int) {
+        holder?.progressBar?.visibility = gone
+        holder?.recyclerView?.adapter = HorizontalItemAdapter(restaurants)
     }
 }

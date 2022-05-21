@@ -16,13 +16,8 @@ import com.yandex.mapkit.Animation
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.geometry.Point
 import com.yandex.mapkit.layers.ObjectEvent
-import com.yandex.mapkit.map.CameraListener
-import com.yandex.mapkit.map.CameraPosition
-import com.yandex.mapkit.map.CameraUpdateReason
-import com.yandex.mapkit.map.CompositeIcon
-import com.yandex.mapkit.map.IconStyle
+import com.yandex.mapkit.map.*
 import com.yandex.mapkit.map.Map
-import com.yandex.mapkit.map.RotationType
 import com.yandex.mapkit.mapview.MapView
 import com.yandex.mapkit.user_location.UserLocationLayer
 import com.yandex.mapkit.user_location.UserLocationObjectListener
@@ -41,7 +36,11 @@ class MapFragment : Fragment(), UserLocationObjectListener, CameraListener {
     private var mapView: MapView? = null
     private var fab: CardView? = null
     private var userLocationLayer: UserLocationLayer? = null
-    private var userLocationView: UserLocationView? = null
+
+    private var container: ViewGroup? = null
+    private var clickedMarkerCard: CardView? = null
+    private var clickedMarker: PlacemarkMapObject? = null
+    private var clickedViewGroup: View? = null
 
     private var followUserLocation = false
 
@@ -50,6 +49,7 @@ class MapFragment : Fragment(), UserLocationObjectListener, CameraListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        this.container = container
         return inflater.inflate(R.layout.fragment_map, container, false)
     }
 
@@ -168,14 +168,53 @@ class MapFragment : Fragment(), UserLocationObjectListener, CameraListener {
     }
 
     private fun addMarks() {
-        val view = View(requireContext()).apply {
-            background = requireContext().getDrawable(R.drawable.ic_map_mark)
-        }
-        val mark =
-            mapView?.map?.mapObjects?.addPlacemark(Point(TEST_LAT, TEST_LNG), ViewProvider(view))
+        val viewGroup = layoutInflater.inflate(R.layout.marker_layout, container, false)
+
+        var mark =
+            mapView?.map?.mapObjects?.addPlacemark(
+                Point(TEST_LAT, TEST_LNG),
+                ViewProvider(viewGroup)
+            )
+
         mark?.addTapListener { mapObject, point ->
+            val card = viewGroup.findViewById<CardView>(R.id.marker_card)
+            card.visibility = View.VISIBLE
+            invalidatePreviousMarker(card, viewGroup, mapObject as PlacemarkMapObject)
+            mapObject.setView(ViewProvider(viewGroup))
             Toast.makeText(activity, "Нажато", Toast.LENGTH_SHORT).show()
-            true
+            false
         }
+
+        val viewGroup2 = layoutInflater.inflate(R.layout.marker_layout, container, false)
+
+        mark =
+            mapView?.map?.mapObjects?.addPlacemark(
+                Point(TEST_LAT + 0.1, TEST_LNG),
+                ViewProvider(viewGroup2)
+            )
+
+        mark?.addTapListener { mapObject, point ->
+            val card = viewGroup2.findViewById<CardView>(R.id.marker_card)
+            card.visibility = View.VISIBLE
+            invalidatePreviousMarker(card, viewGroup2, mapObject as PlacemarkMapObject)
+            mapObject.setView(ViewProvider(viewGroup2))
+            Toast.makeText(activity, "Нажато", Toast.LENGTH_SHORT).show()
+            false
+        }
+    }
+
+    private fun invalidatePreviousMarker(
+        card: CardView,
+        viewGroup: View,
+        mapObject: PlacemarkMapObject
+    ) {
+        if (clickedMarkerCard != null) {
+            clickedMarkerCard?.visibility = View.INVISIBLE
+            clickedMarker?.setView(ViewProvider(clickedViewGroup))
+        }
+
+        clickedMarkerCard = card
+        clickedMarker = mapObject
+        clickedViewGroup = viewGroup
     }
 }

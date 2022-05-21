@@ -21,14 +21,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+//        val ai: ApplicationInfo = applicationContext.packageManager
+//            .getApplicationInfo(applicationContext.packageName, PackageManager.GET_META_DATA)
+//        MapKitFactory.setApiKey(ai.metaData["mapKey"].toString())
 
         mPermissionResult.launch(Manifest.permission.ACCESS_FINE_LOCATION)
 
-        val ai: ApplicationInfo = applicationContext.packageManager
-            .getApplicationInfo(applicationContext.packageName, PackageManager.GET_META_DATA)
-
-        MapKitFactory.setApiKey(ai.metaData["mapKey"].toString())
-        MapKitFactory.initialize(this)
+//        MapKitFactory.initialize(this)
 
         val navController =
             findViewById<FragmentContainerView>(R.id.nav_host_fragment_container)
@@ -40,6 +39,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
-        fun newInstance(context: Context?) = Intent(context, MainActivity::class.java)
+        fun newInstance(context: Context?) {
+            Intent(context, MainActivity::class.java)
+        }
     }
 }
