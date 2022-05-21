@@ -3,7 +3,6 @@ package com.yo.bronim.fragments.restaurant
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,7 +36,6 @@ class RestaurantFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Log.d("CREATE REST", "yes")
         return inflater.inflate(R.layout.fragment_restaurant_page, container, false)
     }
 
@@ -96,9 +94,6 @@ class RestaurantFragment : Fragment() {
     companion object {
         fun newInstance(restaurantID: Int) = RestaurantFragment().apply {
             bundle?.putInt("restaurantID", restaurantID)
-//            arguments = bundle?.apply {
-//                putInt("RestaurantID", restaurantID)
-//            }
         }
     }
 }

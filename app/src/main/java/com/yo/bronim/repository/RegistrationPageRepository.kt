@@ -25,15 +25,10 @@ class RegistrationPageRepository {
         .build()
     private val registrationApi = retrofit.create(RegistrationApi::class.java)
 
-//    constructor() {
-//        auth = FirebaseAuth.getInstance()
-//    }
-
     suspend fun register(user: UserRegistration): UserRegistration {
         return suspendCoroutine { continuation ->
             auth.createUserWithEmailAndPassword(user.email!!, user.password!!)
                 .addOnCompleteListener { task ->
-                    Log.i("DEBUG", "in complete")
                     if (task.isSuccessful) {
                         user.uid = auth.currentUser?.uid
                         continuation.resume(user)
