@@ -16,11 +16,15 @@ import com.yo.bronim.R
 import com.yo.bronim.ReservationActivity
 import com.yo.bronim.contracts.AuthorizationContract
 import com.yo.bronim.models.Restaurant
+import com.yo.bronim.states.FavouritesPageState
 import com.yo.bronim.states.RestaurantPageState
+import com.yo.bronim.states.SubscribeState
+import com.yo.bronim.viewmodels.FavouritesPageViewModel
 import com.yo.bronim.viewmodels.RestaurantPageViewModel
 
 class RestaurantFragment : Fragment() {
     private var restaurantPageViewModel = RestaurantPageViewModel()
+    private var favouritesViewModel = FavouritesPageViewModel()
     private var img: ImageView? = null
     private var name: TextView? = null
     private var address: TextView? = null
@@ -28,6 +32,10 @@ class RestaurantFragment : Fragment() {
     private var restaurantID: Int? = 0
     var bundle: Bundle? = Bundle()
     private var restaurant: Restaurant? = null
+
+    private val favouriteButton by lazy {
+        view?.findViewById<ImageView>(R.id.fragment_restaurant_page__btn_favourite)
+    }
 
     private val authorize = registerForActivityResult(AuthorizationContract()) { }
 
@@ -48,13 +56,23 @@ class RestaurantFragment : Fragment() {
         description = view.findViewById<TextView>(R.id.fragment_restaurant_page__description)
 
         restaurantPageViewModel = RestaurantPageViewModel()
+        favouritesViewModel = FavouritesPageViewModel()
 
         observeRestaurant()
+        observeFavourites()
+        observeSubscribe()
+        observeUnsubscribe()
+
         restaurantPageViewModel.getRestaurant(restaurantID)
+        favouritesViewModel.getFavouritesRestaurants()
 
         val back = view.findViewById<ImageView>(R.id.fragment_restaurant_page__btn_back)
         back.setOnClickListener {
             activity?.finish()
+        }
+
+        favouriteButton?.setOnClickListener {
+            favouritesViewModel.subscribe(restaurantID)
         }
 
         val makeReservation = view.findViewById<Button>(R.id.make_reservation_btn)
@@ -86,6 +104,55 @@ class RestaurantFragment : Fragment() {
                     name?.text = state.result.name
                     address?.text = state.result.address
                     description?.text = state.result.description
+                }
+            }
+        }
+    }
+
+    private fun observeFavourites() {
+        favouritesViewModel.favouritesRestaurantsState.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is FavouritesPageState.Success -> {
+                    var rests = state.result
+                    for (rest in rests) {
+                        if (rest.id == restaurantID) {
+                            favouriteButton?.setImageDrawable(
+                                resources.getDrawable(R.drawable.ic_fav_true)
+                            )
+                            favouriteButton?.setOnClickListener {
+                                favouritesViewModel.unsubscribe(restaurantID)
+                            }
+                            break
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun observeSubscribe() {
+        favouritesViewModel.subscribeState.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is SubscribeState.Success -> {
+                    favouriteButton?.setImageDrawable(
+                        resources.getDrawable(R.drawable.ic_fav_true)
+                    )
+                    favouriteButton?.setOnClickListener {
+                        favouritesViewModel.unsubscribe(restaurantID)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun observeUnsubscribe() {
+        favouritesViewModel.unsubscribeState.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is SubscribeState.Success -> {
+                    favouriteButton?.setImageDrawable(resources.getDrawable(R.drawable.ic_fav))
+                    favouriteButton?.setOnClickListener {
+                        favouritesViewModel.subscribe(restaurantID)
+                    }
                 }
             }
         }

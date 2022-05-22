@@ -4,6 +4,7 @@ import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.yo.bronim.interfaces.AuthorizationApi
 import com.yo.bronim.models.UserAuthorization
+import java.lang.IllegalArgumentException
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
@@ -41,5 +42,12 @@ class AuthorizationPageRepository {
 
     suspend fun getUserData(firebaseID: String?): UserAuthorization? {
         return authorizationApi.authorize(firebaseID)?.body()
+    }
+
+    fun getFID(): String? {
+        if (auth.currentUser == null) {
+            throw IllegalArgumentException("not authorized")
+        }
+        return auth.currentUser?.uid
     }
 }
