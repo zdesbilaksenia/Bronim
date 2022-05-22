@@ -1,6 +1,5 @@
 package com.yo.bronim.providers
 
-import com.yo.bronim.R
 import com.yo.bronim.models.ReservationListItem as ReservationListItem
 import com.yo.bronim.models.ReservationsListCallback
 import com.yo.bronim.repository.ReservationsListPageRepository
@@ -30,7 +29,7 @@ class ReservationsListPageProvider {
 //                    ?: throw Exception(R.string.errorUserIsNotLoggedIn.toString())
 //                val result = ArrayList<ReservationListItem>()
 //                for (rr in restaurantReservationList) {
-////                    todo
+// //                    todo
 //                    val time = "02:53"
 //                    val reservation = ReservationListItem(
 //                        id = 0,

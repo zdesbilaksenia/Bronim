@@ -4,7 +4,6 @@ import android.util.Log
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.yo.bronim.interfaces.ReservationApi
-import com.yo.bronim.models.ReservationListItem
 import com.yo.bronim.models.RestaurantReservation
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
