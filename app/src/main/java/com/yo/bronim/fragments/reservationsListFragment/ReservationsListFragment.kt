@@ -1,19 +1,23 @@
 package com.yo.bronim.fragments.reservationsListFragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.yo.bronim.AuthorizationActivity
 import com.yo.bronim.R
+import com.yo.bronim.contracts.AuthorizationContract
 import com.yo.bronim.fragments.reservationsListFragment.adapter.ReservationAdapter
 import com.yo.bronim.states.ReservationsListState
 import com.yo.bronim.viewmodels.ReservationsListPageViewModel
 
 class ReservationsListFragment : Fragment() {
     private val reservationsListViewModel = ReservationsListPageViewModel()
+    private val authorize = registerForActivityResult(AuthorizationContract()) { }
     private val recycler by lazy {
         view?.findViewById<RecyclerView>(R.id.fragment_reservations_list__recycler)
     }
@@ -30,6 +34,11 @@ class ReservationsListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         recycler?.layoutManager = LinearLayoutManager(context)
 
+        val user = AuthorizationActivity.getFBUser()
+        Log.e("", "user = ${user?.email}")
+        if (user == null) {
+            authorize.launch(Unit)
+        }
         observeReservationsList()
         reservationsListViewModel.getReservationsList()
     }

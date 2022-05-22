@@ -23,7 +23,6 @@ class ReservationsListPageRepository {
         Log.d("[RESERV_LIST_REPO]", "start getResrvList")
         val user = Firebase.auth.currentUser
         if (user != null) {
-//            return reservationApi.getReservationsList(user.uid).body()?.restaurantReservationList
             Log.d("[RESERV_LIST_REPO]", "gettin getResrvList")
             val body = reservationApi.getReservationsList(user.uid).body()
             Log.d("[RESERV_LIST_REPO]", "got getResrvList")
@@ -31,54 +30,5 @@ class ReservationsListPageRepository {
             return body?.restaurantReservationList
         }
         return null
-//        return reservations
     }
 }
-
-var reservations: Array<ReservationListItem> = arrayOf(
-    ReservationListItem(
-        id = 1,
-        name = "Sempre",
-        address = "улица такая дом такой",
-        tags = listOf("lala", "gaga"),
-        date = "19.04",
-        time = "23:46",
-        guests = 6,
-    ),
-    ReservationListItem(
-        id = 1,
-        name = "Sempre",
-        address = "улица такая дом такой",
-        tags = listOf("lala", "gaga"),
-        date = "19.04",
-        time = "23:46",
-        guests = 6,
-    ),
-    ReservationListItem(
-        id = 1,
-        name = "Sempre",
-        address = "улица такая дом такой",
-        tags = listOf("lala", "gaga"),
-        date = "19.04",
-        time = "23:46",
-        guests = 6,
-    ),
-    ReservationListItem(
-        id = 1,
-        name = "Sempre",
-        address = "улица такая дом такой",
-        tags = listOf("lala", "gaga"),
-        date = "19.04",
-        time = "23:46",
-        guests = 6,
-    ),
-    ReservationListItem(
-        id = 1,
-        name = "Sempre",
-        address = "улица такая дом такой",
-        tags = listOf("lala", "gaga"),
-        date = "19.04",
-        time = "23:46",
-        guests = 6,
-    ),
-)
