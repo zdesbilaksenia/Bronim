@@ -58,7 +58,7 @@ class ReservationsListFragment : Fragment() {
                 }
                 is ReservationsListState.Success -> {
                     loader?.visibility = View.GONE
-                    if (state.result == null) {
+                    if (state.result == null || state.result.isEmpty()) {
                         noReservationsText?.visibility = View.VISIBLE
                     } else {
                         recycler?.visibility = View.VISIBLE
