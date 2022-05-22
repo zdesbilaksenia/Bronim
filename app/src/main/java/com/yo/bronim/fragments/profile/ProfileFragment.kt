@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -15,6 +16,7 @@ import com.yo.bronim.viewmodels.ProfilePageViewModel
 
 class ProfileFragment : Fragment() {
 
+    private var progressBar: ProgressBar? = null
     private var profilePageViewModel = ProfilePageViewModel()
 
     private val signOutButton by lazy {
@@ -60,6 +62,7 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        progressBar = view.findViewById(R.id.progress_bar)
         profilePageViewModel = ProfilePageViewModel()
 
         observeSignOut()
@@ -81,9 +84,11 @@ class ProfileFragment : Fragment() {
         profilePageViewModel.signOutState.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is ProfilePageState.Success -> {
+                    progressBar?.visibility = View.GONE
                     (activity as ProfileActivity).sendResult(null)
                 }
                 is ProfilePageState.Error -> {
+                    progressBar?.visibility = View.GONE
                     Toast.makeText(
                         activity,
                         "Failed to signOut!",
@@ -98,6 +103,7 @@ class ProfileFragment : Fragment() {
         profilePageViewModel.saveProfileState.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is ProfilePageState.Success -> {
+                    progressBar?.visibility = View.GONE
                     Toast.makeText(
                         activity,
                         "Good Saved",
@@ -105,6 +111,7 @@ class ProfileFragment : Fragment() {
                     ).show()
                 }
                 is ProfilePageState.Error -> {
+                    progressBar?.visibility = View.GONE
                     Toast.makeText(
                         activity,
                         "Failed to saveProfile!",
@@ -119,6 +126,7 @@ class ProfileFragment : Fragment() {
         profilePageViewModel.getProfileState.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is ProfilePageState.Success -> {
+                    progressBar?.visibility = View.GONE
                     editTextName?.text = state.user?.name
                     editTextSurname?.text = state.user?.surname
                     editTextDateOfBirth?.text = state.user?.dateOfBirth
@@ -127,6 +135,7 @@ class ProfileFragment : Fragment() {
                     editTextPhoneNumber?.text = state.user?.phoneNumber
                 }
                 is ProfilePageState.Error -> {
+                    progressBar?.visibility = View.GONE
                     editTextName?.text = "Error"
                 }
             }
