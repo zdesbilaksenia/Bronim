@@ -5,6 +5,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,6 +23,12 @@ class ReservationsListFragment : Fragment() {
     private val recycler by lazy {
         view?.findViewById<RecyclerView>(R.id.fragment_reservations_list__recycler)
     }
+    private val loader by lazy {
+        view?.findViewById<ProgressBar>(R.id.fragment_reservations_list__loader)
+    }
+    private val noReservationsText by lazy {
+        view?.findViewById<TextView>(R.id.fragment_reservations_list__no_reservations)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,7 +40,6 @@ class ReservationsListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        recycler?.layoutManager = LinearLayoutManager(context)
 
         val user = AuthorizationActivity.getFBUser()
         Log.e("", "user = ${user?.email}")
@@ -47,10 +54,17 @@ class ReservationsListFragment : Fragment() {
         reservationsListViewModel.reservationsListState.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is ReservationsListState.Pending -> {
-//                    TODO
+                    loader?.visibility = View.VISIBLE
                 }
                 is ReservationsListState.Success -> {
-                    recycler?.adapter = ReservationAdapter(state.result)
+                    loader?.visibility = View.GONE
+                    if (state.result == null) {
+                        noReservationsText?.visibility = View.VISIBLE
+                    } else {
+                        recycler?.visibility = View.VISIBLE
+                        recycler?.layoutManager = LinearLayoutManager(context)
+                        recycler?.adapter = ReservationAdapter(state.result)
+                    }
                 }
                 is ReservationsListState.Error -> {
 //                    TODO

@@ -39,8 +39,31 @@
                     tools:background="@color/main_dark_color" />
         </androidx.cardview.widget.CardView>
 
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ProgressBar
+            android:id="@+id/fragment_reservations_list__loader"
+            android:visibility="gone"
+            android:layout_marginTop="8dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            />
+    <TextView
+            android:id="@+id/fragment_reservations_list__no_reservations"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/no_reservations"
+            android:textSize="22sp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/main_dark_color"
+            />
+
     <androidx.recyclerview.widget.RecyclerView
+            android:visibility="gone"
             android:id="@+id/fragment_reservations_list__recycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
