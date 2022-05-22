@@ -36,6 +36,9 @@ class MainAdapter(
         val category: TextView = itemView.findViewById(R.id.category)
         val recyclerView: RecyclerView = itemView.findViewById(R.id.category_recycler)
         val progressBar: ProgressBar = itemView.findViewById(R.id.progress_bar)
+        val nothingFoundText: TextView = itemView.findViewById(
+            R.id.home_recycler_category__nothing_found_text
+        )
         val recycler: ConstraintLayout = itemView.findViewById(
             R.id.home_recycler_category__recycler
         )
@@ -52,6 +55,8 @@ class MainAdapter(
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         holder.category.text = itemList[position]
+        Log.d("itemList = ", "$itemList")
+        Log.d("pos = ", "$position")
         if (this.isFiltering == null || !this.isFiltering!!) {
             holder.button.visibility = View.GONE
             holder.recyclerView.adapter = null
@@ -82,20 +87,23 @@ class MainAdapter(
                 }
             }
         } else {
-            if (position != 0) {
+            if (position == CUISINE_FILTER_FOUND) {
+                holder.progressBar.visibility = View.VISIBLE
+                holder.recyclerView.adapter = null
+                holder.recyclerView.layoutManager =
+                    LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+                holder.button.visibility = View.VISIBLE
+                holder.button.setOnClickListener {
+                    if (isFiltering != false) {
+                        isFilteringCallback(false, null)
+                    }
+                }
                 if (payloads[position] != null) {
                     holder.progressBar.visibility = View.GONE
-                    holder.recyclerView.adapter = CategoryAdapter(payloads[position]!!)
-                } else {
-                    holder.progressBar.visibility = View.VISIBLE
-                    holder.recyclerView.adapter = null
-                    holder.recyclerView.layoutManager =
-                        LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-                    holder.button.visibility = View.VISIBLE
-                    holder.button.setOnClickListener {
-                        if (isFiltering != false) {
-                            isFilteringCallback(false, null)
-                        }
+                    if (payloads[position]?.isEmpty() == true) {
+                        holder.nothingFoundText.visibility = View.VISIBLE
+                    } else {
+                        holder.recyclerView.adapter = CategoryAdapter(payloads[position]!!)
                     }
                 }
             }
@@ -123,10 +131,10 @@ class MainAdapter(
         if (isFiltering) {
             payloads = LinkedHashMap()
             Collections.swap(itemList, KITCHENS_VIEW_HOLDER_POS, POPULAR_VIEW_HOLDER_POS)
-            notifyItemMoved(1, 0)
+            notifyItemMoved(KITCHENS_VIEW_HOLDER_POS, POPULAR_VIEW_HOLDER_POS)
             removeAt(NEAREST_VIEW_HOLDER_POS)
             removeAt(NEW_VIEW_HOLDER_POS)
-            removeAt(POPULAR_VIEW_HOLDER_POS)
+            removeAt(KITCHENS_VIEW_HOLDER_POS)
             insertAt(CUISINE_FILTER_FOUND, "Найдено")
             Log.d("isFiltering", "Struct for true")
         } else {

@@ -30,6 +30,8 @@ class HomePageRepository {
 
     suspend fun cuisineFiltration(cuisine: String): Array<Restaurant>? {
         Log.e("", "repo requested for $cuisine")
-        return restaurantApi.cuisineFiltration(cuisine).body()?.restaurants
+        val r = restaurantApi.cuisineFiltration(cuisine).body()?.restaurants
+        Log.e("", "repo got $r")
+        return r
     }
 }

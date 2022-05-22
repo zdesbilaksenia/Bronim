@@ -18,12 +18,14 @@ import com.yo.bronim.states.CuisineFiltrationState
 import com.yo.bronim.states.HomePageState
 import com.yo.bronim.viewmodels.HomePageViewModel
 
+// Not Filtering
 const val POPULAR_VIEW_HOLDER_POS = 0
 const val KITCHENS_VIEW_HOLDER_POS = 1
 const val NEW_VIEW_HOLDER_POS = 2
 const val NEAREST_VIEW_HOLDER_POS = 3
 
-const val CUISINE_FILTER_KITCHENS = 1
+// Filtering
+const val CUISINE_FILTER_KITCHENS = 0
 const val CUISINE_FILTER_FOUND = 1
 
 val CATEGORIES = listOf(
@@ -88,14 +90,6 @@ class HomeFragment : Fragment() {
             when (state) {
                 // is Pending
                 is HomePageState.Success -> {
-//                    val recommendedHolder = recycler?.findViewHolderForAdapterPosition(
-//                        POPULAR_VIEW_HOLDER_POS
-//                    )
-//                    (recycler?.adapter as MainAdapter).showCategoryRestaurants(
-//                        recommendedHolder as MainAdapter.MainViewHolder,
-//                        state.result,
-//                        View.GONE
-//                    )
                     (recycler?.adapter as MainAdapter).updateRestaurants(
                         POPULAR_VIEW_HOLDER_POS,
                         state.result
@@ -110,14 +104,6 @@ class HomeFragment : Fragment() {
             when (state) {
                 // is Pending
                 is HomePageState.Success -> {
-//                    val newRestsHolder = recycler?.findViewHolderForAdapterPosition(
-//                        NEW_VIEW_HOLDER_POS
-//                    )
-//                    (recycler?.adapter as MainAdapter).showCategoryRestaurants(
-//                        newRestsHolder as MainAdapter.MainViewHolder,
-//                        state.result,
-//                        View.GONE
-//                    )
                     (recycler?.adapter as MainAdapter).updateRestaurants(
                         NEW_VIEW_HOLDER_POS,
                         state.result
@@ -132,14 +118,6 @@ class HomeFragment : Fragment() {
             when (state) {
                 // is Pending
                 is HomePageState.Success -> {
-//                    val nearestRestsHolder = recycler?.findViewHolderForAdapterPosition(
-//                        NEAREST_VIEW_HOLDER_POS
-//                    )
-//                    (recycler?.adapter as MainAdapter).showNearestRestaurants(
-//                        nearestRestsHolder as MainAdapter.MainViewHolder,
-//                        state.result,
-//                        View.GONE
-//                    )
                     (recycler?.adapter as MainAdapter).updateRestaurants(
                         NEAREST_VIEW_HOLDER_POS,
                         state.result
@@ -153,7 +131,6 @@ class HomeFragment : Fragment() {
         homePageViewModel.cuisineFiltrationState.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is CuisineFiltrationState.Pending -> {
-                    // TODO loader
                     Log.e("", "cuisine filtration requested")
                 }
                 is CuisineFiltrationState.Success -> {

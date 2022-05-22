@@ -69,7 +69,11 @@ class HomePageProvider {
             try {
                 Log.e("", "provider requested")
                 val result = homePageRepository.cuisineFiltration(cuisine)
-                invokeCallback(callback, result, null)
+                if (result == null) {
+                    invokeCallback(callback, emptyArray(), null)
+                } else {
+                    invokeCallback(callback, result, null)
+                }
             } catch (error: Throwable) {
                 invokeCallback(callback, null, error)
             }

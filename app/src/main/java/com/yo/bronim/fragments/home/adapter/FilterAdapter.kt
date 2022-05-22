@@ -24,7 +24,6 @@ class FilterAdapter(
     inner class FilterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val kitchen: TextView = itemView.findViewById(R.id.kitchen)
         val card: MaterialCardView = itemView.findViewById(R.id.kitchen_card)
-        var chosen: Boolean = false
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilterViewHolder {
