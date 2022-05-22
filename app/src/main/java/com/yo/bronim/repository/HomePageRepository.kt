@@ -1,5 +1,6 @@
 package com.yo.bronim.repository
 
+import android.util.Log
 import com.yo.bronim.interfaces.RestaurantApi
 import com.yo.bronim.models.Restaurant
 import okhttp3.OkHttpClient
@@ -28,6 +29,7 @@ class HomePageRepository {
     }
 
     suspend fun cuisineFiltration(cuisine: String): Array<Restaurant>? {
+        Log.e("", "repo requested for $cuisine")
         return restaurantApi.cuisineFiltration(cuisine).body()?.restaurants
     }
 }

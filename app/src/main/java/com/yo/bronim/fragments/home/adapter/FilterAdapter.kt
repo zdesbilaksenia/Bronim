@@ -7,16 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
 import com.yo.bronim.R
-import com.yo.bronim.models.Kitchen
 import com.yo.bronim.models.kitchens
-import com.yo.bronim.states.CuisineFiltrationState
 
 class FilterAdapter(
-    private val isFilteringCallback: (Boolean) -> Unit
+    private val isFilteringCallback: (Boolean, String?) -> Unit
 ) : RecyclerView.Adapter<FilterAdapter.FilterViewHolder>(), View.OnClickListener {
 
     private var context: Context? = null
@@ -29,7 +26,6 @@ class FilterAdapter(
         val card: MaterialCardView = itemView.findViewById(R.id.kitchen_card)
         var chosen: Boolean = false
     }
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilterViewHolder {
         context = parent.context
@@ -54,16 +50,19 @@ class FilterAdapter(
             selectedPos = holder.adapterPosition
             Log.e("KITCHEN", holder.kitchen.text.toString())
             Log.e("POSITION", position.toString())
-            prevHolder?.card?.strokeColor = ContextCompat.getColor(context!!, R.color.main_dark_color)
+            prevHolder?.card?.strokeColor = ContextCompat.getColor(
+                context!!,
+                R.color.main_dark_color
+            )
 //            prevHolder = if (prevHolder == holder) null else holder
             if (prevHolder == holder) {
                 prevHolder = null
-                isFilteringCallback(false)
+                isFilteringCallback(false, null)
             } else {
 //                if (prevHolder == null) {
 //                    isFilteringCallback(true)
 //                }
-                isFilteringCallback(true)
+                isFilteringCallback(true, holder.kitchen.text.toString())
                 prevHolder = holder
             }
 //            Log.e("HOLDER", holder.card.toString())

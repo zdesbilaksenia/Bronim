@@ -1,5 +1,6 @@
 package com.yo.bronim.managers
 
+import android.util.Log
 import com.yo.bronim.models.Restaurant
 import com.yo.bronim.providers.HomePageProvider
 
@@ -29,9 +30,16 @@ class HomePageManager {
         }
     }
 
-    fun cuisineFiltration(callback: (result: Array<Restaurant>?, error: Throwable?) -> Unit, cuisine: String) {
-        homePageProvider.cuisineFiltration({result, error ->
-            callback(result, error)
-        }, cuisine)
+    fun cuisineFiltration(
+        callback: (result: Array<Restaurant>?, error: Throwable?) -> Unit,
+        cuisine: String
+    ) {
+        Log.e("", "manager requested")
+        homePageProvider.cuisineFiltration(
+            { result, error ->
+                callback(result, error)
+            },
+            cuisine
+        )
     }
 }

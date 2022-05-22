@@ -1,6 +1,5 @@
 package com.yo.bronim.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.yo.bronim.managers.ReservationPageManager
 import com.yo.bronim.models.PostReservation

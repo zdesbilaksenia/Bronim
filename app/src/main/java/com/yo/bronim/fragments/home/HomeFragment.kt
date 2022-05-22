@@ -22,7 +22,9 @@ const val POPULAR_VIEW_HOLDER_POS = 0
 const val KITCHENS_VIEW_HOLDER_POS = 1
 const val NEW_VIEW_HOLDER_POS = 2
 const val NEAREST_VIEW_HOLDER_POS = 3
-const val CUISINE_FILTER_FOUND = 4
+
+const val CUISINE_FILTER_KITCHENS = 1
+const val CUISINE_FILTER_FOUND = 1
 
 val CATEGORIES = listOf(
     "Популярное",
@@ -94,8 +96,10 @@ class HomeFragment : Fragment() {
 //                        state.result,
 //                        View.GONE
 //                    )
-                    Log.e("GOT", "POPULAR RESTS")
-                    (recycler?.adapter as MainAdapter).updateRestaurants(POPULAR_VIEW_HOLDER_POS, state.result)
+                    (recycler?.adapter as MainAdapter).updateRestaurants(
+                        POPULAR_VIEW_HOLDER_POS,
+                        state.result
+                    )
                 }
             }
         }
@@ -114,7 +118,10 @@ class HomeFragment : Fragment() {
 //                        state.result,
 //                        View.GONE
 //                    )
-                    (recycler?.adapter as MainAdapter).updateRestaurants(NEW_VIEW_HOLDER_POS, state.result)
+                    (recycler?.adapter as MainAdapter).updateRestaurants(
+                        NEW_VIEW_HOLDER_POS,
+                        state.result
+                    )
                 }
             }
         }
@@ -133,7 +140,10 @@ class HomeFragment : Fragment() {
 //                        state.result,
 //                        View.GONE
 //                    )
-                    (recycler?.adapter as MainAdapter).updateRestaurants(NEAREST_VIEW_HOLDER_POS, state.result)
+                    (recycler?.adapter as MainAdapter).updateRestaurants(
+                        NEAREST_VIEW_HOLDER_POS,
+                        state.result
+                    )
                 }
             }
         }
@@ -144,9 +154,15 @@ class HomeFragment : Fragment() {
             when (state) {
                 is CuisineFiltrationState.Pending -> {
                     // TODO loader
+                    Log.e("", "cuisine filtration requested")
                 }
                 is CuisineFiltrationState.Success -> {
                     // TODO load rests
+                    Log.e("", "loaded norm")
+                    (recycler?.adapter as MainAdapter).updateRestaurants(
+                        CUISINE_FILTER_FOUND,
+                        state.result
+                    )
                 }
                 is CuisineFiltrationState.Error -> {
                     // TODO error handle
@@ -157,11 +173,11 @@ class HomeFragment : Fragment() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        var username = textViewName?.text.toString()
+        val username = textViewName?.text.toString()
         outState.putString(UserNameVariable, username)
     }
 
-    private val isFilteringCallback: (Boolean)->Unit = { isFiltering: Boolean ->
+    private val isFilteringCallback: (Boolean, String?) -> Unit = { isFiltering, cuisine ->
         Log.d("recycler size", "${recycler?.size}")
         Log.d("recadapiteCnt", "${recycler?.adapter?.itemCount}")
         (recycler?.adapter as MainAdapter).isFiltering(
@@ -172,7 +188,7 @@ class HomeFragment : Fragment() {
             homePageViewModel.getNewRestaurants()
             homePageViewModel.getNearestRestaurants()
         } else {
-            homePageViewModel.cuisineFiltration("грузинская")
+            homePageViewModel.cuisineFiltration(cuisine!!)
         }
     }
 
