@@ -1,14 +1,12 @@
 package com.yo.bronim.fragments.home.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yo.bronim.R
@@ -30,7 +28,6 @@ class MainAdapter(
     private var context: Context? = null
     private var isFiltering: Boolean? = null
     private var payloads: MutableMap<Int, Array<Restaurant>> = LinkedHashMap()
-//    var itemsList: Array<Restaurant> = arrayOf()
 
     inner class MainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val category: TextView = itemView.findViewById(R.id.category)
@@ -38,9 +35,6 @@ class MainAdapter(
         val progressBar: ProgressBar = itemView.findViewById(R.id.progress_bar)
         val nothingFoundText: TextView = itemView.findViewById(
             R.id.home_recycler_category__nothing_found_text
-        )
-        val recycler: ConstraintLayout = itemView.findViewById(
-            R.id.home_recycler_category__recycler
         )
         val button: Button = itemView.findViewById(R.id.home_recycler_category__button)
     }
@@ -55,8 +49,6 @@ class MainAdapter(
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         holder.category.text = itemList[position]
-        Log.d("itemList = ", "$itemList")
-        Log.d("pos = ", "$position")
         if (this.isFiltering == null || !this.isFiltering!!) {
             holder.button.visibility = View.GONE
             holder.recyclerView.adapter = null
@@ -115,7 +107,6 @@ class MainAdapter(
     }
 
     fun updateRestaurants(position: Int, restaurants: Array<Restaurant>) {
-        Log.d("UPD", "UPDATING $position")
         payloads[position] = restaurants
         notifyItemChanged(position)
     }
@@ -136,16 +127,13 @@ class MainAdapter(
             removeAt(NEW_VIEW_HOLDER_POS)
             removeAt(KITCHENS_VIEW_HOLDER_POS)
             insertAt(CUISINE_FILTER_FOUND, "Найдено")
-            Log.d("isFiltering", "Struct for true")
         } else {
             payloads = LinkedHashMap()
             removeAt(CUISINE_FILTER_FOUND)
             removeAt(CUISINE_FILTER_KITCHENS)
             for (i in CATEGORIES.indices) {
-                Log.d("INDICES = ", "$i")
                 insertAt(i, CATEGORIES[i])
             }
-            Log.d("isFiltering", "Struct for false")
         }
     }
 

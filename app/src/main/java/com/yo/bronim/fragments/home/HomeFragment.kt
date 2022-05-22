@@ -1,13 +1,11 @@
 package com.yo.bronim.fragments.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.view.size
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -80,7 +78,6 @@ class HomeFragment : Fragment() {
         observeCuisineFiltration()
 
         homePageViewModel.getPopularRestaurants()
-        Log.e("ASKED FOR", "POPULAR RESTS")
         homePageViewModel.getNewRestaurants()
         homePageViewModel.getNearestRestaurants()
     }
@@ -131,11 +128,8 @@ class HomeFragment : Fragment() {
         homePageViewModel.cuisineFiltrationState.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is CuisineFiltrationState.Pending -> {
-                    Log.e("", "cuisine filtration requested")
                 }
                 is CuisineFiltrationState.Success -> {
-                    // TODO load rests
-                    Log.e("", "loaded norm")
                     (recycler?.adapter as MainAdapter).updateRestaurants(
                         CUISINE_FILTER_FOUND,
                         state.result
@@ -155,8 +149,6 @@ class HomeFragment : Fragment() {
     }
 
     private val isFilteringCallback: (Boolean, String?) -> Unit = { isFiltering, cuisine ->
-        Log.d("recycler size", "${recycler?.size}")
-        Log.d("recadapiteCnt", "${recycler?.adapter?.itemCount}")
         (recycler?.adapter as MainAdapter).isFiltering(
             isFiltering
         )

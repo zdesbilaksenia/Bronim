@@ -1,6 +1,5 @@
 package com.yo.bronim.providers
 
-import android.util.Log
 import com.yo.bronim.models.Restaurant as Restaurant
 import com.yo.bronim.repository.HomePageRepository as HomePageRepository
 import java.io.IOException
@@ -67,7 +66,6 @@ class HomePageProvider {
     ) {
         scope.launch {
             try {
-                Log.e("", "provider requested")
                 val result = homePageRepository.cuisineFiltration(cuisine)
                 if (result == null) {
                     invokeCallback(callback, emptyArray(), null)
