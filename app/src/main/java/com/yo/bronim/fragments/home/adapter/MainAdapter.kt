@@ -91,7 +91,7 @@ class MainAdapter(
                 holder.progressBar.visibility = View.VISIBLE
                 holder.recyclerView.adapter = null
                 holder.recyclerView.layoutManager =
-                    LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+                    LinearLayoutManager(context, RecyclerView.VERTICAL, false)
                 holder.button.visibility = View.VISIBLE
                 holder.button.setOnClickListener {
                     if (isFiltering != false) {
@@ -103,7 +103,7 @@ class MainAdapter(
                     if (payloads[position]?.isEmpty() == true) {
                         holder.nothingFoundText.visibility = View.VISIBLE
                     } else {
-                        holder.recyclerView.adapter = CategoryAdapter(payloads[position]!!)
+                        holder.recyclerView.adapter = HorizontalItemAdapter(payloads[position]!!)
                     }
                 }
             }
