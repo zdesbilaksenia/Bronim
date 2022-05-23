@@ -28,6 +28,7 @@ class HomePageRepository {
     }
 
     suspend fun cuisineFiltration(cuisine: String): Array<Restaurant>? {
-        return restaurantApi.cuisineFiltration(cuisine).body()?.restaurants
+        val r = restaurantApi.cuisineFiltration(cuisine)
+        return r?.body()?.restaurants
     }
 }

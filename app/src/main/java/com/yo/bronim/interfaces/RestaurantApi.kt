@@ -6,6 +6,7 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface RestaurantApi {
     @Headers("Content-Type: application/json")
@@ -25,6 +26,6 @@ interface RestaurantApi {
     suspend fun getRestaurant(@Path("id") id: Int?): Response<Restaurant>
 
     @Headers("Content-Type: application/json")
-    @GET("/bronim/restaurants/?cuisine={cuisine}")
-    suspend fun cuisineFiltration(@Path("cuisine") cuisine: String?): Response<RestaurantList>
+    @GET("/bronim/restaurants")
+    suspend fun cuisineFiltration(@Query("cuisine") cuisine: String?): Response<RestaurantList>
 }
