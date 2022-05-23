@@ -23,6 +23,7 @@
             android:layout_marginBottom="74dp">
 
         <ImageView
+                android:layout_marginTop="2dp"
                 android:layout_gravity="center"
                 android:layout_width="28dp"
                 android:layout_height="28dp"

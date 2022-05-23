@@ -15,6 +15,7 @@ class TableAdapter(
     RecyclerView.Adapter<TableAdapter.TableViewHolder>() {
 
     private var previousChosen: ConstraintLayout? = null
+    private var chosenPosition: Int? = null
 
     inner class TableViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tableNum: TextView = itemView.findViewById(R.id.table_num)
@@ -31,7 +32,13 @@ class TableAdapter(
     override fun onBindViewHolder(holder: TableViewHolder, position: Int) {
         holder.tableNum.text = "№ ${tables[position]}"
 
+        if (position != chosenPosition)
+            holder.tableCell.setBackgroundResource(R.drawable.reservation_item_bckgrnd)
+        else
+            holder.tableCell.setBackgroundResource(R.drawable.reservation_item_chosen)
+
         holder.tableCell.setOnClickListener {
+            chosenPosition = holder.adapterPosition
             previousChosen?.setBackgroundResource(R.drawable.reservation_item_bckgrnd)
             holder.tableCell.setBackgroundResource(R.drawable.reservation_item_chosen)
             callback(tables[position])

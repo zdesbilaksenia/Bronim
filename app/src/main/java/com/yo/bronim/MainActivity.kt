@@ -15,19 +15,16 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.yandex.mapkit.MapKitFactory
 
 class MainActivity : AppCompatActivity() {
-
     private val mPermissionResult = registerForActivityResult(RequestPermission()) { }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-//        val ai: ApplicationInfo = applicationContext.packageManager
-//            .getApplicationInfo(applicationContext.packageName, PackageManager.GET_META_DATA)
-//        MapKitFactory.setApiKey(ai.metaData["mapKey"].toString())
-
+        val ai: ApplicationInfo = applicationContext.packageManager
+            .getApplicationInfo(applicationContext.packageName, PackageManager.GET_META_DATA)
+        MapKitFactory.setApiKey(ai.metaData["mapKey"].toString())
+        MapKitFactory.initialize(this)
         mPermissionResult.launch(Manifest.permission.ACCESS_FINE_LOCATION)
-
-//        MapKitFactory.initialize(this)
 
         val navController =
             findViewById<FragmentContainerView>(R.id.nav_host_fragment_container)

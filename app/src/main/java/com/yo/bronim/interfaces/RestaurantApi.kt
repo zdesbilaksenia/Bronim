@@ -23,4 +23,8 @@ interface RestaurantApi {
     @Headers("Content-Type: application/json")
     @GET("/bronim/restaurants/{id}")
     suspend fun getRestaurant(@Path("id") id: Int?): Response<Restaurant>
+
+    @Headers("Content-Type: application/json")
+    @GET("/bronim/restaurants/?cuisine={cuisine}")
+    suspend fun cuisineFiltration(@Path("cuisine") cuisine: String?): Response<RestaurantList>
 }

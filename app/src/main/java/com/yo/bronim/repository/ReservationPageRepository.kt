@@ -22,6 +22,11 @@ class ReservationPageRepository {
         date: String,
         numOfGuests: Int
     ): Array<Reservation>? {
+        Log.d(
+            "HERE",
+            "${reservationApi.getAvailableTablesAndTime(restId, date, numOfGuests)
+                .raw()}"
+        )
         return reservationApi.getAvailableTablesAndTime(restId, date, numOfGuests)
             .body()?.reservations
     }

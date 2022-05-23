@@ -15,6 +15,7 @@ class DateAdapter(
     RecyclerView.Adapter<DateAdapter.DateViewHolder>() {
 
     private var previousChosen: ConstraintLayout? = null
+    private var chosenPosition: Int? = null
 
     inner class DateViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val weekday: TextView = itemView.findViewById(R.id.weekday)
@@ -33,7 +34,13 @@ class DateAdapter(
         holder.weekday.text = dates[position].first
         holder.date.text = dates[position].second.toString()
 
+        if (position != chosenPosition)
+            holder.cell.setBackgroundResource(R.drawable.reservation_item_bckgrnd)
+        else
+            holder.cell.setBackgroundResource(R.drawable.reservation_item_chosen)
+
         holder.cell.setOnClickListener {
+            chosenPosition = holder.adapterPosition
             previousChosen?.setBackgroundResource(R.drawable.reservation_item_bckgrnd)
             holder.cell.setBackgroundResource(R.drawable.reservation_item_chosen)
             callback(Pair(dates[position].first, dates[position].second))

@@ -7,12 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.size
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yo.bronim.R
 import com.yo.bronim.contracts.AuthorizationContract
 import com.yo.bronim.fragments.home.adapter.MainAdapter
+import com.yo.bronim.states.CuisineFiltrationState
 import com.yo.bronim.states.HomePageState
 import com.yo.bronim.viewmodels.HomePageViewModel
 
@@ -20,6 +22,14 @@ const val POPULAR_VIEW_HOLDER_POS = 0
 const val KITCHENS_VIEW_HOLDER_POS = 1
 const val NEW_VIEW_HOLDER_POS = 2
 const val NEAREST_VIEW_HOLDER_POS = 3
+const val CUISINE_FILTER_FOUND = 4
+
+val CATEGORIES = listOf(
+    "Популярное",
+    "Кухни",
+    "Новое",
+    "Ближайшие",
+)
 
 class HomeFragment : Fragment() {
     private var recycler: RecyclerView? = null
@@ -56,15 +66,17 @@ class HomeFragment : Fragment() {
 
         recycler = view.findViewById(R.id.main_recycler)
         recycler?.layoutManager = LinearLayoutManager(activity)
-        recycler?.adapter = MainAdapter()
+        recycler?.adapter = MainAdapter(CATEGORIES.toMutableList(), isFilteringCallback)
 
         homePageViewModel = HomePageViewModel()
 
         observePopularRestaurants()
         observeNewRestaurants()
         observeNearestRestaurants()
+        observeCuisineFiltration()
 
         homePageViewModel.getPopularRestaurants()
+        Log.e("ASKED FOR", "POPULAR RESTS")
         homePageViewModel.getNewRestaurants()
         homePageViewModel.getNearestRestaurants()
     }
@@ -74,15 +86,18 @@ class HomeFragment : Fragment() {
             when (state) {
                 // is Pending
                 is HomePageState.Success -> {
-                    Log.e("OBSERVE POPULAR", "success")
-                    val recommendedHolder = recycler?.findViewHolderForAdapterPosition(
-                        POPULAR_VIEW_HOLDER_POS
-                    )
-                    Log.e("HOLDER POPULAR", recommendedHolder.toString())
-                    (recycler?.adapter as MainAdapter).showCategoryRestaurants(
-                        recommendedHolder as MainAdapter.MainViewHolder?,
-                        state.result,
-                        View.GONE
+//                    val recommendedHolder = recycler?.findViewHolderForAdapterPosition(
+//                        POPULAR_VIEW_HOLDER_POS
+//                    )
+//                    (recycler?.adapter as MainAdapter).showCategoryRestaurants(
+//                        recommendedHolder as MainAdapter.MainViewHolder,
+//                        state.result,
+//                        View.GONE
+//                    )
+                    Log.e("GOT", "POPULAR RESTS")
+                    (recycler?.adapter as MainAdapter).updateRestaurants(
+                        POPULAR_VIEW_HOLDER_POS,
+                        state.result
                     )
                 }
             }
@@ -94,15 +109,17 @@ class HomeFragment : Fragment() {
             when (state) {
                 // is Pending
                 is HomePageState.Success -> {
-                    Log.e("OBSERVE NEW", "success")
-                    val newRestsHolder = recycler?.findViewHolderForAdapterPosition(
-                        NEW_VIEW_HOLDER_POS
-                    )
-                    Log.e("HOLDER NEW", newRestsHolder.toString())
-                    (recycler?.adapter as MainAdapter).showCategoryRestaurants(
-                        newRestsHolder as MainAdapter.MainViewHolder?,
-                        state.result,
-                        View.GONE
+//                    val newRestsHolder = recycler?.findViewHolderForAdapterPosition(
+//                        NEW_VIEW_HOLDER_POS
+//                    )
+//                    (recycler?.adapter as MainAdapter).showCategoryRestaurants(
+//                        newRestsHolder as MainAdapter.MainViewHolder,
+//                        state.result,
+//                        View.GONE
+//                    )
+                    (recycler?.adapter as MainAdapter).updateRestaurants(
+                        NEW_VIEW_HOLDER_POS,
+                        state.result
                     )
                 }
             }
@@ -114,16 +131,34 @@ class HomeFragment : Fragment() {
             when (state) {
                 // is Pending
                 is HomePageState.Success -> {
-                    Log.e("OBSERVE NEAREST", "success")
-                    val nearestRestsHolder = recycler?.findViewHolderForAdapterPosition(
-                        NEAREST_VIEW_HOLDER_POS
+//                    val nearestRestsHolder = recycler?.findViewHolderForAdapterPosition(
+//                        NEAREST_VIEW_HOLDER_POS
+//                    )
+//                    (recycler?.adapter as MainAdapter).showNearestRestaurants(
+//                        nearestRestsHolder as MainAdapter.MainViewHolder,
+//                        state.result,
+//                        View.GONE
+//                    )
+                    (recycler?.adapter as MainAdapter).updateRestaurants(
+                        NEAREST_VIEW_HOLDER_POS,
+                        state.result
                     )
-                    Log.e("HOLDER NEAREST", nearestRestsHolder.toString())
-                    (recycler?.adapter as MainAdapter).showNearestRestaurants(
-                        nearestRestsHolder as MainAdapter.MainViewHolder?,
-                        state.result,
-                        View.GONE
-                    )
+                }
+            }
+        }
+    }
+
+    private fun observeCuisineFiltration() {
+        homePageViewModel.cuisineFiltrationState.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is CuisineFiltrationState.Pending -> {
+                    // TODO loader
+                }
+                is CuisineFiltrationState.Success -> {
+                    // TODO load rests
+                }
+                is CuisineFiltrationState.Error -> {
+                    // TODO error handle
                 }
             }
         }
@@ -133,6 +168,21 @@ class HomeFragment : Fragment() {
         super.onSaveInstanceState(outState)
         var username = textViewName?.text.toString()
         outState.putString(UserNameVariable, username)
+    }
+
+    private val isFilteringCallback: (Boolean) -> Unit = { isFiltering: Boolean ->
+        Log.d("recycler size", "${recycler?.size}")
+        Log.d("recadapiteCnt", "${recycler?.adapter?.itemCount}")
+        (recycler?.adapter as MainAdapter).isFiltering(
+            isFiltering
+        )
+        if (!isFiltering) {
+            homePageViewModel.getPopularRestaurants()
+            homePageViewModel.getNewRestaurants()
+            homePageViewModel.getNearestRestaurants()
+        } else {
+            homePageViewModel.cuisineFiltration("грузинская")
+        }
     }
 
     companion object {

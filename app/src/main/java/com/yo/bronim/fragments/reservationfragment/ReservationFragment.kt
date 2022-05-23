@@ -2,6 +2,7 @@ package com.yo.bronim.fragments.reservationfragment
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
@@ -226,7 +227,8 @@ class ReservationFragment : Fragment() {
             val textView = TextView(ContextThemeWrapper(activity, R.style.time))
             textView.id = ViewCompat.generateViewId()
             textView.setBackgroundResource(R.drawable.reservation_item_bckgrnd)
-            textView.text = "${i / 2}:${i % 2 * 30}"
+            textView.text =
+                "${(i / 2).toString().padStart(2, '0')}:${(i % 2 * 30).toString().padStart(2, '0')}"
             textView.width = 240
 
             if (times.contains(i)) {
@@ -272,6 +274,7 @@ class ReservationFragment : Fragment() {
                         }
                     }
                 }
+                is ReservationPageState.Error -> Log.e("ERR", state.error.toString())
             }
         }
     }
@@ -289,9 +292,9 @@ class ReservationFragment : Fragment() {
     }
 
     private fun convertChosenDate(): String {
-        return "${calendar.get(Calendar.YEAR)}.${
+        return "${calendar.get(Calendar.YEAR)}-${
         (chosenMonth + 1).toString().padStart(2, '0')
-        }.${chosenDay?.second.toString().padStart(2, '0')}"
+        }-${chosenDay?.second.toString().padStart(2, '0')}"
     }
 
     companion object {

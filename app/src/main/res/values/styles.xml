@@ -38,6 +38,12 @@
         <item name="strokeWidth">1dp</item>
     </style>
 
+    <style name="brick_btn">
+        <item name="android:textColor">@color/white</item>
+        <item name="backgroundTint">@color/brick</item>
+        <item name="cornerRadius">10dp</item>
+    </style>
+
     <style name="rating_bar">
         <item name="colorControlNormal">@color/gray_200</item>
         <item name="colorControlActivated">@color/yellow</item>
@@ -73,5 +79,12 @@
     <style name="text_input" parent="ThemeOverlay.AppCompat">
         <item name="android:layout_width">125dp</item>
         <item name="android:layout_height">43dp</item>
+    </style>
+
+    <style name="rounded_corner">
+        <item name="cornerSizeTopLeft">10dp</item>
+        <item name="cornerSizeBottomLeft">10dp</item>
+        <item name="cornerFamilyTopLeft">rounded</item>
+        <item name="cornerFamilyBottomLeft">rounded</item>
     </style>
 </resources>

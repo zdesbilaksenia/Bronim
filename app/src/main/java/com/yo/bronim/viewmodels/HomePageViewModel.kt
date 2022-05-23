@@ -2,6 +2,7 @@ package com.yo.bronim.viewmodels
 
 import androidx.lifecycle.MutableLiveData
 import com.yo.bronim.managers.HomePageManager
+import com.yo.bronim.states.CuisineFiltrationState
 import com.yo.bronim.states.HomePageState
 
 class HomePageViewModel {
@@ -9,6 +10,7 @@ class HomePageViewModel {
     val recommendedRestaurantsState = MutableLiveData<HomePageState>()
     val newRestaurantsState = MutableLiveData<HomePageState>()
     val nearestRestaurantsState = MutableLiveData<HomePageState>()
+    val cuisineFiltrationState = MutableLiveData<CuisineFiltrationState>()
 
     fun getPopularRestaurants() {
         recommendedRestaurantsState.postValue(HomePageState.Pending())
@@ -53,5 +55,23 @@ class HomePageViewModel {
                 }
             }
         }
+    }
+
+    fun cuisineFiltration(cuisine: String) {
+        cuisineFiltrationState.postValue(CuisineFiltrationState.Pending)
+
+        homePageManager.cuisineFiltration(
+            { result, error ->
+                when {
+                    result != null -> {
+                        cuisineFiltrationState.postValue(CuisineFiltrationState.Success(result))
+                    }
+                    error != null -> {
+                        cuisineFiltrationState.postValue(CuisineFiltrationState.Error(error))
+                    }
+                }
+            },
+            cuisine
+        )
     }
 }

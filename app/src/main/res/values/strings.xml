@@ -65,4 +65,5 @@
     <string name="weakPasswordException">Password is too weak</string>
     <string name="already_have_an_account">Уже есть аккаунт?</string>
     <string name="geo_error">Не удалось получить данные о местоположении</string>
+    <string name="cuisine_filter_reset">Сбросить</string>
 </resources>
