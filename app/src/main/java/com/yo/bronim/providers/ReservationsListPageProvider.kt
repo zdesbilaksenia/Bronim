@@ -22,6 +22,27 @@ class ReservationsListPageProvider {
         }
     }
 
+    private fun cellNumToTime(i: Int): String {
+        return "${(i / 2).toString().padStart(2, '0')}:${(i % 2 * 30).toString().padStart(2, '0')}"
+    }
+
+    private fun cellsToTimes(cells: MutableList<Int>): ArrayList<String> {
+        cells.add(cells[cells.size - 1] + 1)
+        val times = ArrayList<String>()
+        var start = cells[0]
+        var finish: Int
+        for (i in 1 until cells.size) {
+            if (cells[i] - cells[i - 1] > 1) {
+                finish = cells[i - 1] + 1
+                times.add(cellNumToTime(start) + " - " + cellNumToTime(finish))
+                start = cells[i]
+            }
+        }
+        finish = cells[cells.size - 1]
+        times.add(cellNumToTime(start) + " - " + cellNumToTime(finish))
+        return times
+    }
+
     fun getReservationsList(callback: ReservationsListCallback) {
         scope.launch {
             try {
@@ -32,72 +53,24 @@ class ReservationsListPageProvider {
                 }
                 val result = ArrayList<ReservationListItem>()
                 for (rr in restaurantReservationList) {
-                    //                    todo
-                    val time = "02:53"
-                    val reservation = ReservationListItem(
-                        id = 0,
-                        name = rr.restaurant.name,
-                        address = rr.restaurant.address,
-                        tags = rr.restaurant.tags,
-                        date = rr.reservation.date,
-                        time = time,
-                        guests = rr.reservation.guests,
-                    )
-                    result.add(reservation)
+                    val times = cellsToTimes(rr.reservation.cells)
+                    for (t in times) {
+                        val reservation = ReservationListItem(
+                            id = 0,
+                            name = rr.restaurant.name,
+                            address = rr.restaurant.address,
+                            tags = rr.restaurant.tags,
+                            date = rr.reservation.date,
+                            time = t,
+                            guests = rr.reservation.guests,
+                        )
+                        result.add(reservation)
+                    }
                 }
                 invokeCallback(callback, result.toTypedArray(), null)
-//                invokeCallback(callback, reservations, null)
             } catch (error: Throwable) {
                 invokeCallback(callback, null, error)
             }
         }
     }
 }
-
-var reservations: Array<ReservationListItem> = arrayOf(
-    ReservationListItem(
-        id = 1,
-        name = "Sempre",
-        address = "улица такая дом такой",
-        tags = listOf("lala", "gaga"),
-        date = "19.04",
-        time = "23:46",
-        guests = 6,
-    ),
-    ReservationListItem(
-        id = 1,
-        name = "Sempre",
-        address = "улица такая дом такой",
-        tags = listOf("lala", "gaga"),
-        date = "19.04",
-        time = "23:46",
-        guests = 6,
-    ),
-    ReservationListItem(
-        id = 1,
-        name = "Sempre",
-        address = "улица такая дом такой",
-        tags = listOf("lala", "gaga"),
-        date = "19.04",
-        time = "23:46",
-        guests = 6,
-    ),
-    ReservationListItem(
-        id = 1,
-        name = "Sempre",
-        address = "улица такая дом такой",
-        tags = listOf("lala", "gaga"),
-        date = "19.04",
-        time = "23:46",
-        guests = 6,
-    ),
-    ReservationListItem(
-        id = 1,
-        name = "Sempre",
-        address = "улица такая дом такой",
-        tags = listOf("lala", "gaga"),
-        date = "19.04",
-        time = "23:46",
-        guests = 6,
-    ),
-)

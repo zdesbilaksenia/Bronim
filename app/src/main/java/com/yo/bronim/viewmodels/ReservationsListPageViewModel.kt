@@ -1,6 +1,5 @@
 package com.yo.bronim.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.yo.bronim.managers.ReservationsListPageManager
 import com.yo.bronim.states.ReservationsListState
@@ -13,7 +12,6 @@ class ReservationsListPageViewModel {
         reservationsListState.postValue(ReservationsListState.Pending)
 
         reservationListPageManager.getReservationsList { result, error ->
-            Log.e("", "res, error = $result, $error")
             when (error) {
                 null -> {
                     reservationsListState.postValue(ReservationsListState.Success(result))

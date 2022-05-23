@@ -1,7 +1,6 @@
 package com.yo.bronim.fragments.reservationsListFragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,8 +25,8 @@ class ReservationsListFragment : Fragment() {
     private val loader by lazy {
         view?.findViewById<ProgressBar>(R.id.fragment_reservations_list__loader)
     }
-    private val noReservationsText by lazy {
-        view?.findViewById<TextView>(R.id.fragment_reservations_list__no_reservations)
+    private val messageText by lazy {
+        view?.findViewById<TextView>(R.id.fragment_reservations_list__message_text)
     }
 
     override fun onCreateView(
@@ -42,7 +41,6 @@ class ReservationsListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val user = AuthorizationActivity.getFBUser()
-        Log.e("", "user = ${user?.email}")
         if (user == null) {
             authorize.launch(Unit)
         }
@@ -59,7 +57,8 @@ class ReservationsListFragment : Fragment() {
                 is ReservationsListState.Success -> {
                     loader?.visibility = View.GONE
                     if (state.result == null || state.result.isEmpty()) {
-                        noReservationsText?.visibility = View.VISIBLE
+                        messageText?.visibility = View.VISIBLE
+                        messageText?.text = getString(R.string.no_reservations)
                     } else {
                         recycler?.visibility = View.VISIBLE
                         recycler?.layoutManager = LinearLayoutManager(context)
@@ -67,7 +66,8 @@ class ReservationsListFragment : Fragment() {
                     }
                 }
                 is ReservationsListState.Error -> {
-//                    TODO
+                    messageText?.visibility = View.VISIBLE
+                    messageText?.text = getString(R.string.error_message)
                 }
             }
         }

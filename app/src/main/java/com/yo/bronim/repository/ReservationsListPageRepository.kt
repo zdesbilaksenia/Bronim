@@ -1,6 +1,5 @@
 package com.yo.bronim.repository
 
-import android.util.Log
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.yo.bronim.interfaces.ReservationApi
@@ -19,13 +18,9 @@ class ReservationsListPageRepository {
     private val reservationApi = retrofit.create(ReservationApi::class.java)
 
     suspend fun getReservationsList(): Array<RestaurantReservation>? {
-        Log.d("[RESERV_LIST_REPO]", "start getResrvList")
         val user = Firebase.auth.currentUser
         if (user != null) {
-            Log.d("[RESERV_LIST_REPO]", "gettin getResrvList")
             val body = reservationApi.getReservationsList(user.uid).body()
-            Log.d("[RESERV_LIST_REPO]", "got getResrvList")
-            Log.d("[RESERV_LIST_REPO]", body.toString())
             return body?.restaurantReservationList
         }
         return null

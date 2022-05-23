@@ -51,12 +51,11 @@
             android:layout_gravity="center"
             />
     <TextView
-            android:id="@+id/fragment_reservations_list__no_reservations"
+            android:id="@+id/fragment_reservations_list__message_text"
             android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/no_reservations"
             android:textSize="22sp"
             android:layout_marginTop="10dp"
             android:textColor="@color/main_dark_color"
