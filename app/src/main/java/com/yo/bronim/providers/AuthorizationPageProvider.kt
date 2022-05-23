@@ -24,6 +24,15 @@ class AuthorizationPageProvider {
         }
     }
 
+    private suspend fun invokeErrorCallback(
+        callback: (error: Throwable?) -> Unit,
+        error: Throwable?
+    ) {
+        withContext(Dispatchers.Main) {
+            callback(error)
+        }
+    }
+
     fun authorize(callback: AuthorizeCallback, user: UserAuthorization) {
         scope.launch {
             try {
@@ -38,6 +47,19 @@ class AuthorizationPageProvider {
             } catch (error: Throwable) {
                 Log.e("Error:", error.toString())
                 invokeCallback(callback, null, error)
+            }
+        }
+    }
+
+    fun isAuthorized(callback: (error: Throwable?) -> Unit) {
+        scope.launch {
+            try {
+                authorizationPageRepository.isAuthorized()
+                Log.i("Success:", "Horosho")
+                invokeErrorCallback(callback, null)
+            } catch (error: Throwable) {
+                Log.i("Failed:", "Ploho")
+                invokeErrorCallback(callback, error)
             }
         }
     }
