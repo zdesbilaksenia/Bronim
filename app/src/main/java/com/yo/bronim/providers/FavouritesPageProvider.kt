@@ -38,10 +38,10 @@ class FavouritesPageProvider {
     ) {
         scope.launch {
             try {
-                val firebaseID = authorizationPageRepository.getFID()
+                val firebaseID = authorizationPageRepository.isAuthorized()
                 val result = favouritesPageRepository.getFavouritesRestaurants(firebaseID)
                 invokeCallback(callback, result, null)
-            } catch (error: IOException) {
+            } catch (error: Throwable) {
                 invokeCallback(callback, null, error)
             }
         }
@@ -50,10 +50,10 @@ class FavouritesPageProvider {
     fun subscribe(callback: (error: Throwable?) -> Unit, restaurantID: Int?) {
         scope.launch {
             try {
-                val firebaseID = authorizationPageRepository.getFID()
+                val firebaseID = authorizationPageRepository.isAuthorized()
                 favouritesPageRepository.subscribe(firebaseID, restaurantID)
                 invokeErrorCallback(callback, null)
-            } catch (error: IOException) {
+            } catch (error: Throwable) {
                 invokeErrorCallback(callback, error)
             }
         }
@@ -62,10 +62,10 @@ class FavouritesPageProvider {
     fun unsubscribe(callback: (error: Throwable?) -> Unit, restaurantID: Int?) {
         scope.launch {
             try {
-                val firebaseID = authorizationPageRepository.getFID()
+                val firebaseID = authorizationPageRepository.isAuthorized()
                 favouritesPageRepository.unsubscribe(firebaseID, restaurantID)
                 invokeErrorCallback(callback, null)
-            } catch (error: IOException) {
+            } catch (error: Throwable) {
                 invokeErrorCallback(callback, error)
             }
         }
