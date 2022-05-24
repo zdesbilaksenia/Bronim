@@ -116,7 +116,7 @@ class ProfileFragment : Fragment() {
                     progressBar?.visibility = View.GONE
                     Toast.makeText(
                         activity,
-                        "Good Saved",
+                        "Сохранено",
                         Toast.LENGTH_LONG
                     ).show()
                 }
@@ -124,7 +124,7 @@ class ProfileFragment : Fragment() {
                     progressBar?.visibility = View.GONE
                     Toast.makeText(
                         activity,
-                        "Failed to saveProfile!",
+                        "Ошибка при сохранении. Попробуйте позже",
                         Toast.LENGTH_LONG
                     ).show()
                 }
