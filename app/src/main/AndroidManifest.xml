@@ -39,6 +39,10 @@
         <meta-data
                 android:name="mapKey"
                 android:value="${MAP_KEY}" />
+        <activity
+                android:name=".ProfileActivity"
+                android:exported="false" />
+
     </application>
 
 </manifest>

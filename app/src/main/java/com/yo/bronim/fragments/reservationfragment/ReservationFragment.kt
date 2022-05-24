@@ -7,11 +7,7 @@ import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.Button
-import android.widget.TextView
+import android.widget.*
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.helper.widget.Flow
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -33,6 +29,7 @@ const val REST_START = 0
 const val REST_FINISH = 47
 
 class ReservationFragment : Fragment() {
+    private var progressBar: ProgressBar? = null
     private var spinner: AutoCompleteTextView? = null
     private var dateRecycler: RecyclerView? = null
     private var tableRecycler: RecyclerView? = null
@@ -72,6 +69,8 @@ class ReservationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        progressBar = view.findViewById(R.id.progress_bar)
 
         observeAvailableTablesAndTime()
 
@@ -265,6 +264,7 @@ class ReservationFragment : Fragment() {
             when (state) {
                 // is Pending
                 is ReservationPageState.Success -> {
+                    progressBar?.visibility = View.GONE
                     if (state.result.isNotEmpty()) {
                         state.result.forEach {
                             tableCard?.visibility = View.VISIBLE

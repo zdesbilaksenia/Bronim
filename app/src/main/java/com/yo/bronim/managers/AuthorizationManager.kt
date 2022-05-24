@@ -10,4 +10,8 @@ object AuthorizationManager {
     fun authorize(callback: AuthorizeCallback, user: UserAuthorization) {
         authorizationProvider.authorize(callback, user)
     }
+
+    fun isAuthorized(callback: (error: Throwable?) -> Unit) {
+        authorizationProvider.isAuthorized(callback)
+    }
 }

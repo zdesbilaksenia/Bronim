@@ -1,5 +1,6 @@
 package com.yo.bronim.fragments.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,11 +10,14 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.yo.bronim.ProfileActivity
 import com.yo.bronim.R
 import com.yo.bronim.contracts.AuthorizationContract
 import com.yo.bronim.fragments.home.adapter.MainAdapter
 import com.yo.bronim.states.CuisineFiltrationState
+import com.yo.bronim.states.AuthorizationPageState
 import com.yo.bronim.states.HomePageState
+import com.yo.bronim.viewmodels.AuthorizationPageViewModel
 import com.yo.bronim.viewmodels.HomePageViewModel
 
 // Not Filtering
@@ -36,9 +40,14 @@ val CATEGORIES = listOf(
 class HomeFragment : Fragment() {
     private var recycler: RecyclerView? = null
     private var homePageViewModel = HomePageViewModel()
+    private var homePageAuthorizationViewModel = AuthorizationPageViewModel()
 
     private val textViewName by lazy {
         view?.findViewById<TextView>(R.id.home__name)
+    }
+
+    private val profileImageView by lazy {
+        view?.findViewById<ImageView>(R.id.home__profile_image)
     }
 
     private val authorize = registerForActivityResult(AuthorizationContract()) { user ->
@@ -61,10 +70,6 @@ class HomeFragment : Fragment() {
         if (savedInstanceState != null) {
             textViewName?.text = savedInstanceState.getString(UserNameVariable)
         }
-        val profileImageView = view.findViewById<ImageView>(R.id.home__profile_image)
-        profileImageView.setOnClickListener {
-            authorize.launch(Unit)
-        }
 
         recycler = view.findViewById(R.id.main_recycler)
         recycler?.layoutManager = LinearLayoutManager(activity)
@@ -80,6 +85,15 @@ class HomeFragment : Fragment() {
         homePageViewModel.getPopularRestaurants()
         homePageViewModel.getNewRestaurants()
         homePageViewModel.getNearestRestaurants()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        homePageAuthorizationViewModel = AuthorizationPageViewModel()
+
+        observeIsAuthorized()
+
+        homePageAuthorizationViewModel.isAuthorized()
     }
 
     private fun observePopularRestaurants() {
@@ -137,6 +151,24 @@ class HomeFragment : Fragment() {
                 }
                 is CuisineFiltrationState.Error -> {
                     // TODO error handle
+                }
+            }
+        }
+    }
+
+    private fun observeIsAuthorized() {
+        homePageAuthorizationViewModel.isAuthorizedState.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is AuthorizationPageState.Success -> {
+                    profileImageView?.setOnClickListener {
+                        val intent = Intent(context, ProfileActivity::class.java)
+                        startActivity(intent)
+                    }
+                }
+                is AuthorizationPageState.Error -> {
+                    profileImageView?.setOnClickListener {
+                        authorize.launch(Unit)
+                    }
                 }
             }
         }
