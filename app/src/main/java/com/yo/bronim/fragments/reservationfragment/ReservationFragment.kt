@@ -1,6 +1,7 @@
 package com.yo.bronim.fragments.reservationfragment
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.ContextThemeWrapper
@@ -8,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.helper.widget.Flow
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -18,6 +20,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yo.bronim.AuthorizationActivity
 import com.yo.bronim.R
+import com.yo.bronim.ReservationActivity
+import com.yo.bronim.contracts.EXTRA_CODE_RESERVATION
+import com.yo.bronim.contracts.EXTRA_USER_REGISTRATION
 import com.yo.bronim.models.PostReservation
 import com.yo.bronim.states.ReservationPageState
 import com.yo.bronim.viewmodels.ReservationPageViewModel
@@ -37,6 +42,7 @@ class ReservationFragment : Fragment() {
     private var weekdays: Array<String>? = null
     private val currentMonth = calendar.get(Calendar.MONTH)
     private val currentDay = calendar.get(Calendar.DAY_OF_MONTH)
+    private var okButton: Button? = null
 
     var bundle: Bundle? = Bundle()
 
@@ -57,7 +63,9 @@ class ReservationFragment : Fragment() {
     private var timeFlow: Flow? = null
     private var timeCells: MutableList<View>? = null
 
-    private val reservationPageViewModel = ReservationPageViewModel()
+    private val reservationPageViewModel = ReservationPageViewModel { code: Int ->
+        (activity as ReservationActivity).sendCode(code)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -140,8 +148,8 @@ class ReservationFragment : Fragment() {
             activity?.finish()
         }
 
-        val okButton = view.findViewById<Button>(R.id.reservation_ok_btn)
-        okButton.setOnClickListener {
+        okButton = view.findViewById<Button>(R.id.reservation_ok_btn)
+        okButton?.setOnClickListener {
             if (chosenTable != null && chosenDay != null && chosenTime.size > 0 && restId != null) {
                 val user = AuthorizationActivity.getFBUser()
                 if (user != null) {
@@ -159,7 +167,6 @@ class ReservationFragment : Fragment() {
                     )
                 }
             }
-            activity?.finish()
         }
     }
 
@@ -249,6 +256,12 @@ class ReservationFragment : Fragment() {
                         textView.setBackgroundResource(R.drawable.reservation_item_bckgrnd)
                         chosenTime.remove(i)
                     }
+
+                    if (chosenTime.size != 0) {
+                        okButton?.visibility = View.VISIBLE
+                    } else {
+                        okButton?.visibility = View.GONE
+                    }
                 }
             }
 
@@ -293,7 +306,7 @@ class ReservationFragment : Fragment() {
 
     private fun convertChosenDate(): String {
         return "${calendar.get(Calendar.YEAR)}-${
-        (chosenMonth + 1).toString().padStart(2, '0')
+            (chosenMonth + 1).toString().padStart(2, '0')
         }-${chosenDay?.second.toString().padStart(2, '0')}"
     }
 
