@@ -31,6 +31,7 @@ class RestaurantActivity : AppCompatActivity() {
         toast.setGravity(Gravity.FILL, 0, 0)
         toast.duration = Toast.LENGTH_SHORT
         toast.view = layout
-        toast.show()
+        if (code != null)
+            toast.show()
     }
 }
