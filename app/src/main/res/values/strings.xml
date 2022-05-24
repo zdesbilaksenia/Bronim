@@ -22,7 +22,7 @@
     <string name="login">Войти</string>
     <string name="register">Зарегистрироваться</string>
     <string name="create_account">Создать аккаунт</string>
-    <string name="home_greeting">Добрый день,</string>
+    <string name="home_greeting">Добрый день</string>
     <string name="home">home</string>
     <string name="map">map</string>
     <string name="email_required">Введите email</string>
