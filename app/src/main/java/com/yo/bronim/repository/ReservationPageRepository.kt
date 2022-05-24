@@ -37,14 +37,8 @@ class ReservationPageRepository(private val callback: (Int) -> Unit) {
         restId: Int,
         chosenTable: Int
     ) {
-//        Log.d(
-//            "GOT",
-//            "${reservationApi.sendReservationInfo(postReservation, restId, chosenTable).code()}"
-//        )
-        if (reservationApi.sendReservationInfo(postReservation, restId, chosenTable)
-                .code() == 200
-        ) {
-            this.callback(200)
-        }
+        val code = reservationApi.sendReservationInfo(postReservation, restId, chosenTable)
+            .code()
+        this.callback(code)
     }
 }
