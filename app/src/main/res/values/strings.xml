@@ -33,8 +33,10 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="reservations_list">reservations list</string>
     <string name="favourites">favourites</string>
+    <string name="your_reservations">Ваши заявки</string>
     <string name="num_of_guests">Количество гостей</string>
     <string name="date">Дата</string>
+    <string name="time">Время</string>
     <string-array name="months">
         <item>ЯНВ</item>
         <item>ФЕВ</item>
@@ -58,7 +60,9 @@
         <item>ПТ</item>
         <item>СБ</item>
     </string-array>
+    >>>>>>> 6c6292757fa537d126c7ba78f607323561a3c7a6
     <!--    Registration exceptions-->
+    <string name="errorUserIsNotLoggedIn">User is not logged in</string>
     <string name="errorWeakPassword">Password is too weak</string>
     <string name="errorInvalidEmail">Please use valid email</string>
     <string name="errorUserExists">User with such email already exists</string>
@@ -66,4 +70,15 @@
     <string name="already_have_an_account">Уже есть аккаунт?</string>
     <string name="geo_error">Не удалось получить данные о местоположении</string>
     <string name="cuisine_filter_reset">Сбросить</string>
+    <string name="title_activity_reservations_list">ReservationsListActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="no_reservations">Нет заявок</string>
+    <string name="error_message">Произошла ошибка.\nПопробуйте позже.</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.yo.bronim.authorizationFragment
+package com.yo.bronim.fragments.authorizationFragment
 
 import android.os.Bundle
 import android.util.Patterns

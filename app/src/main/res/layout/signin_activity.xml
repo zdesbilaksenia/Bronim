@@ -6,7 +6,7 @@
         tools:context=".AuthorizationActivity">
 
     <androidx.fragment.app.FragmentContainerView
-            android:name="com.yo.bronim.authorizationFragment.AuthorizationFragment"
+            android:name="com.yo.bronim.fragments.authorizationFragment.AuthorizationFragment"
             android:id="@+id/activity_signIn_fragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

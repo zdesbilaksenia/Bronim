@@ -2,6 +2,7 @@ package com.yo.bronim.interfaces
 
 import com.yo.bronim.models.PostReservation
 import com.yo.bronim.models.ReservationsList
+import com.yo.bronim.models.RestaurantReservationList
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -26,4 +27,10 @@ interface ReservationApi {
         @Path("id") restaurantId: Int,
         @Path("table") table: Int
     ): Response<PostReservation>
+
+    @Headers("Content-Type: application/json")
+    @GET("/bronim/profiles/{id}/reservations")
+    suspend fun getReservationsList(
+        @Path("id") id: String,
+    ): Response<RestaurantReservationList>
 }

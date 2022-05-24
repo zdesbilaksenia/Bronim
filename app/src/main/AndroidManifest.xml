@@ -27,8 +27,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RestaurantActivity"></activity>
-        <activity android:name=".ReservationActivity"></activity>
+        <activity android:name=".RestaurantActivity" />
+        <activity android:name=".ReservationActivity" />
         <activity
                 android:name=".AuthorizationActivity"
                 android:parentActivityName=".MainActivity">
@@ -36,7 +36,6 @@
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value=".MainActivity" />
         </activity>
-
         <meta-data
                 android:name="mapKey"
                 android:value="${MAP_KEY}" />

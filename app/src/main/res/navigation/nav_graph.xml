@@ -17,9 +17,10 @@
             tools:layout="@layout/fragment_map" />
     <fragment
             android:id="@id/navigation_reservation_list_fragment"
-            android:name="com.yo.bronim.fragments.reservationlist.ReservationsListFragment"
+            android:name="com.yo.bronim.fragments.reservationsListFragment.ReservationsListFragment"
             android:label="fragment_reservations_list"
-            tools:layout="@layout/fragment_reservations_list" />
+            tools:layout="@layout/fragment_reservations_list"
+            />
     <fragment
             android:id="@id/navigation_favourites_fragment"
             android:name="com.yo.bronim.fragments.favourites.FavouritesFragment"
