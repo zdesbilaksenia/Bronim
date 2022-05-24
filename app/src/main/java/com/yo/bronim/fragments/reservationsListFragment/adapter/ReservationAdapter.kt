@@ -58,7 +58,7 @@ class ReservationAdapter(private var reservations: Array<ReservationListItem>) :
     }
 
     private fun setTagParams(tag: String): TextView {
-        val textView = TextView(context, null, 0, R.style.reservations_list_tag_text)
+        val textView = TextView(context, null, 0, R.style.tag_text)
         textView.setBackgroundResource(R.drawable.tag_bckgrnd)
         textView.text = tag
         textView.ellipsize = TextUtils.TruncateAt.END

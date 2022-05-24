@@ -17,7 +17,7 @@
     <string name="email_hint">Введите email</string>
     <string name="password">Пароль</string>
     <string name="password_hint">Введите пароль</string>
-    <string name="password_again">Повторите Пароль</string>
+    <string name="password_again">Повторите пароль</string>
     <string name="password_again_hint">Введите пароль ещё раз</string>
     <string name="login">Войти</string>
     <string name="register">Зарегистрироваться</string>
