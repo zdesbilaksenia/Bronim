@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
@@ -51,6 +52,10 @@ class ProfileFragment : Fragment() {
         view?.findViewById<TextView>(R.id.profile_page__phone_edit_text)
     }
 
+    private val backButton by lazy {
+        view?.findViewById<Button>(R.id.profile_page__arrow_left_button)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -75,6 +80,10 @@ class ProfileFragment : Fragment() {
 
         saveProfileButton?.setOnClickListener {
             saveProfile()
+        }
+
+        backButton?.setOnClickListener {
+            activity?.finish()
         }
 
         profilePageViewModel.getProfile()

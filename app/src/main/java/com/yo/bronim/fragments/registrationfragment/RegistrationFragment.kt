@@ -42,6 +42,10 @@ class RegistrationFragment : Fragment() {
         view?.findViewById<Button>(R.id.registration_page__login_button)
     }
 
+    private val buttonBack by lazy {
+        view?.findViewById<Button>(R.id.registration_page__arrow_left_button)
+    }
+
     private val login = registerForActivityResult(AuthorizationContract()) { user ->
         (activity as RegistrationActivity).sendResult(user)
     }
@@ -62,6 +66,10 @@ class RegistrationFragment : Fragment() {
 
         buttonLogin?.setOnClickListener {
             login.launch(Unit)
+        }
+
+        buttonBack?.setOnClickListener {
+            activity?.finish()
         }
 
         registrationPageViewModel.registrationState.observe(viewLifecycleOwner) { state ->
