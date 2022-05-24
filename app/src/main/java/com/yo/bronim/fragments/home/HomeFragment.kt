@@ -40,21 +40,7 @@ val CATEGORIES = listOf(
 class HomeFragment : Fragment() {
     private var recycler: RecyclerView? = null
     private var homePageViewModel = HomePageViewModel()
-    private var homePageAuthorizationViewModel = AuthorizationPageViewModel()
 
-    private val textViewName by lazy {
-        view?.findViewById<TextView>(R.id.home__name)
-    }
-
-    private val profileImageView by lazy {
-        view?.findViewById<ImageView>(R.id.home__profile_image)
-    }
-
-    private val authorize = registerForActivityResult(AuthorizationContract()) { user ->
-        if (user != null) {
-            textViewName?.text = user.name
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -67,9 +53,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (savedInstanceState != null) {
-            textViewName?.text = savedInstanceState.getString(UserNameVariable)
-        }
+
 
         recycler = view.findViewById(R.id.main_recycler)
         recycler?.layoutManager = LinearLayoutManager(activity)
@@ -87,14 +71,7 @@ class HomeFragment : Fragment() {
         homePageViewModel.getNearestRestaurants()
     }
 
-    override fun onStart() {
-        super.onStart()
-        homePageAuthorizationViewModel = AuthorizationPageViewModel()
 
-        observeIsAuthorized()
-
-        homePageAuthorizationViewModel.isAuthorized()
-    }
 
     private fun observePopularRestaurants() {
         homePageViewModel.recommendedRestaurantsState.observe(viewLifecycleOwner) { state ->
@@ -156,29 +133,6 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun observeIsAuthorized() {
-        homePageAuthorizationViewModel.isAuthorizedState.observe(viewLifecycleOwner) { state ->
-            when (state) {
-                is AuthorizationPageState.Success -> {
-                    profileImageView?.setOnClickListener {
-                        val intent = Intent(context, ProfileActivity::class.java)
-                        startActivity(intent)
-                    }
-                }
-                is AuthorizationPageState.Error -> {
-                    profileImageView?.setOnClickListener {
-                        authorize.launch(Unit)
-                    }
-                }
-            }
-        }
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        val username = textViewName?.text.toString()
-        outState.putString(UserNameVariable, username)
-    }
 
     private val isFilteringCallback: (Boolean, String?) -> Unit = { isFiltering, cuisine ->
         (recycler?.adapter as MainAdapter).isFiltering(
@@ -195,6 +149,5 @@ class HomeFragment : Fragment() {
 
     companion object {
         fun newInstance() = HomeFragment()
-        var UserNameVariable = "USERNAME"
     }
 }

@@ -25,9 +25,11 @@
     <string name="home_greeting">Добрый день</string>
     <string name="home">home</string>
     <string name="map">map</string>
+    <string name="name_required">Введите имя</string>
     <string name="email_required">Введите email</string>
     <string name="password_required">Введите пароль</string>
     <string name="valid_email_required">Введите корректный email</string>
+    <string name="valid_phone_required">Введите корректный email</string>
     <string name="error_authorization">Данный пользователь не найден</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

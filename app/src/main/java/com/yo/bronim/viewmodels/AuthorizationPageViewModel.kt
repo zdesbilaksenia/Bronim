@@ -30,11 +30,11 @@ class AuthorizationPageViewModel {
 
     fun isAuthorized() {
         isAuthorizedState.postValue(AuthorizationPageState.Pending)
-        authorizationPageManager.isAuthorized { error ->
+        authorizationPageManager.isAuthorized { user, error ->
             when {
                 error == null -> {
                     Log.i("APVM", "Success")
-                    isAuthorizedState.postValue(AuthorizationPageState.Success(null))
+                    isAuthorizedState.postValue(AuthorizationPageState.Success(user))
                 }
                 else -> {
                     Log.i("APVM", "Error")

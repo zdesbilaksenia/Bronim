@@ -1,6 +1,7 @@
 package com.yo.bronim.fragments.profile
 
 import android.os.Bundle
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -158,6 +159,30 @@ class ProfileFragment : Fragment() {
         val sex = editTextSex?.text.toString().trim()
         val email = editTextEmail?.text.toString().trim()
         val phoneNumber = editTextPhoneNumber?.text.toString().trim()
+
+        if (name.isEmpty()) {
+            editTextName?.error = getString(R.string.name_required)
+            editTextName?.requestFocus()
+            return
+        }
+
+        if (email.isEmpty()) {
+            editTextEmail?.error = getString(R.string.email_required)
+            editTextEmail?.requestFocus()
+            return
+        }
+
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            editTextEmail?.error = getString(R.string.valid_email_required)
+            editTextEmail?.requestFocus()
+            return
+        }
+
+        if (!Patterns.PHONE.matcher(phoneNumber).matches()) {
+            editTextPhoneNumber?.error = getString(R.string.valid_phone_required)
+            editTextPhoneNumber?.requestFocus()
+            return
+        }
 
         val user = User(null, name, surname, email, sex, dateOfBirth, phoneNumber)
         profilePageViewModel.saveProfile(user)

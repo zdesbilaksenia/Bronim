@@ -35,8 +35,11 @@ class FavouritesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         recycler = view.findViewById(R.id.favourites_page_favourites_recycler)
+    }
+
+    override fun onStart() {
+        super.onStart()
         recycler?.layoutManager = LinearLayoutManager(activity)
 
         favouritesPageViewModel = FavouritesPageViewModel()

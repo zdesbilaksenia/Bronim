@@ -118,9 +118,10 @@ class RegistrationFragment : Fragment() {
         passwordRepeated: String
     ): Boolean {
         if (name.isEmpty()) {
-            editTextName?.error = "Name is required!"
+            editTextName?.error = getString(R.string.name_required)
             editTextName?.requestFocus()
             return false
+
         }
 
         if (email.isEmpty()) {
