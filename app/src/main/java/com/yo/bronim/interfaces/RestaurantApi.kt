@@ -28,4 +28,15 @@ interface RestaurantApi {
     @Headers("Content-Type: application/json")
     @GET("/bronim/restaurants")
     suspend fun cuisineFiltration(@Query("cuisine") cuisine: String?): Response<RestaurantList>
+
+    @GET("/bronim/profiles/{id}/favourites")
+    suspend fun getFavouritesRestaurants(@Path("id") id: String?): Response<RestaurantList>
+
+    @Headers("Content-Type: application/json")
+    @GET("/bronim/profiles/{userid}/subscribe/{restid}")
+    suspend fun subscribe(@Path("userid") userid: String?, @Path("restid") restid: Int?)
+
+    @Headers("Content-Type: application/json")
+    @GET("/bronim/profiles/{userid}/unsubscribe/{restid}")
+    suspend fun unsubscribe(@Path("userid") userid: String?, @Path("restid") restid: Int?)
 }

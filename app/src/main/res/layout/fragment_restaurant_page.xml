@@ -50,6 +50,7 @@
                     tools:ignore="ContentDescription" />
 
             <ImageView
+                    android:id="@+id/fragment_restaurant_page__btn_favourite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toTopOf="@+id/fragment_restaurant_page__image"
