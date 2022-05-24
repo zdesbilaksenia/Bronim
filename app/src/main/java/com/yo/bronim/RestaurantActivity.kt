@@ -1,6 +1,7 @@
 package com.yo.bronim
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.yo.bronim.fragments.restaurant.RestaurantFragment
 
@@ -14,5 +15,9 @@ class RestaurantActivity : AppCompatActivity() {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.restaurant_fragment_container, restaurantFragment)
         transaction.commit()
+    }
+
+    fun showToast(code: Int?) {
+        Toast.makeText(this, code.toString(), Toast.LENGTH_LONG).show()
     }
 }

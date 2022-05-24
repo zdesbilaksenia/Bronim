@@ -9,10 +9,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class ReservationPageProvider {
+class ReservationPageProvider(callback: (Int) -> Unit) {
     private val scope = CoroutineScope(Dispatchers.IO)
 
-    private val reservationPageRepository = ReservationPageRepository()
+    private val reservationPageRepository = ReservationPageRepository(callback)
 
     private suspend fun invokeCallback(
         callback: (result: Array<Reservation>?, error: Throwable?) -> Unit,

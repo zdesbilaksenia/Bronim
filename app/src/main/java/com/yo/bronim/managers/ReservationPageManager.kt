@@ -4,8 +4,8 @@ import com.yo.bronim.models.PostReservation
 import com.yo.bronim.models.Reservation
 import com.yo.bronim.providers.ReservationPageProvider
 
-class ReservationPageManager {
-    private val reservationPageProvider = ReservationPageProvider()
+class ReservationPageManager(callback: (Int) -> Unit) {
+    private val reservationPageProvider = ReservationPageProvider(callback)
 
     fun getAvailableTablesAndTime(
         restId: Int,

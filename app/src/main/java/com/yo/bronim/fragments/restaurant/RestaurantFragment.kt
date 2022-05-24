@@ -1,21 +1,19 @@
 package com.yo.bronim.fragments.restaurant
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.*
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.yo.bronim.AuthorizationActivity
 import com.yo.bronim.R
-import com.yo.bronim.ReservationActivity
+import com.yo.bronim.RestaurantActivity
 import com.yo.bronim.contracts.AuthorizationContract
+import com.yo.bronim.contracts.ReservationContract
 import com.yo.bronim.models.Restaurant
 import com.yo.bronim.states.FavouritesPageState
 import com.yo.bronim.states.RestaurantPageState
@@ -34,6 +32,14 @@ class RestaurantFragment : Fragment() {
     private var restaurantID: Int? = 0
     var bundle: Bundle? = Bundle()
     private var restaurant: Restaurant? = null
+
+    private val resultCode = registerForActivityResult(ReservationContract()) { code ->
+        Log.e("RES", code.toString())
+        if (code != 0) {
+            Log.e("YES", "yes")
+            (activity as RestaurantActivity).showToast(code)
+        }
+    }
 
     private val favouriteButton by lazy {
         view?.findViewById<ImageView>(R.id.fragment_restaurant_page__btn_favourite)
@@ -84,11 +90,7 @@ class RestaurantFragment : Fragment() {
             if (user == null) {
                 authorize.launch(Unit)
             } else {
-                val intent = Intent(context, ReservationActivity::class.java)
-                intent.putExtra("start", restaurant?.start)
-                intent.putExtra("end", restaurant?.end)
-                intent.putExtra("id", restaurant?.id)
-                context?.startActivity(intent)
+                resultCode.launch(restaurant)
             }
         }
     }
