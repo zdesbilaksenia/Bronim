@@ -125,30 +125,30 @@ class RegistrationFragment : Fragment() {
         }
 
         if (email.isEmpty()) {
-            editTextEmail?.error = "Email is required!"
+            editTextEmail?.error = getString(R.string.email_required)
             editTextEmail?.requestFocus()
             return false
         }
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            editTextEmail?.error = "Please enter valid email!"
+            editTextEmail?.error = getString(R.string.valid_email_required)
             editTextEmail?.requestFocus()
             return false
         }
 
         if (password.isEmpty()) {
-            editTextPassword?.error = "Password is required!"
+            editTextPassword?.error = getString(R.string.password_required)
             editTextPassword?.requestFocus()
             return false
         }
         if (password.length < resources.getInteger(R.integer.minPasswordCharNum)) {
-            editTextPassword?.error = "Min password length is 6 chars!"
+            editTextPassword?.error = getString(R.string.short_password)
             editTextPassword?.requestFocus()
             return false
         }
 
         if (password != passwordRepeated) {
-            editTextPassword?.error = "Passwords should match!"
-            editTextPasswordRepeated?.error = "Passwords should match!"
+            editTextPassword?.error = getString(R.string.passwords_not_match)
+            editTextPasswordRepeated?.error = getString(R.string.passwords_not_match)
             editTextPassword?.requestFocus()
             return false
         }
