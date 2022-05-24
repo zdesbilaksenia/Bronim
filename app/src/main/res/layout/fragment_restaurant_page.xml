@@ -115,7 +115,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/turquoise_btn"
-                android:paddingVertical="12dp"
                 android:text="@string/to_book"
                 android:elevation="0dp" />
     </FrameLayout>
