@@ -49,6 +49,7 @@ class MainAdapter(
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         holder.category.text = itemList[position]
+        holder.nothingFoundText.visibility = View.GONE
         if (this.isFiltering == null || !this.isFiltering!!) {
             holder.button.visibility = View.GONE
             holder.recyclerView.adapter = null
