@@ -11,7 +11,7 @@ object AuthorizationManager {
         authorizationProvider.authorize(callback, user)
     }
 
-    fun isAuthorized(callback: (error: Throwable?) -> Unit) {
+    fun isAuthorized(callback: AuthorizeCallback) {
         authorizationProvider.isAuthorized(callback)
     }
 }

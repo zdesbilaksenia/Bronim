@@ -25,9 +25,12 @@
     <string name="home_greeting">Добрый день</string>
     <string name="home">home</string>
     <string name="map">map</string>
+    <string name="name_required">Введите имя</string>
     <string name="email_required">Введите email</string>
     <string name="password_required">Введите пароль</string>
+    <string name="passwords_not_match">Пароли должны совпадать</string>
     <string name="valid_email_required">Введите корректный email</string>
+    <string name="valid_phone_required">Введите корректный номер телефона</string>
     <string name="error_authorization">Данный пользователь не найден</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -67,6 +70,7 @@
     <string name="errorInvalidEmail">Please use valid email</string>
     <string name="errorUserExists">User with such email already exists</string>
     <string name="weakPasswordException">Password is too weak</string>
+    <string name="short_password">Пароль должен быть не менее 6-ти символов</string>
     <string name="already_have_an_account">Уже есть аккаунт?</string>
     <string name="geo_error">Не удалось получить данные о местоположении</string>
     <string name="cuisine_filter_reset">Сбросить</string>

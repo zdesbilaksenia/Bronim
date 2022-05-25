@@ -1,9 +1,11 @@
 package com.yo.bronim.fragments.profile
 
 import android.os.Bundle
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
@@ -51,6 +53,10 @@ class ProfileFragment : Fragment() {
         view?.findViewById<TextView>(R.id.profile_page__phone_edit_text)
     }
 
+    private val backButton by lazy {
+        view?.findViewById<Button>(R.id.profile_page__arrow_left_button)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -75,6 +81,10 @@ class ProfileFragment : Fragment() {
 
         saveProfileButton?.setOnClickListener {
             saveProfile()
+        }
+
+        backButton?.setOnClickListener {
+            activity?.finish()
         }
 
         profilePageViewModel.getProfile()
@@ -106,7 +116,7 @@ class ProfileFragment : Fragment() {
                     progressBar?.visibility = View.GONE
                     Toast.makeText(
                         activity,
-                        "Good Saved",
+                        "Сохранено",
                         Toast.LENGTH_LONG
                     ).show()
                 }
@@ -114,7 +124,7 @@ class ProfileFragment : Fragment() {
                     progressBar?.visibility = View.GONE
                     Toast.makeText(
                         activity,
-                        "Failed to saveProfile!",
+                        "Ошибка при сохранении. Попробуйте позже",
                         Toast.LENGTH_LONG
                     ).show()
                 }
@@ -149,6 +159,30 @@ class ProfileFragment : Fragment() {
         val sex = editTextSex?.text.toString().trim()
         val email = editTextEmail?.text.toString().trim()
         val phoneNumber = editTextPhoneNumber?.text.toString().trim()
+
+        if (name.isEmpty()) {
+            editTextName?.error = getString(R.string.name_required)
+            editTextName?.requestFocus()
+            return
+        }
+
+        if (email.isEmpty()) {
+            editTextEmail?.error = getString(R.string.email_required)
+            editTextEmail?.requestFocus()
+            return
+        }
+
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            editTextEmail?.error = getString(R.string.valid_email_required)
+            editTextEmail?.requestFocus()
+            return
+        }
+
+        if (!Patterns.PHONE.matcher(phoneNumber).matches()) {
+            editTextPhoneNumber?.error = getString(R.string.valid_phone_required)
+            editTextPhoneNumber?.requestFocus()
+            return
+        }
 
         val user = User(null, name, surname, email, sex, dateOfBirth, phoneNumber)
         profilePageViewModel.saveProfile(user)
