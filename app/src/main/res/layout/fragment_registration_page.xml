@@ -21,6 +21,7 @@
             android:layout_width="96dp"
             android:layout_height="96dp"
             android:src="@drawable/bronim_logo"
+            app:civ_border_color="@color/main_dark_color"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="48dp"

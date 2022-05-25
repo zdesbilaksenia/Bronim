@@ -22,6 +22,7 @@
             android:layout_width="96dp"
             android:layout_height="96dp"
             android:src="@drawable/bronim_logo"
+            app:civ_border_color="@color/main_dark_color"
             app:layout_constraintBottom_toTopOf="@id/login_page__login_card"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

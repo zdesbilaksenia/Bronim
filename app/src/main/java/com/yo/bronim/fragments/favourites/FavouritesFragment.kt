@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.yo.bronim.AuthorizationActivity
 import com.yo.bronim.R
 import com.yo.bronim.fragments.home.adapter.HorizontalItemAdapter
+import com.yo.bronim.models.Restaurant
 import com.yo.bronim.states.FavouritesPageState
 import com.yo.bronim.viewmodels.FavouritesPageViewModel
 
@@ -23,6 +24,10 @@ class FavouritesFragment : Fragment() {
 
     private val textViewName by lazy {
         view?.findViewById<TextView>(R.id.favourites_page__favourites_textview)
+    }
+
+    private val pleaseAuthTextView by lazy {
+        view?.findViewById<TextView>(R.id.favourites_page_please_auth_textView)
     }
 
     override fun onCreateView(
@@ -50,6 +55,7 @@ class FavouritesFragment : Fragment() {
     }
 
     private fun observeFavouritesRestaurants() {
+        pleaseAuthTextView?.visibility = (View.INVISIBLE)
         favouritesPageViewModel.favouritesRestaurantsState.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is FavouritesPageState.Success -> {
@@ -57,7 +63,8 @@ class FavouritesFragment : Fragment() {
                 }
                 is FavouritesPageState.Error -> {
                     Log.e("favourites", state.error.toString())
-                    startActivity(Intent(context, AuthorizationActivity::class.java))
+                    recycler?.adapter = HorizontalItemAdapter(emptyArray<Restaurant>())
+                    pleaseAuthTextView?.visibility = (View.VISIBLE)
                 }
             }
         }
