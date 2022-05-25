@@ -10,7 +10,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             app:cardCornerRadius="10dp"
-            app:cardElevation="5dp"
+            app:cardElevation="4dp"
             android:layout_marginEnd="9dp"
             android:layout_marginBottom="9dp"
             app:strokeColor="@color/main_dark_color"
@@ -27,8 +27,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toTopOf="@id/kitchen"
-                    android:background="@drawable/ic_kitchen" />
+                    app:layout_constraintBottom_toTopOf="@id/kitchen" />
 
             <TextView
                     android:id="@+id/kitchen"

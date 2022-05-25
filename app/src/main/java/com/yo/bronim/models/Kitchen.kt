@@ -8,15 +8,13 @@ data class Kitchen(
 )
 
 val kitchens = arrayOf(
-    Kitchen("японская", R.drawable.ic_kitchen),
-    Kitchen("русская", R.drawable.ic_kitchen),
-    Kitchen("итальянская", R.drawable.ic_kitchen),
-    Kitchen("китайская", R.drawable.ic_kitchen),
-    Kitchen("грузинская", R.drawable.ic_kitchen),
-    Kitchen("французская", R.drawable.ic_kitchen),
-    Kitchen("американская", R.drawable.ic_kitchen),
-    Kitchen("мексиканская", R.drawable.ic_kitchen),
-    Kitchen("турецкая", R.drawable.ic_kitchen),
-    Kitchen("тайская", R.drawable.ic_kitchen),
-    Kitchen("греческая", R.drawable.ic_kitchen),
+    Kitchen("японская", R.drawable.ic_japan),
+    Kitchen("русская", R.drawable.ic_rus),
+    Kitchen("итальянская", R.drawable.ic_ital),
+    Kitchen("китайская", R.drawable.ic_china),
+    Kitchen("грузинская", R.drawable.ic__georg),
+    Kitchen("французская", R.drawable.ic_french),
+    Kitchen("американская", R.drawable.ic_american),
+    Kitchen("мексиканская", R.drawable.ic_mexico),
+    Kitchen("греческая", R.drawable.ic_greek),
 )

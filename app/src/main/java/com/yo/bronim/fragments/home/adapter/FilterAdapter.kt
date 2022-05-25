@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -23,6 +24,7 @@ class FilterAdapter(
     inner class FilterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val kitchen: TextView = itemView.findViewById(R.id.kitchen)
         val card: MaterialCardView = itemView.findViewById(R.id.kitchen_card)
+        val icon: ImageView = itemView.findViewById(R.id.kitchen_icon)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilterViewHolder {
@@ -36,6 +38,9 @@ class FilterAdapter(
     override fun onBindViewHolder(holder: FilterViewHolder, position: Int) {
         val kitchen = kitchens[position]
         holder.kitchen.text = kitchen.name
+        holder.icon.setImageDrawable(
+            ContextCompat.getDrawable(context!!, kitchen.icon)
+        )
 
         if (position != selectedPos) {
             holder.card.strokeColor = ContextCompat.getColor(context!!, R.color.main_dark_color)
