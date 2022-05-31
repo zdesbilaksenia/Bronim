@@ -22,9 +22,6 @@ import androidx.fragment.app.Fragment
 import com.blure.complexview.ComplexView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.yandex.mapkit.Animation
-import com.yandex.mapkit.MapKitFactory
-import com.yandex.mapkit.geometry.Point
 import com.yandex.mapkit.layers.GeoObjectTapListener
 import com.yandex.mapkit.Animation
 import com.yandex.mapkit.MapKitFactory
@@ -312,17 +309,5 @@ class MapFragment : Fragment(), UserLocationObjectListener, CameraListener {
         textView.layoutParams = marginParams
 
         return textView
-    }
-    
-    private fun addMarks() {
-        val view = View(requireContext()).apply {
-            background = requireContext().getDrawable(R.drawable.ic_map_mark)
-        }
-        val mark =
-            mapView?.map?.mapObjects?.addPlacemark(Point(TEST_LAT, TEST_LNG), ViewProvider(view))
-        mark?.addTapListener { mapObject, point ->
-            Toast.makeText(activity, "Нажато", Toast.LENGTH_SHORT).show()
-            true
-        }
     }
 }

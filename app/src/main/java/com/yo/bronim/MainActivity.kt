@@ -24,8 +24,6 @@ import com.yo.bronim.viewmodels.AuthorizationPageViewModel
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
-    private val mPermissionResult = registerForActivityResult(RequestPermission()) { }
-
     private var homePageAuthorizationViewModel = AuthorizationPageViewModel()
 
     private val textViewName by lazy {
@@ -47,10 +45,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val ai: ApplicationInfo = applicationContext.packageManager
-            .getApplicationInfo(applicationContext.packageName, PackageManager.GET_META_DATA)
-        MapKitFactory.setApiKey(ai.metaData["mapKey"].toString())
-        MapKitFactory.initialize(this)
         mPermissionResult.launch(Manifest.permission.ACCESS_FINE_LOCATION)
 
         if (savedInstanceState != null) {
