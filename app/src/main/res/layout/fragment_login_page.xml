@@ -16,17 +16,24 @@
             android:layout_marginStart="5dp"
             style="@style/icon_btn" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/login_page__logo_image"
+    <com.google.android.material.card.MaterialCardView
+            android:layout_width="130dp"
+            android:layout_height="130dp"
             android:layout_marginTop="48dp"
-            android:layout_width="96dp"
-            android:layout_height="96dp"
-            android:src="@drawable/bronim_logo"
-            app:civ_border_color="@color/main_dark_color"
-            app:layout_constraintBottom_toTopOf="@id/login_page__login_card"
+            android:id="@+id/login_page__logo_image"
             app:layout_constraintStart_toStartOf="parent"
+            app:cardCornerRadius="65dp"
+            app:strokeColor="@color/main_dark_grey"
+            app:strokeWidth="1dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/login_page__arrow_left_button"/>
+            app:layout_constraintBottom_toTopOf="@id/login_page__login_card"
+            app:layout_constraintTop_toBottomOf="@id/login_page__arrow_left_button">
+
+        <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/logo" />
+    </com.google.android.material.card.MaterialCardView>
 
     <androidx.cardview.widget.CardView
             android:id="@+id/login_page__login_card"

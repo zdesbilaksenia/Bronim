@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,6 +27,10 @@ class FavouritesFragment : Fragment() {
 
     private val pleaseAuthTextView by lazy {
         view?.findViewById<TextView>(R.id.favourites_page_please_auth_textView)
+    }
+
+    private val progressBar by lazy {
+        view?.findViewById<ProgressBar>(R.id.favourites_page__loader)
     }
 
     override fun onCreateView(
@@ -57,9 +62,11 @@ class FavouritesFragment : Fragment() {
         favouritesPageViewModel.favouritesRestaurantsState.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is FavouritesPageState.Success -> {
+                    progressBar?.visibility = View.GONE
                     recycler?.adapter = HorizontalItemAdapter(state.result)
                 }
                 is FavouritesPageState.Error -> {
+                    progressBar?.visibility = View.GONE
                     Log.e("favourites", state.error.toString())
                     recycler?.adapter = HorizontalItemAdapter(emptyArray<Restaurant>())
                     pleaseAuthTextView?.visibility = (View.VISIBLE)

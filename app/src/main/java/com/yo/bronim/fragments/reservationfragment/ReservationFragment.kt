@@ -37,6 +37,7 @@ class ReservationFragment : Fragment() {
     private var calendar = Calendar.getInstance()
     private var weekdays: Array<String>? = null
     private val currentMonth = calendar.get(Calendar.MONTH)
+    private val currentYear = calendar.get(Calendar.YEAR)
     private val currentDay = calendar.get(Calendar.DAY_OF_MONTH)
     private var okButton: Button? = null
 
@@ -54,6 +55,8 @@ class ReservationFragment : Fragment() {
     private var restFinish: Int = REST_FINISH
 
     private var tableCard: CardView? = null
+    private var tableMessage: TextView? = null
+    private var tablesLoader: ProgressBar? = null
     private var timeCard: CardView? = null
     private var timeCardConstraint: ConstraintLayout? = null
     private var timeFlow: Flow? = null
@@ -85,6 +88,8 @@ class ReservationFragment : Fragment() {
         weekdays = activity?.resources?.getStringArray(R.array.weekdays)
 
         tableCard = view.findViewById(R.id.table_card)
+        tableMessage = view.findViewById(R.id.table_message)
+        tablesLoader = view.findViewById(R.id.tables_loader)
         timeCard = view.findViewById(R.id.time_card)
         timeCardConstraint = view.findViewById(R.id.time_card_constraint)
         timeFlow = view.findViewById(R.id.time_flow)
@@ -110,6 +115,8 @@ class ReservationFragment : Fragment() {
                     GregorianCalendar(Calendar.YEAR, month, 1)
                 }
                 chosenMonth = month
+
+                cleanScreen()
 
                 setDateRecycler(
                     calendar.getActualMaximum(Calendar.DATE),
@@ -200,7 +207,7 @@ class ReservationFragment : Fragment() {
 
         dateRecycler?.adapter = DateAdapter(dates) { date ->
             chosenDay = date
-            tableCard?.visibility = View.VISIBLE
+            cleanScreen()
 
             getAvailableTablesAndTime()
         }
@@ -210,12 +217,20 @@ class ReservationFragment : Fragment() {
         chosenTime = ArrayList()
         chosenTable = null
 
-        tableRecycler?.adapter = TableAdapter(tables) { table ->
-            chosenTable = table
-            timeCard?.visibility = View.VISIBLE
+        if (tables.size > 0) {
+            tableMessage?.visibility = View.GONE
+            tableRecycler?.visibility = View.VISIBLE
+            tableRecycler?.adapter = TableAdapter(tables) { table ->
+                chosenTable = table
+                timeCard?.visibility = View.VISIBLE
 
-            setTimeCells()
+                setTimeCells()
+            }
+        } else {
+            tableMessage?.visibility = View.VISIBLE
+            tableRecycler?.visibility = View.GONE
         }
+
     }
 
     private fun setTimeCells() {
@@ -234,15 +249,7 @@ class ReservationFragment : Fragment() {
             textView.width = 240
 
             if (times.contains(i)) {
-                textView.setBackgroundResource(R.drawable.time_picked_bckgrnd)
-                textView.isClickable = false
-                textView.setTextColor(
-                    ResourcesCompat.getColor(
-                        resources,
-                        R.color.main_light_grey,
-                        null
-                    )
-                )
+                setPickedTime(textView)
             } else {
                 textView.setOnClickListener {
                     if (!chosenTime.contains(i)) {
@@ -270,18 +277,21 @@ class ReservationFragment : Fragment() {
 
     private fun observeAvailableTablesAndTime() {
         reservationPageViewModel.reservationsState.observe(viewLifecycleOwner) { state ->
+            cleanScreen()
+
             when (state) {
-                // is Pending
                 is ReservationPageState.Success -> {
-                    progressBar?.visibility = View.GONE
-                    if (state.result.isNotEmpty()) {
-                        state.result.forEach {
-                            tableCard?.visibility = View.VISIBLE
-                            tables.add(it.table)
-                            times[it.table] = it.times
-                            setTableRecycler()
+                    tablesLoader?.visibility = View.GONE
+                    tableCard?.visibility = View.VISIBLE
+                    Log.e("RES", state.result.toString())
+                    if (state.result != null)
+                        if (state.result.isNotEmpty()) {
+                            state.result.forEach {
+                                tables.add(it.table)
+                                times[it.table] = it.times
+                            }
                         }
-                    }
+                    setTableRecycler()
                 }
                 is ReservationPageState.Error -> Log.e("ERR", state.error.toString())
             }
@@ -289,8 +299,8 @@ class ReservationFragment : Fragment() {
     }
 
     private fun getAvailableTablesAndTime() {
-        tableCard?.visibility = View.GONE
-        timeCard?.visibility = View.GONE
+        tablesLoader?.visibility = View.VISIBLE
+
         times = mutableMapOf()
         tables = mutableListOf()
         reservationPageViewModel.getAvailableTablesAndTime(
@@ -301,9 +311,30 @@ class ReservationFragment : Fragment() {
     }
 
     private fun convertChosenDate(): String {
-        return "${calendar.get(Calendar.YEAR)}-${
-        (chosenMonth + 1).toString().padStart(2, '0')
+        return "${currentYear}-${
+            (chosenMonth + 1).toString().padStart(2, '0')
         }-${chosenDay?.second.toString().padStart(2, '0')}"
+    }
+
+    private fun cleanScreen() {
+        chosenTime = ArrayList()
+        chosenTable = null
+
+        tableCard?.visibility = View.GONE
+        timeCard?.visibility = View.GONE
+        okButton?.visibility = View.GONE
+    }
+
+    private fun setPickedTime(textView: TextView) {
+        textView.setBackgroundResource(R.drawable.time_picked_bckgrnd)
+        textView.isClickable = false
+        textView.setTextColor(
+            ResourcesCompat.getColor(
+                resources,
+                R.color.main_light_grey,
+                null
+            )
+        )
     }
 
     companion object {

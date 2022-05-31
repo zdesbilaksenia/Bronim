@@ -65,11 +65,11 @@
     </string-array>
     >>>>>>> 6c6292757fa537d126c7ba78f607323561a3c7a6
     <!--    Registration exceptions-->
-    <string name="errorUserIsNotLoggedIn">User is not logged in</string>
-    <string name="errorWeakPassword">Password is too weak</string>
-    <string name="errorInvalidEmail">Please use valid email</string>
-    <string name="errorUserExists">User with such email already exists</string>
-    <string name="weakPasswordException">Password is too weak</string>
+    <string name="errorUserIsNotLoggedIn">Пользователь не авторизован</string>
+    <string name="errorWeakPassword">Пароль ненадежный</string>
+    <string name="errorInvalidEmail">Невалидный Email</string>
+    <string name="errorUserExists">Пользователь с таким Email уже зарегистрирован</string>
+    <string name="weakPasswordException">Пароль ненадежный</string>
     <string name="short_password">Пароль должен быть не менее 6-ти символов</string>
     <string name="already_have_an_account">Уже есть аккаунт?</string>
     <string name="geo_error">Не удалось получить данные о местоположении</string>

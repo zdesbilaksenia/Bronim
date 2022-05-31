@@ -22,12 +22,10 @@ class ReservationPageViewModel(callback: (Int) -> Unit) {
             numOfGuests
         ) { result, error ->
             when {
-                result != null -> {
-                    reservationsState.postValue(ReservationPageState.Success(result))
-                }
                 error != null -> {
                     reservationsState.postValue(ReservationPageState.Error(error))
                 }
+                else -> reservationsState.postValue(ReservationPageState.Success(result))
             }
         }
     }

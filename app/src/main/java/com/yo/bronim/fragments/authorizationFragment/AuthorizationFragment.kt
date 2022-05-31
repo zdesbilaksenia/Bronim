@@ -2,11 +2,13 @@ package com.yo.bronim.fragments.authorizationFragment
 
 import android.os.Bundle
 import android.util.Patterns
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.yo.bronim.AuthorizationActivity
@@ -75,11 +77,16 @@ class AuthorizationFragment : Fragment() {
                     (activity as AuthorizationActivity).sendResultUser(viewModelState.user)
                 }
                 is AuthorizationPageState.Error -> {
-                    Toast.makeText(
-                        activity,
-                        getText(R.string.error_authorization),
-                        Toast.LENGTH_LONG
-                    ).show()
+                    var layout: View? = null
+                    layout = layoutInflater.inflate(R.layout.toast_error, null)
+                    var toastText = layout.findViewById<TextView>(R.id.toast_error_text)
+                    toastText.text = "Данный пользователь не найден"
+
+                    val toast = Toast(activity?.applicationContext)
+                    toast.setGravity(Gravity.FILL, 0, 0)
+                    toast.duration = Toast.LENGTH_SHORT
+                    toast.view = layout
+                    toast.show()
                 }
             }
         }

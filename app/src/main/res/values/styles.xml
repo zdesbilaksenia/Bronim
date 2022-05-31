@@ -104,4 +104,9 @@
         <item name="cornerFamilyTopLeft">rounded</item>
         <item name="cornerFamilyBottomLeft">rounded</item>
     </style>
+
+    <style name="logo_border">
+        <item name="strokeColor">@color/main_dark_grey</item>
+        <item name="strokeWidth">10dp</item>
+    </style>
 </resources>

@@ -1,7 +1,9 @@
 package com.yo.bronim.fragments.profile
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Patterns
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -114,19 +116,25 @@ class ProfileFragment : Fragment() {
             when (state) {
                 is ProfilePageState.Success -> {
                     progressBar?.visibility = View.GONE
-                    Toast.makeText(
-                        activity,
-                        "Сохранено",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    var layout: View? = null
+                    layout = layoutInflater.inflate(R.layout.toast_ok, null)
+
+                    val toast = Toast(activity?.applicationContext)
+                    toast.setGravity(Gravity.FILL, 0, 0)
+                    toast.duration = Toast.LENGTH_SHORT
+                    toast.view = layout
+                    toast.show()
                 }
                 is ProfilePageState.Error -> {
                     progressBar?.visibility = View.GONE
-                    Toast.makeText(
-                        activity,
-                        "Ошибка при сохранении. Попробуйте позже",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    var layout: View? = null
+                    layout = layoutInflater.inflate(R.layout.toast_error, null)
+
+                    val toast = Toast(activity?.applicationContext)
+                    toast.setGravity(Gravity.FILL, 0, 0)
+                    toast.duration = Toast.LENGTH_SHORT
+                    toast.view = layout
+                    toast.show()
                 }
             }
         }
