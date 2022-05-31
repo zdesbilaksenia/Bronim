@@ -65,7 +65,7 @@ class AuthorizationPageProvider {
                 invokeCallback(callback, resultUser, null)
             } catch (error: Throwable) {
                 Log.i("Failed:", "Ploho")
-                invokeCallback(callback,null, error)
+                invokeCallback(callback, null, error)
             }
         }
     }

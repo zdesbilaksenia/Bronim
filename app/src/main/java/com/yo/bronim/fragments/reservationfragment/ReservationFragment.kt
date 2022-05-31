@@ -1,7 +1,6 @@
 package com.yo.bronim.fragments.reservationfragment
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.ContextThemeWrapper
@@ -9,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.helper.widget.Flow
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -21,8 +19,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.yo.bronim.AuthorizationActivity
 import com.yo.bronim.R
 import com.yo.bronim.ReservationActivity
-import com.yo.bronim.contracts.EXTRA_CODE_RESERVATION
-import com.yo.bronim.contracts.EXTRA_USER_REGISTRATION
 import com.yo.bronim.models.PostReservation
 import com.yo.bronim.states.ReservationPageState
 import com.yo.bronim.viewmodels.ReservationPageViewModel
@@ -306,7 +302,7 @@ class ReservationFragment : Fragment() {
 
     private fun convertChosenDate(): String {
         return "${calendar.get(Calendar.YEAR)}-${
-            (chosenMonth + 1).toString().padStart(2, '0')
+        (chosenMonth + 1).toString().padStart(2, '0')
         }-${chosenDay?.second.toString().padStart(2, '0')}"
     }
 

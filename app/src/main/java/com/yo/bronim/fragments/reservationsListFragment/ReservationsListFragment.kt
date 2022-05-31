@@ -11,14 +11,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yo.bronim.AuthorizationActivity
 import com.yo.bronim.R
-import com.yo.bronim.contracts.AuthorizationContract
 import com.yo.bronim.fragments.reservationsListFragment.adapter.ReservationAdapter
 import com.yo.bronim.states.ReservationsListState
 import com.yo.bronim.viewmodels.ReservationsListPageViewModel
 
 class ReservationsListFragment : Fragment() {
     private val reservationsListViewModel = ReservationsListPageViewModel()
-    private val authorize = registerForActivityResult(AuthorizationContract()) { }
     private val recycler by lazy {
         view?.findViewById<RecyclerView>(R.id.fragment_reservations_list__recycler)
     }
@@ -42,7 +40,9 @@ class ReservationsListFragment : Fragment() {
 
         val user = AuthorizationActivity.getFBUser()
         if (user == null) {
-            authorize.launch(Unit)
+            messageText?.visibility = View.VISIBLE
+            messageText?.text = getString(R.string.reservations_list_please_auth)
+            return
         }
         observeReservationsList()
         reservationsListViewModel.getReservationsList()

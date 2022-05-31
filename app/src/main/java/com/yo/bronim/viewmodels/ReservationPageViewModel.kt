@@ -16,7 +16,6 @@ class ReservationPageViewModel(callback: (Int) -> Unit) {
     ) {
         reservationsState.postValue(ReservationPageState.Pending())
 
-
         reservationPageManager.getAvailableTablesAndTime(
             restId,
             date,
