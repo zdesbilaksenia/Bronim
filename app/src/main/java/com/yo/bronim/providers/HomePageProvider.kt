@@ -59,4 +59,22 @@ class HomePageProvider {
             }
         }
     }
+
+    fun cuisineFiltration(
+        callback: (result: Array<Restaurant>?, error: Throwable?) -> Unit,
+        cuisine: String
+    ) {
+        scope.launch {
+            try {
+                val result = homePageRepository.cuisineFiltration(cuisine)
+                if (result == null) {
+                    invokeCallback(callback, emptyArray(), null)
+                } else {
+                    invokeCallback(callback, result, null)
+                }
+            } catch (error: Throwable) {
+                invokeCallback(callback, null, error)
+            }
+        }
+    }
 }

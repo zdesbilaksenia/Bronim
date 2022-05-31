@@ -1,6 +1,5 @@
 package com.yo.bronim.repository
 
-import android.util.Log
 import com.yo.bronim.interfaces.ReservationApi
 import com.yo.bronim.models.PostReservation
 import com.yo.bronim.models.Reservation
@@ -8,7 +7,7 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-class ReservationPageRepository {
+class ReservationPageRepository(private val callback: (Int) -> Unit) {
     private val client = OkHttpClient.Builder().build()
     private val retrofit = Retrofit.Builder()
         .client(client)
@@ -31,9 +30,8 @@ class ReservationPageRepository {
         restId: Int,
         chosenTable: Int
     ) {
-        Log.d(
-            "GOT",
-            "${reservationApi.sendReservationInfo(postReservation, restId, chosenTable).body()}"
-        )
+        val code = reservationApi.sendReservationInfo(postReservation, restId, chosenTable)
+            .code()
+        this.callback(code)
     }
 }

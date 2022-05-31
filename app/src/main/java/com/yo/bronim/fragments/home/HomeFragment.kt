@@ -1,47 +1,38 @@
 package com.yo.bronim.fragments.home
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.yo.bronim.ProfileActivity
 import com.yo.bronim.R
-import com.yo.bronim.contracts.AuthorizationContract
 import com.yo.bronim.fragments.home.adapter.MainAdapter
-import com.yo.bronim.states.AuthorizationPageState
+import com.yo.bronim.states.CuisineFiltrationState
 import com.yo.bronim.states.HomePageState
-import com.yo.bronim.viewmodels.AuthorizationPageViewModel
 import com.yo.bronim.viewmodels.HomePageViewModel
 
+// Not Filtering
 const val POPULAR_VIEW_HOLDER_POS = 0
 const val KITCHENS_VIEW_HOLDER_POS = 1
 const val NEW_VIEW_HOLDER_POS = 2
 const val NEAREST_VIEW_HOLDER_POS = 3
 
+// Filtering
+const val CUISINE_FILTER_KITCHENS = 0
+const val CUISINE_FILTER_FOUND = 1
+
+val CATEGORIES = listOf(
+    "Популярное",
+    "Кухни",
+    "Новое",
+    "Все",
+)
+
 class HomeFragment : Fragment() {
     private var recycler: RecyclerView? = null
     private var homePageViewModel = HomePageViewModel()
-    private var homePageAuthorizationViewModel = AuthorizationPageViewModel()
-
-    private val textViewName by lazy {
-        view?.findViewById<TextView>(R.id.home__name)
-    }
-
-    private val profileImageView by lazy {
-        view?.findViewById<ImageView>(R.id.home__profile_image)
-    }
-
-    private val authorize = registerForActivityResult(AuthorizationContract()) { user ->
-        if (user != null) {
-            textViewName?.text = user.name
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,32 +45,20 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (savedInstanceState != null) {
-            textViewName?.text = savedInstanceState.getString(UserNameVariable)
-        }
-
         recycler = view.findViewById(R.id.main_recycler)
         recycler?.layoutManager = LinearLayoutManager(activity)
-        recycler?.adapter = MainAdapter()
+        recycler?.adapter = MainAdapter(CATEGORIES.toMutableList(), isFilteringCallback)
 
         homePageViewModel = HomePageViewModel()
 
         observePopularRestaurants()
         observeNewRestaurants()
         observeNearestRestaurants()
+        observeCuisineFiltration()
 
         homePageViewModel.getPopularRestaurants()
         homePageViewModel.getNewRestaurants()
         homePageViewModel.getNearestRestaurants()
-    }
-
-    override fun onStart() {
-        super.onStart()
-        homePageAuthorizationViewModel = AuthorizationPageViewModel()
-
-        observeIsAuthorized()
-
-        homePageAuthorizationViewModel.isAuthorized()
     }
 
     private fun observePopularRestaurants() {
@@ -87,13 +66,9 @@ class HomeFragment : Fragment() {
             when (state) {
                 // is Pending
                 is HomePageState.Success -> {
-                    val recommendedHolder = recycler?.findViewHolderForAdapterPosition(
-                        POPULAR_VIEW_HOLDER_POS
-                    )
-                    (recycler?.adapter as MainAdapter).showCategoryRestaurants(
-                        recommendedHolder as MainAdapter.MainViewHolder,
-                        state.result,
-                        View.GONE
+                    (recycler?.adapter as MainAdapter).updateRestaurants(
+                        POPULAR_VIEW_HOLDER_POS,
+                        state.result
                     )
                 }
             }
@@ -105,13 +80,9 @@ class HomeFragment : Fragment() {
             when (state) {
                 // is Pending
                 is HomePageState.Success -> {
-                    val newRestsHolder = recycler?.findViewHolderForAdapterPosition(
-                        NEW_VIEW_HOLDER_POS
-                    )
-                    (recycler?.adapter as MainAdapter).showCategoryRestaurants(
-                        newRestsHolder as MainAdapter.MainViewHolder,
-                        state.result,
-                        View.GONE
+                    (recycler?.adapter as MainAdapter).updateRestaurants(
+                        NEW_VIEW_HOLDER_POS,
+                        state.result
                     )
                 }
             }
@@ -123,45 +94,47 @@ class HomeFragment : Fragment() {
             when (state) {
                 // is Pending
                 is HomePageState.Success -> {
-                    val nearestRestsHolder = recycler?.findViewHolderForAdapterPosition(
-                        NEAREST_VIEW_HOLDER_POS
-                    )
-                    (recycler?.adapter as MainAdapter).showNearestRestaurants(
-                        nearestRestsHolder as MainAdapter.MainViewHolder,
-                        state.result,
-                        View.GONE
+                    (recycler?.adapter as MainAdapter).updateRestaurants(
+                        NEAREST_VIEW_HOLDER_POS,
+                        state.result
                     )
                 }
             }
         }
     }
 
-    private fun observeIsAuthorized() {
-        homePageAuthorizationViewModel.isAuthorizedState.observe(viewLifecycleOwner) { state ->
+    private fun observeCuisineFiltration() {
+        homePageViewModel.cuisineFiltrationState.observe(viewLifecycleOwner) { state ->
             when (state) {
-                is AuthorizationPageState.Success -> {
-                    profileImageView?.setOnClickListener {
-                        val intent = Intent(context, ProfileActivity::class.java)
-                        startActivity(intent)
-                    }
+                is CuisineFiltrationState.Pending -> {
                 }
-                is AuthorizationPageState.Error -> {
-                    profileImageView?.setOnClickListener {
-                        authorize.launch(Unit)
-                    }
+                is CuisineFiltrationState.Success -> {
+                    (recycler?.adapter as MainAdapter).updateRestaurants(
+                        CUISINE_FILTER_FOUND,
+                        state.result
+                    )
+                }
+                is CuisineFiltrationState.Error -> {
+                    // TODO error handle
                 }
             }
         }
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        var username = textViewName?.text.toString()
-        outState.putString(UserNameVariable, username)
+    private val isFilteringCallback: (Boolean, String?) -> Unit = { isFiltering, cuisine ->
+        (recycler?.adapter as MainAdapter).isFiltering(
+            isFiltering
+        )
+        if (!isFiltering) {
+            homePageViewModel.getPopularRestaurants()
+            homePageViewModel.getNewRestaurants()
+            homePageViewModel.getNearestRestaurants()
+        } else {
+            homePageViewModel.cuisineFiltration(cuisine!!)
+        }
     }
 
     companion object {
         fun newInstance() = HomeFragment()
-        var UserNameVariable = "USERNAME"
     }
 }

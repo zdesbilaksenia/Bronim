@@ -5,8 +5,8 @@ import com.yo.bronim.managers.ReservationPageManager
 import com.yo.bronim.models.PostReservation
 import com.yo.bronim.states.ReservationPageState
 
-class ReservationPageViewModel {
-    private val reservationPageManager = ReservationPageManager()
+class ReservationPageViewModel(callback: (Int) -> Unit) {
+    private val reservationPageManager = ReservationPageManager(callback)
     val reservationsState = MutableLiveData<ReservationPageState>()
 
     fun getAvailableTablesAndTime(
@@ -22,12 +22,10 @@ class ReservationPageViewModel {
             numOfGuests
         ) { result, error ->
             when {
-                result != null -> {
-                    reservationsState.postValue(ReservationPageState.Success(result))
-                }
                 error != null -> {
                     reservationsState.postValue(ReservationPageState.Error(error))
                 }
+                else -> reservationsState.postValue(ReservationPageState.Success(result))
             }
         }
     }

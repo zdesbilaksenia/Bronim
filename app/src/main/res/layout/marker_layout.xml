@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content">
+
+    <com.blure.complexview.ComplexView
+            android:id="@+id/marker_card"
+            android:visibility="gone"
+            tools:visibility="visible"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            app:radius="10dp"
+            app:shadow="true"
+            app:shadowAlpha="50"
+            app:shadowSpread="2">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:background="@drawable/card_bckgrnd">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/marker_rest_img"
+                        android:layout_width="80dp"
+                        android:layout_height="match_parent"
+                        app:shapeAppearanceOverlay="@style/rounded_corner"
+                        app:shapeAppearance="@style/rounded_corner"
+                        android:scaleType="centerCrop" />
+
+                <LinearLayout
+                        android:layout_width="120dp"
+                        android:layout_height="match_parent"
+                        android:padding="8dp"
+                        android:orientation="vertical">
+
+                    <TextView
+                            android:id="@+id/marker_rest_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            tools:text="Рееееееееееееееееееееееееееееееееее"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/main_dark_color"
+                            android:maxLines="1"
+                            android:ellipsize="end"
+                            android:layout_marginBottom="8dp" />
+
+                    <TextView
+                            android:id="@+id/marker_rest_address"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            tools:text="Адрес адрес ардрес адресадарадоадаадоададада"
+                            android:textSize="13sp"
+                            android:textColor="@color/main_dark_color"
+                            android:maxLines="3"
+                            android:ellipsize="end"
+                            android:layout_marginBottom="8dp" />
+
+                    <LinearLayout
+                            android:id="@+id/marker_rest_tags"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:layout_marginBottom="8dp">
+
+                    </LinearLayout>
+
+                    <RatingBar
+                            style="?android:attr/ratingBarStyleSmall"
+                            android:id="@+id/marker_rest_rating"
+                            android:numStars="5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:isIndicator="true"
+                            android:stepSize="0.1"
+                            android:transformPivotX="0dp"
+                            android:transformPivotY="0dp"
+                            android:layout_marginTop="8dp"
+                            android:theme="@style/rating_bar" />
+                </LinearLayout>
+
+            </LinearLayout>
+    </com.blure.complexview.ComplexView>
+
+    <ImageView
+            android:id="@+id/marker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_map_mark"
+            app:layout_constraintTop_toBottomOf="@id/marker_card"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="4dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

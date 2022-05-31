@@ -43,14 +43,23 @@ class AuthorizationPageRepository {
         return authorizationApi.authorize(firebaseID)?.body()
     }
 
-    suspend fun isAuthorized() {
+    suspend fun isAuthorized(): String {
         return suspendCoroutine { continuation ->
             if (auth.currentUser != null) {
                 Log.i("isAuthorizedRepo", auth.currentUser!!.uid)
-                continuation.resume(Unit)
+                continuation.resume(auth.currentUser!!.uid)
             } else {
                 continuation.resumeWithException(Exception("not authorized"))
             }
         }
     }
+
+    /*
+    fun getFID(): String? {
+        if (auth.currentUser == null) {
+            throw IllegalArgumentException("not authorized")
+        }
+        return auth.currentUser?.uid
+    }
+    */
 }

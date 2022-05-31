@@ -1,9 +1,14 @@
 package com.yo.bronim.fragments.profile
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Patterns
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -15,6 +20,7 @@ import com.yo.bronim.viewmodels.ProfilePageViewModel
 
 class ProfileFragment : Fragment() {
 
+    private var progressBar: ProgressBar? = null
     private var profilePageViewModel = ProfilePageViewModel()
 
     private val signOutButton by lazy {
@@ -49,6 +55,10 @@ class ProfileFragment : Fragment() {
         view?.findViewById<TextView>(R.id.profile_page__phone_edit_text)
     }
 
+    private val backButton by lazy {
+        view?.findViewById<Button>(R.id.profile_page__arrow_left_button)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -60,6 +70,7 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        progressBar = view.findViewById(R.id.progress_bar)
         profilePageViewModel = ProfilePageViewModel()
 
         observeSignOut()
@@ -74,6 +85,10 @@ class ProfileFragment : Fragment() {
             saveProfile()
         }
 
+        backButton?.setOnClickListener {
+            activity?.finish()
+        }
+
         profilePageViewModel.getProfile()
     }
 
@@ -81,9 +96,11 @@ class ProfileFragment : Fragment() {
         profilePageViewModel.signOutState.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is ProfilePageState.Success -> {
+                    progressBar?.visibility = View.GONE
                     (activity as ProfileActivity).sendResult(null)
                 }
                 is ProfilePageState.Error -> {
+                    progressBar?.visibility = View.GONE
                     Toast.makeText(
                         activity,
                         "Failed to signOut!",
@@ -98,18 +115,26 @@ class ProfileFragment : Fragment() {
         profilePageViewModel.saveProfileState.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is ProfilePageState.Success -> {
-                    Toast.makeText(
-                        activity,
-                        "Good Saved",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    progressBar?.visibility = View.GONE
+                    var layout: View? = null
+                    layout = layoutInflater.inflate(R.layout.toast_ok, null)
+
+                    val toast = Toast(activity?.applicationContext)
+                    toast.setGravity(Gravity.FILL, 0, 0)
+                    toast.duration = Toast.LENGTH_SHORT
+                    toast.view = layout
+                    toast.show()
                 }
                 is ProfilePageState.Error -> {
-                    Toast.makeText(
-                        activity,
-                        "Failed to saveProfile!",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    progressBar?.visibility = View.GONE
+                    var layout: View? = null
+                    layout = layoutInflater.inflate(R.layout.toast_error, null)
+
+                    val toast = Toast(activity?.applicationContext)
+                    toast.setGravity(Gravity.FILL, 0, 0)
+                    toast.duration = Toast.LENGTH_SHORT
+                    toast.view = layout
+                    toast.show()
                 }
             }
         }
@@ -119,6 +144,7 @@ class ProfileFragment : Fragment() {
         profilePageViewModel.getProfileState.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is ProfilePageState.Success -> {
+                    progressBar?.visibility = View.GONE
                     editTextName?.text = state.user?.name
                     editTextSurname?.text = state.user?.surname
                     editTextDateOfBirth?.text = state.user?.dateOfBirth
@@ -127,6 +153,7 @@ class ProfileFragment : Fragment() {
                     editTextPhoneNumber?.text = state.user?.phoneNumber
                 }
                 is ProfilePageState.Error -> {
+                    progressBar?.visibility = View.GONE
                     editTextName?.text = "Error"
                 }
             }
@@ -140,6 +167,30 @@ class ProfileFragment : Fragment() {
         val sex = editTextSex?.text.toString().trim()
         val email = editTextEmail?.text.toString().trim()
         val phoneNumber = editTextPhoneNumber?.text.toString().trim()
+
+        if (name.isEmpty()) {
+            editTextName?.error = getString(R.string.name_required)
+            editTextName?.requestFocus()
+            return
+        }
+
+        if (email.isEmpty()) {
+            editTextEmail?.error = getString(R.string.email_required)
+            editTextEmail?.requestFocus()
+            return
+        }
+
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            editTextEmail?.error = getString(R.string.valid_email_required)
+            editTextEmail?.requestFocus()
+            return
+        }
+
+        if (!Patterns.PHONE.matcher(phoneNumber).matches()) {
+            editTextPhoneNumber?.error = getString(R.string.valid_phone_required)
+            editTextPhoneNumber?.requestFocus()
+            return
+        }
 
         val user = User(null, name, surname, email, sex, dateOfBirth, phoneNumber)
         profilePageViewModel.saveProfile(user)

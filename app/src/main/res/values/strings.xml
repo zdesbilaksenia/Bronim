@@ -17,24 +17,29 @@
     <string name="email_hint">Введите email</string>
     <string name="password">Пароль</string>
     <string name="password_hint">Введите пароль</string>
-    <string name="password_again">Повторите Пароль</string>
+    <string name="password_again">Повторите пароль</string>
     <string name="password_again_hint">Введите пароль ещё раз</string>
     <string name="login">Войти</string>
     <string name="register">Зарегистрироваться</string>
     <string name="create_account">Создать аккаунт</string>
-    <string name="home_greeting">Добрый день,</string>
+    <string name="home_greeting">Добрый день</string>
     <string name="home">home</string>
     <string name="map">map</string>
+    <string name="name_required">Введите имя</string>
     <string name="email_required">Введите email</string>
     <string name="password_required">Введите пароль</string>
+    <string name="passwords_not_match">Пароли должны совпадать</string>
     <string name="valid_email_required">Введите корректный email</string>
+    <string name="valid_phone_required">Введите корректный номер телефона</string>
     <string name="error_authorization">Данный пользователь не найден</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="reservations_list">reservations list</string>
     <string name="favourites">favourites</string>
+    <string name="your_reservations">Ваши заявки</string>
     <string name="num_of_guests">Количество гостей</string>
     <string name="date">Дата</string>
+    <string name="time">Время</string>
     <string-array name="months">
         <item>ЯНВ</item>
         <item>ФЕВ</item>
@@ -58,11 +63,28 @@
         <item>ПТ</item>
         <item>СБ</item>
     </string-array>
+    >>>>>>> 6c6292757fa537d126c7ba78f607323561a3c7a6
     <!--    Registration exceptions-->
-    <string name="errorWeakPassword">Password is too weak</string>
-    <string name="errorInvalidEmail">Please use valid email</string>
-    <string name="errorUserExists">User with such email already exists</string>
-    <string name="weakPasswordException">Password is too weak</string>
+    <string name="errorUserIsNotLoggedIn">Пользователь не авторизован</string>
+    <string name="errorWeakPassword">Пароль ненадежный</string>
+    <string name="errorInvalidEmail">Невалидный Email</string>
+    <string name="errorUserExists">Пользователь с таким Email уже зарегистрирован</string>
+    <string name="weakPasswordException">Пароль ненадежный</string>
+    <string name="short_password">Пароль должен быть не менее 6-ти символов</string>
     <string name="already_have_an_account">Уже есть аккаунт?</string>
     <string name="geo_error">Не удалось получить данные о местоположении</string>
+    <string name="cuisine_filter_reset">Сбросить</string>
+    <string name="title_activity_reservations_list">ReservationsListActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="no_reservations">Нет заявок</string>
+    <string name="error_message">Произошла ошибка.\nПопробуйте позже.</string>
+    <string name="favourites_please_auth">Для просмотра избранного, пожалуйста, авторизуйтесь</string>
+    <string name="reservations_list_please_auth">Для просмотра заявок, пожалуйста, авторизуйтесь</string>
 </resources>

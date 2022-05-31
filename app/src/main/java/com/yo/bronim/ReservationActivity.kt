@@ -1,7 +1,9 @@
 package com.yo.bronim
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.yo.bronim.contracts.EXTRA_CODE_RESERVATION
 import com.yo.bronim.fragments.reservationfragment.ReservationFragment
 
 class ReservationActivity : AppCompatActivity() {
@@ -18,5 +20,11 @@ class ReservationActivity : AppCompatActivity() {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.reservation_fragment_container, reservationFragment)
         transaction.commit()
+    }
+
+    fun sendCode(code: Int) {
+        val data = Intent().putExtra(EXTRA_CODE_RESERVATION, code)
+        setResult(AppCompatActivity.RESULT_OK, data)
+        finish()
     }
 }

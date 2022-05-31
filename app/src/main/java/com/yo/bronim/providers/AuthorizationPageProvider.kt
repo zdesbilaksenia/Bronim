@@ -51,15 +51,21 @@ class AuthorizationPageProvider {
         }
     }
 
-    fun isAuthorized(callback: (error: Throwable?) -> Unit) {
+    fun isAuthorized(callback: AuthorizeCallback) {
         scope.launch {
             try {
-                authorizationPageRepository.isAuthorized()
+                val firebaseID = authorizationPageRepository.isAuthorized()
+                val result = authorizationPageRepository.getUserData(firebaseID)
+                val resultUser = User(
+                    uid = result?.uid,
+                    name = result?.name,
+                    email = result?.email,
+                )
                 Log.i("Success:", "Horosho")
-                invokeErrorCallback(callback, null)
+                invokeCallback(callback, resultUser, null)
             } catch (error: Throwable) {
                 Log.i("Failed:", "Ploho")
-                invokeErrorCallback(callback, error)
+                invokeCallback(callback, null, error)
             }
         }
     }

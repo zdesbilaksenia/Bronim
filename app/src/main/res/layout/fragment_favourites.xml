@@ -1,13 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".FavouritesFragment">
 
     <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="favourites" />
+            android:id="@+id/favourites_page__favourites_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginHorizontal="18dp"
+            app:layout_constraintBottom_toTopOf="@id/favourites_page_favourites_recycler"
+            android:text="Избранное"
+            android:textColor="@color/main_dark_color"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="32dp" />
 
-</FrameLayout>
+    <ProgressBar
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/favourites_page__favourites_textview"
+            android:id="@+id/favourites_page__loader"
+            android:visibility="visible"
+            android:layout_marginTop="20dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center" />
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/favourites_page_favourites_recycler"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="10dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/favourites_page__favourites_textview"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+            android:id="@+id/favourites_page_please_auth_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/favourites_please_auth"
+            android:textSize="22sp"
+            android:textColor="@color/main_dark_color"
+            android:visibility="invisible"
+            tools:visibility="visible"
+            android:textAlignment="center"
+            app:layout_constraintTop_toBottomOf="@id/favourites_page__favourites_textview"
+            android:layout_marginTop="200dp"
+            android:layout_marginHorizontal="15dp"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

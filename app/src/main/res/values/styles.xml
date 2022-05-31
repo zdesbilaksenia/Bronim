@@ -15,7 +15,7 @@
     </style>
 
     <style name="fragment_profile_field_text">
-        <item name="backgroundTint">@color/main_light_grey</item>
+<!--        <item name="backgroundTint">@color/main_light_grey</item>-->
         <item name="android:textSize">20dp</item>
     </style>
 
@@ -27,7 +27,7 @@
 
     <style name="red_btn">
         <item name="android:textColor">@color/white</item>
-        <item name="backgroundTint">@color/red</item>
+        <item name="backgroundTint">@color/brick</item>
         <item name="cornerRadius">10dp</item>
     </style>
 
@@ -37,22 +37,39 @@
     </style>
 
     <style name="white_btn">
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/main_dark_grey</item>
         <item name="backgroundTint">@color/white</item>
         <item name="cornerRadius">10dp</item>
-        <item name="strokeColor">@color/black</item>
+        <item name="strokeColor">@color/main_dark_grey</item>
         <item name="strokeWidth">1dp</item>
+    </style>
+
+    <style name="brick_btn">
+        <item name="android:textColor">@color/white</item>
+        <item name="backgroundTint">@color/brick</item>
+        <item name="cornerRadius">10dp</item>
     </style>
 
     <style name="rating_bar">
         <item name="colorControlNormal">@color/gray_200</item>
-        <item name="colorControlActivated">@color/yellow</item>
+        <item name="colorControlActivated">@color/brick</item>
     </style>
 
+<!--    <style name="tag_text" parent="Widget.AppCompat.TextView">-->
+<!--        <item name="android:textSize">14sp</item>-->
+<!--        <item name="android:textColor">@color/main_dark_color</item>-->
+<!--        <item name="android:padding">4dp</item>-->
+<!--        <item name="android:maxWidth">80dp</item>-->
+<!--    </style>-->
+
     <style name="tag_text" parent="Widget.AppCompat.TextView">
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">11sp</item>
         <item name="android:textColor">@color/main_dark_color</item>
-        <item name="android:padding">4dp</item>
+<!--        <item name="android:padding">4dp</item>-->
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingEnd">8dp</item>
+        <item name="android:paddingTop">2dp</item>
+        <item name="android:paddingBottom">3dp</item>
         <item name="android:maxWidth">80dp</item>
     </style>
 
@@ -79,5 +96,17 @@
     <style name="text_input" parent="ThemeOverlay.AppCompat">
         <item name="android:layout_width">125dp</item>
         <item name="android:layout_height">43dp</item>
+    </style>
+
+    <style name="rounded_corner">
+        <item name="cornerSizeTopLeft">10dp</item>
+        <item name="cornerSizeBottomLeft">10dp</item>
+        <item name="cornerFamilyTopLeft">rounded</item>
+        <item name="cornerFamilyBottomLeft">rounded</item>
+    </style>
+
+    <style name="logo_border">
+        <item name="strokeColor">@color/main_dark_grey</item>
+        <item name="strokeWidth">10dp</item>
     </style>
 </resources>

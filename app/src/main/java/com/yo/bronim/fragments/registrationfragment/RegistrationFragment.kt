@@ -2,11 +2,13 @@ package com.yo.bronim.fragments.registrationfragment
 
 import android.os.Bundle
 import android.util.Patterns
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
@@ -42,6 +44,10 @@ class RegistrationFragment : Fragment() {
         view?.findViewById<Button>(R.id.registration_page__login_button)
     }
 
+    private val buttonBack by lazy {
+        view?.findViewById<Button>(R.id.registration_page__arrow_left_button)
+    }
+
     private val login = registerForActivityResult(AuthorizationContract()) { user ->
         (activity as RegistrationActivity).sendResult(user)
     }
@@ -64,6 +70,10 @@ class RegistrationFragment : Fragment() {
             login.launch(Unit)
         }
 
+        buttonBack?.setOnClickListener {
+            activity?.finish()
+        }
+
         registrationPageViewModel.registrationState.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is RegistrationPageState.Pending -> showLoader(true)
@@ -78,13 +88,18 @@ class RegistrationFragment : Fragment() {
                             R.string.errorWeakPassword
                         )
                         is FirebaseAuthUserCollisionException -> getString(R.string.errorUserExists)
-                        else -> "Try again later"
+                        else -> "Попробуйте позже"
                     }
-                    Toast.makeText(
-                        activity,
-                        "Failed to create an account! $text",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    var layout: View? = null
+                    layout = layoutInflater.inflate(R.layout.toast_error, null)
+                    var toastText = layout.findViewById<TextView>(R.id.toast_error_text)
+                    toastText.text = "Невозможно создать аккаунт! $text"
+
+                    val toast = Toast(activity?.applicationContext)
+                    toast.setGravity(Gravity.FILL, 0, 0)
+                    toast.duration = Toast.LENGTH_SHORT
+                    toast.view = layout
+                    toast.show()
                 }
             }
         }
@@ -110,36 +125,36 @@ class RegistrationFragment : Fragment() {
         passwordRepeated: String
     ): Boolean {
         if (name.isEmpty()) {
-            editTextName?.error = "Name is required!"
+            editTextName?.error = getString(R.string.name_required)
             editTextName?.requestFocus()
             return false
         }
 
         if (email.isEmpty()) {
-            editTextEmail?.error = "Email is required!"
+            editTextEmail?.error = getString(R.string.email_required)
             editTextEmail?.requestFocus()
             return false
         }
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            editTextEmail?.error = "Please enter valid email!"
+            editTextEmail?.error = getString(R.string.valid_email_required)
             editTextEmail?.requestFocus()
             return false
         }
 
         if (password.isEmpty()) {
-            editTextPassword?.error = "Password is required!"
+            editTextPassword?.error = getString(R.string.password_required)
             editTextPassword?.requestFocus()
             return false
         }
         if (password.length < resources.getInteger(R.integer.minPasswordCharNum)) {
-            editTextPassword?.error = "Min password length is 6 chars!"
+            editTextPassword?.error = getString(R.string.short_password)
             editTextPassword?.requestFocus()
             return false
         }
 
         if (password != passwordRepeated) {
-            editTextPassword?.error = "Passwords should match!"
-            editTextPasswordRepeated?.error = "Passwords should match!"
+            editTextPassword?.error = getString(R.string.passwords_not_match)
+            editTextPasswordRepeated?.error = getString(R.string.passwords_not_match)
             editTextPassword?.requestFocus()
             return false
         }

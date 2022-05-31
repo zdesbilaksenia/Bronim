@@ -4,28 +4,39 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yo.bronim.R
+import com.yo.bronim.fragments.home.CATEGORIES
+import com.yo.bronim.fragments.home.CUISINE_FILTER_FOUND
+import com.yo.bronim.fragments.home.CUISINE_FILTER_KITCHENS
+import com.yo.bronim.fragments.home.KITCHENS_VIEW_HOLDER_POS
+import com.yo.bronim.fragments.home.NEAREST_VIEW_HOLDER_POS
+import com.yo.bronim.fragments.home.NEW_VIEW_HOLDER_POS
+import com.yo.bronim.fragments.home.POPULAR_VIEW_HOLDER_POS
 import com.yo.bronim.models.Restaurant
+import java.util.Collections
+import kotlin.collections.LinkedHashMap
 
-val CATEGORIES = arrayOf(
-    "Популярное",
-    "Кухни",
-    "Новое",
-    "Ближайшие"
-)
-
-class MainAdapter : RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
+class MainAdapter(
+    private var itemList: MutableList<String>,
+    private val isFilteringCallback: (Boolean, String?) -> Unit
+) : RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
     private var context: Context? = null
-    var itemsList: Array<Restaurant> = arrayOf()
+    private var isFiltering: Boolean? = null
+    private var payloads: MutableMap<Int, Array<Restaurant>> = LinkedHashMap()
 
     inner class MainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val category: TextView = itemView.findViewById(R.id.category)
         val recyclerView: RecyclerView = itemView.findViewById(R.id.category_recycler)
         val progressBar: ProgressBar = itemView.findViewById(R.id.progress_bar)
+        val nothingFoundText: TextView = itemView.findViewById(
+            R.id.home_recycler_category__nothing_found_text
+        )
+        val button: Button = itemView.findViewById(R.id.home_recycler_category__button)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
@@ -37,34 +48,105 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
-        holder.category.text = CATEGORIES[position]
-        when {
-            position == 1 -> {
-                holder.progressBar.visibility = View.GONE
-                holder.recyclerView.layoutManager =
-                    LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-                holder.recyclerView.adapter = FilterAdapter()
+        holder.category.text = itemList[position]
+        holder.nothingFoundText.visibility = View.GONE
+        if (this.isFiltering == null || !this.isFiltering!!) {
+            holder.button.visibility = View.GONE
+            holder.recyclerView.adapter = null
+            holder.progressBar.visibility = View.VISIBLE
+            when {
+                position == KITCHENS_VIEW_HOLDER_POS -> {
+                    holder.progressBar.visibility = View.GONE
+                    holder.recyclerView.layoutManager =
+                        LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+                    holder.recyclerView.adapter = FilterAdapter(isFilteringCallback)
+                }
+                position > NEW_VIEW_HOLDER_POS -> {
+                    holder.recyclerView.layoutManager =
+                        LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+                    if (payloads[position] != null) {
+                        holder.progressBar.visibility = View.GONE
+                        holder.recyclerView.adapter = HorizontalItemAdapter(payloads[position]!!)
+                    }
+                }
+
+                else -> {
+                    holder.recyclerView.layoutManager =
+                        LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+                    if (payloads[position] != null) {
+                        holder.progressBar.visibility = View.GONE
+                        holder.recyclerView.adapter = CategoryAdapter(payloads[position]!!)
+                    }
+                }
             }
-            position > 2 ->
+        } else {
+            if (position == CUISINE_FILTER_FOUND) {
+                holder.progressBar.visibility = View.VISIBLE
+                holder.recyclerView.adapter = null
                 holder.recyclerView.layoutManager =
                     LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-            else ->
-                holder.recyclerView.layoutManager =
-                    LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+                holder.button.visibility = View.VISIBLE
+                holder.button.setOnClickListener {
+                    if (isFiltering != false) {
+                        isFilteringCallback(false, null)
+                    }
+                }
+                if (payloads[position] != null) {
+                    holder.progressBar.visibility = View.GONE
+                    if (payloads[position]?.isEmpty() == true) {
+                        holder.nothingFoundText.visibility = View.VISIBLE
+                    } else {
+                        holder.recyclerView.adapter = HorizontalItemAdapter(payloads[position]!!)
+                    }
+                }
+            }
         }
     }
 
     override fun getItemCount(): Int {
-        return CATEGORIES.size + itemsList.size
+        return itemList.size
     }
 
-    fun showCategoryRestaurants(holder: MainViewHolder, restaurants: Array<Restaurant>, gone: Int) {
-        holder.progressBar.visibility = gone
-        holder.recyclerView.adapter = CategoryAdapter(restaurants)
+    fun updateRestaurants(position: Int, restaurants: Array<Restaurant>) {
+        payloads[position] = restaurants
+        notifyItemChanged(position)
     }
 
-    fun showNearestRestaurants(holder: MainViewHolder, restaurants: Array<Restaurant>, gone: Int) {
-        holder.progressBar.visibility = gone
-        holder.recyclerView.adapter = HorizontalItemAdapter(restaurants)
+    fun isFiltering(
+        isFiltering: Boolean
+    ) {
+        if (this.isFiltering == isFiltering) {
+            notifyItemChanged(1)
+            return
+        }
+        this.isFiltering = isFiltering
+        if (isFiltering) {
+            payloads = LinkedHashMap()
+            Collections.swap(itemList, KITCHENS_VIEW_HOLDER_POS, POPULAR_VIEW_HOLDER_POS)
+            notifyItemMoved(KITCHENS_VIEW_HOLDER_POS, POPULAR_VIEW_HOLDER_POS)
+            removeAt(NEAREST_VIEW_HOLDER_POS)
+            removeAt(NEW_VIEW_HOLDER_POS)
+            removeAt(KITCHENS_VIEW_HOLDER_POS)
+            insertAt(CUISINE_FILTER_FOUND, "Найдено")
+        } else {
+            payloads = LinkedHashMap()
+            removeAt(CUISINE_FILTER_FOUND)
+            removeAt(CUISINE_FILTER_KITCHENS)
+            for (i in CATEGORIES.indices) {
+                insertAt(i, CATEGORIES[i])
+            }
+        }
+    }
+
+    private fun removeAt(position: Int) {
+        itemList.removeAt(position)
+        notifyItemRemoved(position)
+        notifyItemRangeChanged(position, itemList.size)
+    }
+
+    private fun insertAt(position: Int, element: String) {
+        itemList.add(position, element)
+        notifyItemInserted(position)
+        notifyItemRangeChanged(position, itemList.size)
     }
 }

@@ -2,15 +2,12 @@ package com.yo.bronim.fragments.reservationfragment
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.Button
-import android.widget.TextView
+import android.widget.*
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.helper.widget.Flow
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -21,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yo.bronim.AuthorizationActivity
 import com.yo.bronim.R
+import com.yo.bronim.ReservationActivity
 import com.yo.bronim.models.PostReservation
 import com.yo.bronim.states.ReservationPageState
 import com.yo.bronim.viewmodels.ReservationPageViewModel
@@ -32,13 +30,16 @@ const val REST_START = 0
 const val REST_FINISH = 47
 
 class ReservationFragment : Fragment() {
+    private var progressBar: ProgressBar? = null
     private var spinner: AutoCompleteTextView? = null
     private var dateRecycler: RecyclerView? = null
     private var tableRecycler: RecyclerView? = null
     private var calendar = Calendar.getInstance()
     private var weekdays: Array<String>? = null
     private val currentMonth = calendar.get(Calendar.MONTH)
+    private val currentYear = calendar.get(Calendar.YEAR)
     private val currentDay = calendar.get(Calendar.DAY_OF_MONTH)
+    private var okButton: Button? = null
 
     var bundle: Bundle? = Bundle()
 
@@ -54,12 +55,16 @@ class ReservationFragment : Fragment() {
     private var restFinish: Int = REST_FINISH
 
     private var tableCard: CardView? = null
+    private var tableMessage: TextView? = null
+    private var tablesLoader: ProgressBar? = null
     private var timeCard: CardView? = null
     private var timeCardConstraint: ConstraintLayout? = null
     private var timeFlow: Flow? = null
     private var timeCells: MutableList<View>? = null
 
-    private val reservationPageViewModel = ReservationPageViewModel()
+    private val reservationPageViewModel = ReservationPageViewModel { code: Int ->
+        (activity as ReservationActivity).sendCode(code)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -72,6 +77,8 @@ class ReservationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        progressBar = view.findViewById(R.id.progress_bar)
+
         observeAvailableTablesAndTime()
 
         restId = bundle?.getInt("id")
@@ -81,6 +88,8 @@ class ReservationFragment : Fragment() {
         weekdays = activity?.resources?.getStringArray(R.array.weekdays)
 
         tableCard = view.findViewById(R.id.table_card)
+        tableMessage = view.findViewById(R.id.table_message)
+        tablesLoader = view.findViewById(R.id.tables_loader)
         timeCard = view.findViewById(R.id.time_card)
         timeCardConstraint = view.findViewById(R.id.time_card_constraint)
         timeFlow = view.findViewById(R.id.time_flow)
@@ -106,6 +115,8 @@ class ReservationFragment : Fragment() {
                     GregorianCalendar(Calendar.YEAR, month, 1)
                 }
                 chosenMonth = month
+
+                cleanScreen()
 
                 setDateRecycler(
                     calendar.getActualMaximum(Calendar.DATE),
@@ -140,8 +151,8 @@ class ReservationFragment : Fragment() {
             activity?.finish()
         }
 
-        val okButton = view.findViewById<Button>(R.id.reservation_ok_btn)
-        okButton.setOnClickListener {
+        okButton = view.findViewById<Button>(R.id.reservation_ok_btn)
+        okButton?.setOnClickListener {
             if (chosenTable != null && chosenDay != null && chosenTime.size > 0 && restId != null) {
                 val user = AuthorizationActivity.getFBUser()
                 if (user != null) {
@@ -159,7 +170,6 @@ class ReservationFragment : Fragment() {
                     )
                 }
             }
-            activity?.finish()
         }
     }
 
@@ -197,7 +207,7 @@ class ReservationFragment : Fragment() {
 
         dateRecycler?.adapter = DateAdapter(dates) { date ->
             chosenDay = date
-            tableCard?.visibility = View.VISIBLE
+            cleanScreen()
 
             getAvailableTablesAndTime()
         }
@@ -207,12 +217,20 @@ class ReservationFragment : Fragment() {
         chosenTime = ArrayList()
         chosenTable = null
 
-        tableRecycler?.adapter = TableAdapter(tables) { table ->
-            chosenTable = table
-            timeCard?.visibility = View.VISIBLE
+        if (tables.size > 0) {
+            tableMessage?.visibility = View.GONE
+            tableRecycler?.visibility = View.VISIBLE
+            tableRecycler?.adapter = TableAdapter(tables) { table ->
+                chosenTable = table
+                timeCard?.visibility = View.VISIBLE
 
-            setTimeCells()
+                setTimeCells()
+            }
+        } else {
+            tableMessage?.visibility = View.VISIBLE
+            tableRecycler?.visibility = View.GONE
         }
+
     }
 
     private fun setTimeCells() {
@@ -226,19 +244,12 @@ class ReservationFragment : Fragment() {
             val textView = TextView(ContextThemeWrapper(activity, R.style.time))
             textView.id = ViewCompat.generateViewId()
             textView.setBackgroundResource(R.drawable.reservation_item_bckgrnd)
-            textView.text = "${i / 2}:${i % 2 * 30}"
+            textView.text =
+                "${(i / 2).toString().padStart(2, '0')}:${(i % 2 * 30).toString().padStart(2, '0')}"
             textView.width = 240
 
             if (times.contains(i)) {
-                textView.setBackgroundResource(R.drawable.time_picked_bckgrnd)
-                textView.isClickable = false
-                textView.setTextColor(
-                    ResourcesCompat.getColor(
-                        resources,
-                        R.color.main_light_grey,
-                        null
-                    )
-                )
+                setPickedTime(textView)
             } else {
                 textView.setOnClickListener {
                     if (!chosenTime.contains(i)) {
@@ -247,6 +258,12 @@ class ReservationFragment : Fragment() {
                     } else {
                         textView.setBackgroundResource(R.drawable.reservation_item_bckgrnd)
                         chosenTime.remove(i)
+                    }
+
+                    if (chosenTime.size != 0) {
+                        okButton?.visibility = View.VISIBLE
+                    } else {
+                        okButton?.visibility = View.GONE
                     }
                 }
             }
@@ -260,25 +277,30 @@ class ReservationFragment : Fragment() {
 
     private fun observeAvailableTablesAndTime() {
         reservationPageViewModel.reservationsState.observe(viewLifecycleOwner) { state ->
+            cleanScreen()
+
             when (state) {
-                // is Pending
                 is ReservationPageState.Success -> {
-                    if (state.result.isNotEmpty()) {
-                        state.result.forEach {
-                            tableCard?.visibility = View.VISIBLE
-                            tables.add(it.table)
-                            times[it.table] = it.times
-                            setTableRecycler()
+                    tablesLoader?.visibility = View.GONE
+                    tableCard?.visibility = View.VISIBLE
+                    Log.e("RES", state.result.toString())
+                    if (state.result != null)
+                        if (state.result.isNotEmpty()) {
+                            state.result.forEach {
+                                tables.add(it.table)
+                                times[it.table] = it.times
+                            }
                         }
-                    }
+                    setTableRecycler()
                 }
+                is ReservationPageState.Error -> Log.e("ERR", state.error.toString())
             }
         }
     }
 
     private fun getAvailableTablesAndTime() {
-        tableCard?.visibility = View.GONE
-        timeCard?.visibility = View.GONE
+        tablesLoader?.visibility = View.VISIBLE
+
         times = mutableMapOf()
         tables = mutableListOf()
         reservationPageViewModel.getAvailableTablesAndTime(
@@ -289,9 +311,30 @@ class ReservationFragment : Fragment() {
     }
 
     private fun convertChosenDate(): String {
-        return "${calendar.get(Calendar.YEAR)}.${
-        (chosenMonth + 1).toString().padStart(2, '0')
-        }.${chosenDay?.second.toString().padStart(2, '0')}"
+        return "${currentYear}-${
+            (chosenMonth + 1).toString().padStart(2, '0')
+        }-${chosenDay?.second.toString().padStart(2, '0')}"
+    }
+
+    private fun cleanScreen() {
+        chosenTime = ArrayList()
+        chosenTable = null
+
+        tableCard?.visibility = View.GONE
+        timeCard?.visibility = View.GONE
+        okButton?.visibility = View.GONE
+    }
+
+    private fun setPickedTime(textView: TextView) {
+        textView.setBackgroundResource(R.drawable.time_picked_bckgrnd)
+        textView.isClickable = false
+        textView.setTextColor(
+            ResourcesCompat.getColor(
+                resources,
+                R.color.main_light_grey,
+                null
+            )
+        )
     }
 
     companion object {
