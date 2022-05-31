@@ -74,6 +74,7 @@ class ReservationsListPageProvider {
                             date = dateToNormalDate(rr.reservation.date),
                             time = t,
                             guests = rr.reservation.guests,
+                            imgSrc = rr.restaurant.img,
                         )
                         result.add(reservation)
                     }

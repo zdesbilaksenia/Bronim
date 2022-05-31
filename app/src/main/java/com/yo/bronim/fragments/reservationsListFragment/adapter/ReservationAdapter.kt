@@ -5,9 +5,11 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.yo.bronim.R
 import com.yo.bronim.fragments.home.adapter.TAG_MARGIN
 import com.yo.bronim.models.ReservationListItem
@@ -29,6 +31,7 @@ class ReservationAdapter(private var reservations: Array<ReservationListItem>) :
         val guestsNumber: TextView = itemView.findViewById(
             R.id.view_reservation_card__guests_number
         )
+        val image: ImageView = itemView.findViewById(R.id.view_reservation_card__image)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReservationViewHolder {
@@ -44,6 +47,9 @@ class ReservationAdapter(private var reservations: Array<ReservationListItem>) :
         holder.address.text = reservations[position].address
         holder.date.text = reservations[position].date
         holder.time.text = reservations[position].time
+
+        Glide.with(context!!).load(reservations[position].imgSrc).into(holder.image)
+
         reservations[position].tags?.forEach { tag ->
             val textView = setTagParams(tag)
             tagsContainer?.addView(textView)

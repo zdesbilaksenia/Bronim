@@ -12,6 +12,7 @@ data class ReservationListItem(
     @Json(name = "date") val date: String?,
     @Json(name = "time") val time: String?,
     @Json(name = "guests_num") val guests: Int?,
+    @Json(name = "img_src") val imgSrc: String?,
 )
 
 @JsonClass(generateAdapter = true)
