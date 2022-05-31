@@ -42,6 +42,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private val mPermissionResult = registerForActivityResult(RequestPermission()) { }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -54,6 +56,14 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState != null) {
             textViewName?.text = savedInstanceState.getString(MainActivity.UserNameVariable)
         }
+
+        mPermissionResult.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+
+        val ai: ApplicationInfo = applicationContext.packageManager
+            .getApplicationInfo(applicationContext.packageName, PackageManager.GET_META_DATA)
+
+        MapKitFactory.setApiKey(ai.metaData["mapKey"].toString())
+        MapKitFactory.initialize(this)
 
         val navController =
             findViewById<FragmentContainerView>(R.id.nav_host_fragment_container)

@@ -53,6 +53,9 @@
                 android:exported="false"
                 android:screenOrientation="portrait"/>
 
+        <meta-data
+                android:name="mapKey"
+                android:value="${MAP_KEY}" />
     </application>
 
 </manifest>

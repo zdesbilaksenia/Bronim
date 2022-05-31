@@ -26,6 +26,9 @@ import com.yandex.mapkit.Animation
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.geometry.Point
 import com.yandex.mapkit.layers.GeoObjectTapListener
+import com.yandex.mapkit.Animation
+import com.yandex.mapkit.MapKitFactory
+import com.yandex.mapkit.geometry.Point
 import com.yandex.mapkit.layers.ObjectEvent
 import com.yandex.mapkit.map.CameraListener
 import com.yandex.mapkit.map.CameraPosition
@@ -91,6 +94,10 @@ class MapFragment : Fragment(), UserLocationObjectListener, CameraListener {
 
         mapPageViewModel.getRestaurants()
 
+
+        mapView = view.findViewById(R.id.mapview)
+        fab = view.findViewById(R.id.geo_fab)
+
         checkPermission()
         fab?.setOnClickListener {
             cameraUserPosition()
@@ -98,6 +105,7 @@ class MapFragment : Fragment(), UserLocationObjectListener, CameraListener {
         }
 
         mapView?.map?.addTapListener(mapTapListener)
+        addMarks()
     }
 
     override fun onStart() {
@@ -304,5 +312,17 @@ class MapFragment : Fragment(), UserLocationObjectListener, CameraListener {
         textView.layoutParams = marginParams
 
         return textView
+    }
+    
+    private fun addMarks() {
+        val view = View(requireContext()).apply {
+            background = requireContext().getDrawable(R.drawable.ic_map_mark)
+        }
+        val mark =
+            mapView?.map?.mapObjects?.addPlacemark(Point(TEST_LAT, TEST_LNG), ViewProvider(view))
+        mark?.addTapListener { mapObject, point ->
+            Toast.makeText(activity, "Нажато", Toast.LENGTH_SHORT).show()
+            true
+        }
     }
 }
