@@ -1,23 +1,16 @@
 package com.yo.bronim.fragments.home
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.yo.bronim.ProfileActivity
 import com.yo.bronim.R
-import com.yo.bronim.contracts.AuthorizationContract
 import com.yo.bronim.fragments.home.adapter.MainAdapter
 import com.yo.bronim.states.CuisineFiltrationState
-import com.yo.bronim.states.AuthorizationPageState
 import com.yo.bronim.states.HomePageState
-import com.yo.bronim.viewmodels.AuthorizationPageViewModel
 import com.yo.bronim.viewmodels.HomePageViewModel
 
 // Not Filtering
@@ -41,7 +34,6 @@ class HomeFragment : Fragment() {
     private var recycler: RecyclerView? = null
     private var homePageViewModel = HomePageViewModel()
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -52,8 +44,6 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
 
         recycler = view.findViewById(R.id.main_recycler)
         recycler?.layoutManager = LinearLayoutManager(activity)
@@ -70,8 +60,6 @@ class HomeFragment : Fragment() {
         homePageViewModel.getNewRestaurants()
         homePageViewModel.getNearestRestaurants()
     }
-
-
 
     private fun observePopularRestaurants() {
         homePageViewModel.recommendedRestaurantsState.observe(viewLifecycleOwner) { state ->
@@ -132,7 +120,6 @@ class HomeFragment : Fragment() {
             }
         }
     }
-
 
     private val isFilteringCallback: (Boolean, String?) -> Unit = { isFiltering, cuisine ->
         (recycler?.adapter as MainAdapter).isFiltering(

@@ -1,12 +1,5 @@
 package com.yo.bronim.repository
 
-import android.content.Intent
-import android.util.Log
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentActivity
-import com.yo.bronim.R
-import com.yo.bronim.contracts.EXTRA_USER_REGISTRATION
 import com.yo.bronim.interfaces.ReservationApi
 import com.yo.bronim.models.PostReservation
 import com.yo.bronim.models.Reservation

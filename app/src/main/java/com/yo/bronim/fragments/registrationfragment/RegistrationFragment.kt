@@ -121,7 +121,6 @@ class RegistrationFragment : Fragment() {
             editTextName?.error = getString(R.string.name_required)
             editTextName?.requestFocus()
             return false
-
         }
 
         if (email.isEmpty()) {

@@ -3,7 +3,6 @@ package com.yo.bronim.providers
 import com.yo.bronim.models.Restaurant
 import com.yo.bronim.repository.AuthorizationPageRepository
 import com.yo.bronim.repository.FavouritesPageRepository
-import java.io.IOException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

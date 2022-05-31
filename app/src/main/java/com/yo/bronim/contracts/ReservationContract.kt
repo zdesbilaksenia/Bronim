@@ -5,10 +5,8 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContract
-import com.yo.bronim.RegistrationActivity
 import com.yo.bronim.ReservationActivity
 import com.yo.bronim.models.Restaurant
-import com.yo.bronim.models.User
 
 class ReservationContract() :
     ActivityResultContract<Restaurant?, Int?>() {
@@ -17,7 +15,7 @@ class ReservationContract() :
         intent.putExtra("start", input?.start)
         intent.putExtra("end", input?.end)
         intent.putExtra("id", input?.id)
-        Log.e("REST", "${input}")
+        Log.e("REST", "$input")
         return intent
     }
 

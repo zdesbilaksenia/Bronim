@@ -53,7 +53,9 @@ class ReservationsListPageProvider {
                 }
                 val result = ArrayList<ReservationListItem>()
                 for (rr in restaurantReservationList) {
-                    val times = cellsToTimes(rr.reservation.cells)
+                    val cells: MutableList<Int> = rr.reservation.cells
+                    cells.sort()
+                    val times = cellsToTimes(cells)
                     for (t in times) {
                         val reservation = ReservationListItem(
                             id = 0,

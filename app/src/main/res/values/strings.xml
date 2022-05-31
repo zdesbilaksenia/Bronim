@@ -85,4 +85,6 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="no_reservations">Нет заявок</string>
     <string name="error_message">Произошла ошибка.\nПопробуйте позже.</string>
+    <string name="favourites_please_auth">Для просмотра избранного, пожалуйста, авторизуйтесь</string>
+    <string name="reservations_list_please_auth">Для просмотра заявок, пожалуйста, авторизуйтесь</string>
 </resources>

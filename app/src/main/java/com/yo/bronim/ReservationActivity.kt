@@ -2,7 +2,6 @@ package com.yo.bronim
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.yo.bronim.contracts.EXTRA_CODE_RESERVATION
 import com.yo.bronim.fragments.reservationfragment.ReservationFragment
