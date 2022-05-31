@@ -16,7 +16,7 @@
             android:textStyle="bold"
             android:text="Ваши заявки"
             android:textColor="@color/main_dark_color"
-            android:layout_marginHorizontal="4dp"
+            android:layout_marginHorizontal="1dp"
             android:layout_marginTop="32dp"/>
 
     <ProgressBar
@@ -29,13 +29,17 @@
             />
     <TextView
             android:id="@+id/fragment_reservations_list__message_text"
+            tools:text="dkwepfkworfkergkorgkog"
+            tools:visibility="visible"
+            android:textAlignment="center"
             android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textSize="22sp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="200dp"
             android:textColor="@color/main_dark_color"
+            android:layout_marginHorizontal="15dp"
             />
 
     <androidx.recyclerview.widget.RecyclerView

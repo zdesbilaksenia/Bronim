@@ -12,7 +12,7 @@
             android:layout_height="wrap_content"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:layout_marginHorizontal="15dp"
+            android:layout_marginHorizontal="18dp"
             app:layout_constraintBottom_toTopOf="@id/favourites_page_favourites_recycler"
             android:text="Избранное"
             android:textColor="@color/main_dark_color"
@@ -48,8 +48,10 @@
             android:textSize="22sp"
             android:textColor="@color/main_dark_color"
             android:visibility="invisible"
+            tools:visibility="visible"
+            android:textAlignment="center"
             app:layout_constraintTop_toBottomOf="@id/favourites_page__favourites_textview"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="200dp"
             android:layout_marginHorizontal="15dp"
             app:layout_constraintStart_toStartOf="parent" />
 
