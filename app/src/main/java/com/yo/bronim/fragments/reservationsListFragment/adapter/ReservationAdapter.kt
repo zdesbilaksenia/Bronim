@@ -48,7 +48,7 @@ class ReservationAdapter(private var reservations: Array<ReservationListItem>) :
             val textView = setTagParams(tag)
             tagsContainer?.addView(textView)
         }
-        (reservations[position].guests.toString() + " человек").also {
+        (reservations[position].guests.toString() + " человек(а)").also {
             holder.guestsNumber.text = it
         }
     }

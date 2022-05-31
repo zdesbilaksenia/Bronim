@@ -43,6 +43,15 @@ class ReservationsListPageProvider {
         return times
     }
 
+    private fun dateToNormalDate(date: String): String {
+        val dates = date.split('-')
+        var res = ""
+        for (d in dates) {
+            res = ".$d$res"
+        }
+        return res.slice(1 until res.length)
+    }
+
     fun getReservationsList(callback: ReservationsListCallback) {
         scope.launch {
             try {
@@ -62,7 +71,7 @@ class ReservationsListPageProvider {
                             name = rr.restaurant.name,
                             address = rr.restaurant.address,
                             tags = rr.restaurant.tags,
-                            date = rr.reservation.date,
+                            date = dateToNormalDate(rr.reservation.date),
                             time = t,
                             guests = rr.reservation.guests,
                         )
