@@ -30,6 +30,7 @@
                     app:layout_constraintBottom_toTopOf="@id/kitchen" />
 
             <TextView
+                    android:paddingHorizontal="10dp"
                     android:id="@+id/kitchen"
                     android:layout_width="match_parent"
                     android:gravity="center"
@@ -40,7 +41,7 @@
                     app:layout_constraintTop_toBottomOf="@id/kitchen_icon"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    tools:text="японская" />
+                    tools:text="японскаяgregerggreg" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
