@@ -8,6 +8,7 @@ data class Kitchen(
 )
 
 val kitchens = arrayOf(
+    Kitchen("европейская", R.drawable.ic_europe),
     Kitchen("японская", R.drawable.ic_japan),
     Kitchen("русская", R.drawable.ic_rus),
     Kitchen("итальянская", R.drawable.ic_ital),

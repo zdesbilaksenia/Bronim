@@ -209,7 +209,7 @@ class MapFragment : Fragment(), UserLocationObjectListener, CameraListener {
 
             val mark =
                 mapView?.map?.mapObjects?.addPlacemark(
-                    Point(it.lat + 0.01, it.lng + 0.01),
+                    Point(it.lat, it.lng),
                     ViewProvider(viewGroup),
                     IconStyle().setAnchor(PointF(0.5f, 1f))
                 )
