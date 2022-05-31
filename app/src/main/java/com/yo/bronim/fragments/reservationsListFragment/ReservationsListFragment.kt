@@ -37,6 +37,14 @@ class ReservationsListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        observeReservationsList()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        messageText?.visibility = View.GONE
+        recycler?.visibility = View.GONE
+        loader?.visibility = View.GONE
 
         val user = AuthorizationActivity.getFBUser()
         if (user == null) {
@@ -44,7 +52,6 @@ class ReservationsListFragment : Fragment() {
             messageText?.text = getString(R.string.reservations_list_please_auth)
             return
         }
-        observeReservationsList()
         reservationsListViewModel.getReservationsList()
     }
 
