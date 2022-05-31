@@ -7,7 +7,12 @@ import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
+import android.widget.Button
+import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.helper.widget.Flow
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -230,7 +235,6 @@ class ReservationFragment : Fragment() {
             tableMessage?.visibility = View.VISIBLE
             tableRecycler?.visibility = View.GONE
         }
-
     }
 
     private fun setTimeCells() {
@@ -311,8 +315,8 @@ class ReservationFragment : Fragment() {
     }
 
     private fun convertChosenDate(): String {
-        return "${currentYear}-${
-            (chosenMonth + 1).toString().padStart(2, '0')
+        return "$currentYear-${
+        (chosenMonth + 1).toString().padStart(2, '0')
         }-${chosenDay?.second.toString().padStart(2, '0')}"
     }
 

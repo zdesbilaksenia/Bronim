@@ -22,10 +22,10 @@ import androidx.fragment.app.Fragment
 import com.blure.complexview.ComplexView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.yandex.mapkit.layers.GeoObjectTapListener
 import com.yandex.mapkit.Animation
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.geometry.Point
+import com.yandex.mapkit.layers.GeoObjectTapListener
 import com.yandex.mapkit.layers.ObjectEvent
 import com.yandex.mapkit.map.CameraListener
 import com.yandex.mapkit.map.CameraPosition
@@ -90,7 +90,6 @@ class MapFragment : Fragment(), UserLocationObjectListener, CameraListener {
         observeRestaurants()
 
         mapPageViewModel.getRestaurants()
-
 
         mapView = view.findViewById(R.id.mapview)
         fab = view.findViewById(R.id.geo_fab)

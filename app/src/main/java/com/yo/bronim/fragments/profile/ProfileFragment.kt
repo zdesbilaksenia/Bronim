@@ -1,6 +1,5 @@
 package com.yo.bronim.fragments.profile
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Patterns
 import android.view.Gravity

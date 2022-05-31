@@ -11,17 +11,13 @@ import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentContainerView
-import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import com.google.android.gms.common.api.internal.LifecycleActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.yandex.mapkit.MapKitFactory
 import com.yo.bronim.contracts.AuthorizationContract
-import com.yo.bronim.fragments.home.HomeFragment
 import com.yo.bronim.states.AuthorizationPageState
 import com.yo.bronim.viewmodels.AuthorizationPageViewModel
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
     private var homePageAuthorizationViewModel = AuthorizationPageViewModel()
@@ -84,7 +80,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun observeIsAuthorized() {
-        homePageAuthorizationViewModel.isAuthorizedState.observe(this){ state ->
+        homePageAuthorizationViewModel.isAuthorizedState.observe(this) { state ->
             when (state) {
                 is AuthorizationPageState.Success -> {
                     textViewName.text = ", ${state.user?.name}"
